@@ -4,11 +4,13 @@
   "description": "Automatically sends sms to contacts",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js && webpack.config.js"
   },
   "author": "corasan",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "firebase": "^2.4.1",
     "react": "^0.14.7",
