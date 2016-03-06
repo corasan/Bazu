@@ -14,7 +14,7 @@ export default class ContactsList extends Component{
         let counter = 1
         for(let i in this.props.contacts) {
             arr.push(
-                <tr>
+                <tr key={counter}>
                     <td>{counter++}</td>
                     <td>{this.props.contacts[i].name}</td>
                     <td>{this.props.contacts[i].email}</td>

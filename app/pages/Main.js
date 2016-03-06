@@ -16,7 +16,6 @@ export default class Main extends Component{
     componentWillMount() {
         contactsRef.on('value', function(data) {
             this.setState({contacts: data.val()});
-            console.log(data.val());
         }.bind(this));
     }
 
