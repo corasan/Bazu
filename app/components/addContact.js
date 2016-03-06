@@ -10,7 +10,7 @@ export default class AddContact extends Component{
             showModal: false,
             name: '',
             email: '',
-            num: ''
+            num: null
         }
     }
 
@@ -58,7 +58,7 @@ export default class AddContact extends Component{
                     <form>
                         <Input type="text" label="Nombre" value={this.state.name} onChange={this.handleName}/>
                         <Input type="email" label="Email" value={this.state.email} onChange={this.handleEmail}/>
-                        <Input type="text" label="Numero" value={this.state.num} onChange={this.handleNum}/>
+                        <Input type="number" label="Numero" value={this.state.num} onChange={this.handleNum}/>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

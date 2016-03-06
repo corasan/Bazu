@@ -18,7 +18,7 @@ export default class ContactsList extends Component{
                     <td>{counter++}</td>
                     <td>{this.props.contacts[i].name}</td>
                     <td>{this.props.contacts[i].email}</td>
-                    <td>{this.props.contacts[i].number}</td>
+                    <td>{this.props.contacts[i].number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</td>
                 </tr>
             )
         }
