@@ -34,7 +34,8 @@ export default class AddContact extends Component{
 
 
     saveNumber = () => {
-        contactsRef.child(this.state.name).push({
+        contactsRef.push({
+            name: this.state.name,
             email: this.state.email,
             number: this.state.num
         });
