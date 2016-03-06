@@ -12,13 +12,13 @@ export default class Main extends Component{
             contacts: {}
         }
     }
-
+    // Listen to changes in Firebase and assign the received object the contacts state
     componentWillMount() {
         contactsRef.on('value', function(data) {
             this.setState({contacts: data.val()});
         }.bind(this));
     }
-
+    // Pass the object as props to the contactslist component
     render() {
         return (
             <div>

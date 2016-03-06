@@ -16,6 +16,7 @@ class App extends Component{
     }
 }
 
+// Routes
 const routes = (
     <Router>
         <Route path="/" component={App}>

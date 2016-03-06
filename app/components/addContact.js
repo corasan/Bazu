@@ -13,15 +13,15 @@ export default class AddContact extends Component{
             num: null
         }
     }
-
+    // Close modal
     close = () => {
         this.setState({ showModal: false });
     }
-
+    // Open modal
     open = () => {
         this.setState({ showModal: true });
     }
-
+    // Receive inputs from form
     handleEmail = (e) => {
         this.setState({email: e.target.value});
     }
@@ -32,15 +32,15 @@ export default class AddContact extends Component{
         this.setState({num: e.target.value});
     }
 
-
+    // Saves information submitted in the form  to Firebase
     saveNumber = () => {
         contactsRef.push({
             name: this.state.name,
             email: this.state.email,
             number: this.state.num
         });
-        this.setState({email: '', name: '', num: ''});
-        this.close();
+        this.setState({email: '', name: '', num: ''}); // After form is submitted the state/input fields are blank
+        this.close(); // Close modal after submit
     }
 
  render() {

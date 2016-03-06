@@ -9,9 +9,10 @@ export default class ContactsList extends Component{
             contacts_arr: []
         }
     }
+    // Recives props and iterate over it, make a new row for each element in the object received
     contact() {
         const arr = [];
-        let counter = 1
+        let counter = 1;
         for(let i in this.props.contacts) {
             arr.push(
                 <tr key={counter}>
