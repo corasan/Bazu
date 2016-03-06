@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Grid, Row, Col } from 'react-bootstrap'
 import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
 import Firebase from 'firebase'
@@ -23,18 +23,26 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                <AddContact />
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Numero</th>
-                        </tr>
-                    </thead>
-                    <ContactsList contacts={this.state.contacts}/>
-                </Table>
+                <Grid>
+                    <Row>
+                        <Col md={2} />
+                        <Col md={8}>
+                            <AddContact />
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Numero</th>
+                                    </tr>
+                                </thead>
+                                <ContactsList contacts={this.state.contacts}/>
+                            </Table>
+                        </Col>
+                        <Col md={2} />
+                    </Row>
+                </Grid>
             </div>
         )
     }
