@@ -1,15 +1,28 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import Main from './pages/Main'
+import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
+import Contacts from './pages/Contacts'
+import Login from './pages/Login'
 
 class App extends Component{
     render() {
         return (
             <div>
-                <Main />
+                <h1>Home</h1>
+                <Link to="/contacts">Contacts</Link>
+                {this.props.children}
             </div>
         )
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const routes = (
+    <Router>
+        <Route path="/" component={App}>
+            <Route path="contacts" component={Contacts} />
+            <Route path="login" component={Login} />
+        </Route>
+    </Router>
+)
+
+ReactDOM.render(<Router history={browserHistory}>{routes}</Router>, document.getElementById('app'));
