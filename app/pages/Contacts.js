@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Table, Grid, Row, Col } from 'react-bootstrap'
 import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
+import NewMessage from '../components/newMessage'
 import Firebase from 'firebase'
 const contactsRef = new Firebase('https://sms-react.firebaseio.com/contacts');
 
@@ -27,6 +28,7 @@ export default class Main extends Component{
                         <Col md={2} />
                         <Col md={8}>
                             <AddContact />
+                            <NewMessage />
                             <Table responsive>
                                 <thead>
                                     <tr>
