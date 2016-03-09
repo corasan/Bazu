@@ -29,7 +29,8 @@ export default class NewMessage extends Component{
                         <Modal.Title>Nuevo mensaje</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        
+                        <Input type="textarea" label="Mensaje" />
+                        <p>Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.close}>Close</Button>

@@ -28,7 +28,7 @@ export default class Main extends Component{
                         <Col md={2} />
                         <Col md={8}>
                             <AddContact />
-                            <NewMessage />
+                            <NewMessage contacts={this.state.contacts}/>
                             <Table responsive>
                                 <thead>
                                     <tr>
