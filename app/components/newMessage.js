@@ -17,6 +17,10 @@ export default class NewMessage extends Component{
         this.setState({ showModal: true });
     }
 
+    handleMessage = (e) => {
+        this.setState({message: e.target.value})
+    }
+
     render() {
         return(
             <div>
@@ -29,7 +33,7 @@ export default class NewMessage extends Component{
                         <Modal.Title>Nuevo mensaje</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Input type="textarea" label="Mensaje" />
+                        <Input type="textarea" label="Mensaje" value={this.state.message} onChange={this.handleMessage}/>
                         <p>Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
                     </Modal.Body>
                     <Modal.Footer>
