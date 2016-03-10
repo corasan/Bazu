@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 
+
 export default class NewMessage extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            message: ''
         }
     }
     // Close modal
@@ -19,6 +21,12 @@ export default class NewMessage extends Component{
 
     handleMessage = (e) => {
         this.setState({message: e.target.value})
+    }
+
+    sendMessage = () => {
+        for(let i in this.props.contacts) {
+            
+        }
     }
 
     render() {
@@ -38,7 +46,7 @@ export default class NewMessage extends Component{
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.close}>Close</Button>
-                        <Button onClick={this.close}>Enviar</Button>
+                        <Button onClick={this.sendMessage}>Enviar</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
