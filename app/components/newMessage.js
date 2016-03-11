@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 
-
 export default class NewMessage extends Component{
     constructor(props) {
         super(props);
@@ -25,7 +24,6 @@ export default class NewMessage extends Component{
 
     sendMessage = () => {
         for(let i in this.props.contacts) {
-            
         }
     }
 
