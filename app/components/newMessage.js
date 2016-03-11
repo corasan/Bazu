@@ -24,6 +24,9 @@ export default class NewMessage extends Component{
 
     sendMessage = () => {
         for(let i in this.props.contacts) {
+            $.post(
+
+            )
         }
     }
 
