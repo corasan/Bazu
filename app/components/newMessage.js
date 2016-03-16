@@ -31,6 +31,8 @@ export default class NewMessage extends Component{
                 message: this.state.message
             }, function(data, status, xhr) {
                 console.log('success cmp');
+                this.close();
+                this.setState({message: ''});
             }.bind(this));
         }
     }
