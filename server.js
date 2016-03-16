@@ -3,8 +3,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var plivo = require('plivo');
-require('dotenv').config();
-
 
 var app = express();
 app.use(morgan('dev'));
@@ -18,14 +16,13 @@ app.use(bodyParser.json());
 app.get('*', function(req, res) {
     res.render('index');
 });
-//
-// var authId = config.authId;
-// var authToken = config.authToken;
-// var plivoNumber = config.plivoNumber;
+
+// Load environment variables
+require('dotenv').config();
 const authId = process.env.PLIVO_AUTH_ID;
 const authToken = process.env.PLIVO_AUTH_TOKEN;
 const plivoNumber = process.env.PLIVO_NUMBER;
-// Send message to each number in the contacts list
+// Receives data from client and sends the message using Plivo
 var p = plivo.RestAPI({authId: authId, authToken: authToken});
 app.post('/contacts', function(req, res) {
     p.send_message({
@@ -46,7 +43,6 @@ app.listen(port, function(error) {
         console.log('Listening to port', port);
     }
 })
-
 
 // ************DEVELOPMENT SERVER***************
 // var webpack = require('webpack');

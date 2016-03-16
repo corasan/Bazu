@@ -22,7 +22,7 @@ export default class NewMessage extends Component{
     handleMessage = (e) => {
         this.setState({message: e.target.value})
     }
-
+    // Sends the message to every contact to the server
     sendMessage = () => {
         for(let i in this.props.contacts) {
             $.post('/contacts', {
