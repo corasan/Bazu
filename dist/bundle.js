@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3a86e50263d4488c4395"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a3150163daa8effe059a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -50907,13 +50907,12 @@
 	        _this.sendMessage = function () {
 	            for (var i in _this.props.contacts) {
 	                _jquery2.default.post('/contacts', {
-	                    from: '13478616643',
-	                    to: _this.props.contacts[i].number,
+	                    number: _this.props.contacts[i].number,
 	                    message: _this.state.message
-	                }, function (data, status, xhr) {
-	                    console.log('success cmp');
-	                }.bind(_this));
+	                });
 	            }
+	            _this.close();
+	            _this.setState({ message: '' });
 	        };
 
 	        _this.state = {

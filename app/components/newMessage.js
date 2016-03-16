@@ -26,15 +26,12 @@ export default class NewMessage extends Component{
     sendMessage = () => {
         for(let i in this.props.contacts) {
             $.post('/contacts', {
-                from: '13478616643',
-                to: this.props.contacts[i].number,
+                number: this.props.contacts[i].number,
                 message: this.state.message
-            }, function(data, status, xhr) {
-                console.log('success cmp');
-                this.close();
-                this.setState({message: ''});
-            }.bind(this));
+            });
         }
+        this.close();
+        this.setState({message: ''});
     }
 
     render() {
