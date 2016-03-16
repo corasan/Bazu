@@ -2,6 +2,9 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
+var plivo = require('plivo');
+require('dotenv').config();
+
 
 var app = express();
 app.use(morgan('dev'));
@@ -15,24 +18,23 @@ app.use(bodyParser.json());
 app.get('*', function(req, res) {
     res.render('index');
 });
-
-var accountSid = config.accountSid;
-var authToken = config.authToken;
-var sender = config.twilioNumber;
-// Require the Twilio module and create a REST client
-var client = require('twilio')(accountSid, authToken);
+//
+// var authId = config.authId;
+// var authToken = config.authToken;
+// var plivoNumber = config.plivoNumber;
+const authId = process.env.PLIVO_AUTH_ID;
+const authToken = process.env.PLIVO_AUTH_TOKEN;
+const plivoNumber = process.env.PLIVO_NUMBER;
 // Send message to each number in the contacts list
+var p = plivo.RestAPI({authId: authId, authToken: authToken});
 app.post('/contacts', function(req, res) {
-    client.messages.create({
-    	to: '1'+req.body.number,
-    	from: '+15005550006',
-        body: req.body.message
-    }, function(err, message) {
-        if(err) {
-            console.log('There was an error sending the message', err);
-        } else {
-	       console.log(message.sid);
-       }
+    p.send_message({
+        src: plivoNumber,
+    	dst: '1'+req.body.number,
+        text: req.body.message
+    }, function(status, response) {
+        console.log('Status: ', status);
+        console.log('API Response:\n', response);
     });
 });
 
