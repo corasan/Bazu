@@ -9,7 +9,7 @@ export default class ContactsList extends Component{
             contacts_arr: []
         }
     }
-    // Recives props and iterate over it, make a new row for each element in the object received
+    // Receives props and iterate over it, make a new row for each element in the object received
     contact() {
         const arr = [];
         let counter = 1;

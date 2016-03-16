@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
+import $ from 'jquery'
 
 export default class NewMessage extends Component{
     constructor(props) {
@@ -24,9 +25,13 @@ export default class NewMessage extends Component{
 
     sendMessage = () => {
         for(let i in this.props.contacts) {
-            $.post(
-
-            )
+            $.post('/contacts', {
+                from: '13478616643',
+                to: this.props.contacts[i].number,
+                message: this.state.message
+            }, function(data, status, xhr) {
+                console.log('success cmp');
+            }.bind(this));
         }
     }
 
