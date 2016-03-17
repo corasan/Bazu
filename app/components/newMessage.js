@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 import $ from 'jquery'
+import Firebase from 'firebase'
+const ref = new Firebase('https://sms-react.firebaseio.com/');
+
 
 export default class NewMessage extends Component{
     constructor(props) {
@@ -32,6 +35,13 @@ export default class NewMessage extends Component{
         }
         this.close();
         this.setState({message: ''});
+        this.saveMessage();
+    }
+
+    saveMessage = () => {
+        ref.child('userMessages').push({
+            message: this.state.message
+        });
     }
 
     render() {

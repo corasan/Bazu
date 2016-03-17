@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a3150163daa8effe059a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "491177fb44a86ee937ed"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -50876,6 +50876,10 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _firebase = __webpack_require__(545);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50883,6 +50887,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var NewMessage = function (_Component) {
 	    _inherits(NewMessage, _Component);
@@ -50913,6 +50919,13 @@
 	            }
 	            _this.close();
 	            _this.setState({ message: '' });
+	            _this.saveMessage();
+	        };
+
+	        _this.saveMessage = function () {
+	            ref.child('userMessages').push({
+	                message: _this.state.message
+	            });
 	        };
 
 	        _this.state = {
@@ -50924,6 +50937,8 @@
 	    // Close modal
 
 	    // Open modal
+
+	    // Sends the message to every contact to the server
 
 
 	    _createClass(NewMessage, [{

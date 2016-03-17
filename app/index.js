@@ -10,6 +10,7 @@ class App extends Component{
             <div>
                 <h1>Home</h1>
                 <Link to="/contacts">Contacts</Link>
+                <Link to="/login">Login</Link>
                 {this.props.children}
             </div>
         )
@@ -19,9 +20,9 @@ class App extends Component{
 // Routes
 const routes = (
     <Router>
+        <Route path="login" component={Login} />
         <Route path="/" component={App}>
             <Route path="contacts" component={Contacts} />
-            <Route path="login" component={Login} />
         </Route>
     </Router>
 )
