@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Panel, Input, Col, Button } from 'react-bootstrap'
+import Firebase from 'firebase'
+const ref = new Firebase('https://sms-react.firebaseio.com/');
+
 
 export default class LoginPanel extends Component{
     constructor(props) {
@@ -18,6 +21,19 @@ export default class LoginPanel extends Component{
         this.setState({ password: e.target.value });
     }
 
+    submitLogin = () => {
+        ref.authWithPassword({
+            email: this.state.email,
+            password: this.state.password
+        }, function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        });
+    }
+
     render() {
         return(
             <Panel id="login-panel">
@@ -27,7 +43,7 @@ export default class LoginPanel extends Component{
                     <Col md={8}>
                         <Input type="email" placeholder="Email" onChange={this.handleEmail} />
                         <Input type="password" placeholder="Password" onChange={this.handlePassword} />
-                        <Button bsStyle="primary" id="login-btn">Login</Button>
+                    <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Login</Button>
                     </Col>
                 </form>
             </Panel>
