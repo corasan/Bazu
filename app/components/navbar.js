@@ -11,7 +11,7 @@ export default class NavBar extends Component{
     render() {
         var user = ref.getAuth();
         return(
-            <Navbar>
+            <Navbar fixedTop>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <Link to="/">SMS App</Link>

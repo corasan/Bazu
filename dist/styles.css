@@ -1,6 +1,29 @@
-/*body {
-    background-color: #ddd;
-}*/
+body {
+    /*background-color: #ddd;*/
+    padding-top: 70px;
+}
+.navbar-default .navbar-nav>li>a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.navbar-brand {
+    padding-top: 20px;
+}
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #e7e7e7;
+}
+
+.navbar.navbar-default {
+    background-color: #fff;
+    /*padding-top: 8px;
+    padding-bottom: 8px;*/
+}
+.navbar {
+    font-size: 16;
+}
 
 .app-content {
     margin-top: 40px;
