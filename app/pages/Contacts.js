@@ -23,30 +23,17 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                <Grid>
-                    <Row>
-                        <Col lg={4} />
-                        <Col lg={2}><AddContact /></Col>
-                        <Col lg={2}><NewMessage contacts={this.state.contacts}/></Col>
-                    </Row>
-                    <Row>
-                        <Col lg={2} />
-                        <Col lg={8}>
-                            <Table responsive>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Email</th>
-                                        <th>Numero</th>
-                                    </tr>
-                                </thead>
-                                <ContactsList contacts={this.state.contacts}/>
-                            </Table>
-                        </Col>
-                        <Col lg={2} />
-                    </Row>
-                </Grid>
+                <Table responsive>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Numero</th>
+                        </tr>
+                    </thead>
+                    <ContactsList contacts={this.state.contacts}/>
+                </Table>
             </div>
         )
     }

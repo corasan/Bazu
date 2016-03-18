@@ -46,9 +46,9 @@ export default class AddContact extends Component{
  render() {
     return (
         <div>
-            <Button bsStyle="primary" onClick={this.open}>
+            <li bsStyle="primary" onClick={this.open}>
                 Agregar Contacto
-            </Button>
+            </li>
 
             <Modal show={this.state.showModal} onHide={this.close}>
                 <Modal.Header closeButton>

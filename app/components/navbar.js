@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
-import { Link, browserHistory } from 'react-router'
+import { Link } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 export default class NavBar extends Component{

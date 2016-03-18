@@ -1,18 +1,23 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Firebase from 'firebase'
-import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
+import { Router, Route, browserHistory, Link, IndexRoute } from 'react-router'
+import { Grid, Row, Col } from 'react-bootstrap'
 import NavBar from './components/navbar'
-
+import SideNav from './components/sidenav'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
-
 
 class App extends Component{
     render() {
         return (
             <div>
                 <NavBar />
-                {this.props.children}
+                <Grid>
+                    <Row>
+                        <SideNav />
+                        <Col md={8}>{this.props.children}</Col>
+                    </Row>
+                </Grid>
             </div>
         )
     }

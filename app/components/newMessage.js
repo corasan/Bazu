@@ -48,9 +48,9 @@ export default class NewMessage extends Component{
     render() {
         return(
             <div>
-                <Button bsStyle="primary" onClick={this.open}>
+                <li bsStyle="primary" onClick={this.open}>
                     Nuevo mensaje
-                </Button>
+                </li>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
                     <Modal.Header closeButton>
