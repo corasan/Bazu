@@ -25,7 +25,17 @@ function requireAuth(nextState, replace) {
         replace({
             pathname: '/login',
             state: { nextPathname: nextState.location.pathname }
-        })
+        });
+    }
+}
+
+function unAuth(nextState, replace) {
+    var user = ref.getAuth();
+    if (user) {
+        replace({
+            pathname: '/',
+            state: { nextPathname: nextState.location.pathname }
+        });
     }
 }
 
@@ -34,7 +44,7 @@ import Contacts from './pages/Contacts'
 import Login from './pages/Login'
 const routes = (
     <Router>
-        <Route path="login" component={Login} />
+        <Route path="login" component={Login} onEnter={unAuth}/>
         <Route path="/" component={App}>
             <IndexRoute component={Contacts} onEnter={requireAuth}/>
         </Route>
