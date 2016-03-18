@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 import $ from 'jquery'
 import Firebase from 'firebase'
-const ref = new Firebase('https://sms-react.firebaseio.com/');
+const ref = new Firebase('https://sms-react.firebaseio.com/users');
 
 
 export default class NewMessage extends Component{
@@ -41,7 +41,7 @@ export default class NewMessage extends Component{
 
     saveMessage = () => {
         let user = ref.getAuth();
-        ref.child('userMessages').child(user.password.email.replace(/\./, '')).push({
+        ref.child(user.password.email.replace(/\./, '')).child('messages').push({
             message: this.state.message
         });
     }

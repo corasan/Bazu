@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "48ea6818a731b8a1d8ba"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ed847c14d8f8a2285c40"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -50683,12 +50683,8 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Panel,
 	                        null,
-	                        _react2.default.createElement(
-	                            _reactBootstrap.ListGroup,
-	                            null,
-	                            _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts }),
-	                            _react2.default.createElement(_addContact2.default, { contacts: this.state.contacts })
-	                        )
+	                        _react2.default.createElement(_addContact2.default, { contacts: this.state.contacts }),
+	                        _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts })
 	                    )
 	                )
 	            );
@@ -60887,7 +60883,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var contactsRef = new _firebase2.default('https://sms-react.firebaseio.com/contacts');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var Main = function (_Component) {
 	    _inherits(Main, _Component);
@@ -60908,7 +60904,8 @@
 	    _createClass(Main, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            contactsRef.on('value', function (data) {
+	            var user = ref.getAuth();
+	            ref.child('contacts').child(user.password.email.replace(/\./, '')).on('value', function (data) {
 	                this.setState({ contacts: data.val() });
 	            }.bind(this));
 	        }
@@ -61286,7 +61283,7 @@
 
 
 	// module
-	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-left: 90px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}\n\n.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}\n", ""]);
+	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-left: 90px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n}\n/*\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}*/\n\n/*.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}*/\n\n/*.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}*/\n", ""]);
 
 	// exports
 

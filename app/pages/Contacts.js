@@ -4,7 +4,7 @@ import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
 import NewMessage from '../components/newMessage'
 import Firebase from 'firebase'
-const contactsRef = new Firebase('https://sms-react.firebaseio.com/contacts');
+const ref = new Firebase('https://sms-react.firebaseio.com/users');
 
 export default class Main extends Component{
     constructor(props) {
@@ -15,7 +15,8 @@ export default class Main extends Component{
     }
     // Listen to changes in Firebase and assign the received object the contacts state
     componentWillMount() {
-        contactsRef.on('value', function(data) {
+        let user = ref.getAuth();
+        ref.child(user.password.email.replace(/\./, '')).child('contacts').on('value', function(data) {
             this.setState({contacts: data.val()});
         }.bind(this));
     }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 import Firebase from 'firebase'
-const ref = new Firebase('https://sms-react.firebaseio.com/');
+const ref = new Firebase('https://sms-react.firebaseio.com/users');
 
 export default class AddContact extends Component{
     constructor(props) {
@@ -35,7 +35,7 @@ export default class AddContact extends Component{
     // Saves information submitted in the form  to Firebase
     saveNumber = () => {
         let user = ref.getAuth();
-        ref.child('contacts').child(user.password.email.replace(/\./, '')).push({
+        ref.child(user.password.email.replace(/\./, '')).child('contacts').push({
             name: this.state.name,
             email: this.state.email,
             number: this.state.num
@@ -44,30 +44,30 @@ export default class AddContact extends Component{
         this.close(); // Close modal after submit
     }
 
- render() {
-    return (
-        <div>
-            <Button bsStyle="primary" onClick={this.open}>
-                Agregar Contacto
-            </Button>
+    render() {
+        return (
+            <div>
+                <Button bsStyle="primary" onClick={this.open}>
+                    Agregar Contacto
+                </Button>
 
-            <Modal show={this.state.showModal} onHide={this.close}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Agregar Contacto</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form>
-                        <Input type="text" label="Nombre" value={this.state.name} onChange={this.handleName}/>
-                        <Input type="email" label="Email" value={this.state.email} onChange={this.handleEmail}/>
-                        <Input type="number" label="Numero" value={this.state.num} onChange={this.handleNum}/>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.close}>Close</Button>
-                    <Button onClick={this.saveNumber}>Guardar</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
-    );
- }
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Agregar Contacto</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form>
+                            <Input type="text" label="Nombre" value={this.state.name} onChange={this.handleName}/>
+                            <Input type="email" label="Email" value={this.state.email} onChange={this.handleEmail}/>
+                            <Input type="number" label="Numero" value={this.state.num} onChange={this.handleNum}/>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.close}>Close</Button>
+                        <Button onClick={this.saveNumber}>Guardar</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        );
+    }
 }
