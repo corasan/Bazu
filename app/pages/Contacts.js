@@ -16,7 +16,7 @@ export default class Main extends Component{
     // Listen to changes in Firebase and assign the received object the contacts state
     componentWillMount() {
         let user = ref.getAuth();
-        ref.child(user.password.email.replace(/\./, '')).child('contacts').on('value', function(data) {
+        ref.child(user.uid).child('contacts').on('value', function(data) {
             this.setState({contacts: data.val()});
         }.bind(this));
     }

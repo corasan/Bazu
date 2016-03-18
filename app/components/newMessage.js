@@ -41,7 +41,7 @@ export default class NewMessage extends Component{
 
     saveMessage = () => {
         let user = ref.getAuth();
-        ref.child(user.password.email.replace(/\./, '')).child('messages').push({
+        ref.child(user.uid).child('messages').push({
             message: this.state.message
         });
     }

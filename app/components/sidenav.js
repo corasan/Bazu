@@ -15,7 +15,7 @@ export default class SideNav extends Component{
 
     componentWillMount() {
         let user = ref.getAuth();
-        ref.child(user.password.email.replace(/\./, '')).child('contacts').on('value', function(data) {
+        ref.child(user.uid).child('contacts').on('value', function(data) {
             this.setState({contacts: data.val()});
         }.bind(this));
     }

@@ -35,7 +35,7 @@ export default class AddContact extends Component{
     // Saves information submitted in the form  to Firebase
     saveNumber = () => {
         let user = ref.getAuth();
-        ref.child(user.password.email.replace(/\./, '')).child('contacts').push({
+        ref.child(user.uid).child('contacts').push({
             name: this.state.name,
             email: this.state.email,
             number: this.state.num
