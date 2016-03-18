@@ -12,6 +12,7 @@ body {
 }
 
 #login-btn {
-    margin-left: 130px;
+    margin-left: 90px;
     margin-bottom: 80px;
+    padding: 10px 50px 10px 50px;
 }

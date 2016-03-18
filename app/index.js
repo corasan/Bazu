@@ -20,6 +20,7 @@ class App extends Component{
     }
 }
 
+// Redirects user to login page if is not Authenticated
 function requireAuth(nextState, replace) {
     var user = ref.getAuth();
     if (!user) {

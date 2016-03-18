@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "491177fb44a86ee937ed"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1b59679b0acbbb420dec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8069,6 +8069,10 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
+	var _firebase = __webpack_require__(545);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8076,6 +8080,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -8102,6 +8108,11 @@
 	                    { to: '/contacts' },
 	                    'Contacts'
 	                ),
+	                _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/login' },
+	                    'Login'
+	                ),
 	                this.props.children
 	            );
 	        }
@@ -8110,17 +8121,28 @@
 	    return App;
 	}(_react.Component);
 
+	// Redirects user to login page if is not Authenticated
+
+
+	function requireAuth(nextState, replace) {
+	    var user = ref.getAuth();
+	    if (!user) {
+	        replace({
+	            pathname: '/login',
+	            state: { nextPathname: nextState.location.pathname }
+	        });
+	    }
+	}
+
 	// Routes
-
-
 	var routes = _react2.default.createElement(
 	    _reactRouter.Router,
 	    null,
+	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: App },
-	        _react2.default.createElement(_reactRouter.Route, { path: 'contacts', component: _Contacts2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default })
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Contacts2.default, onEnter: requireAuth })
 	    )
 	);
 
@@ -60856,6 +60878,12 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactBootstrap = __webpack_require__(302);
+
+	var _loginPanel = __webpack_require__(553);
+
+	var _loginPanel2 = _interopRequireDefault(_loginPanel);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60880,9 +60908,19 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'h1',
+	                    _reactBootstrap.Grid,
 	                    null,
-	                    'Login'
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Row,
+	                        null,
+	                        _react2.default.createElement(_reactBootstrap.Col, { md: 3 }),
+	                        _react2.default.createElement(
+	                            _reactBootstrap.Col,
+	                            { md: 6 },
+	                            _react2.default.createElement(_loginPanel2.default, null)
+	                        ),
+	                        _react2.default.createElement(_reactBootstrap.Col, { md: 2 })
+	                    )
 	                )
 	            );
 	        }
@@ -60894,6 +60932,118 @@
 	exports.default = App;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(546); if (makeExportsHot(module, __webpack_require__(139))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Login.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 553 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(139);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(302);
+
+	var _firebase = __webpack_require__(545);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
+	var _reactRouter = __webpack_require__(244);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+
+	var LoginPanel = function (_Component) {
+	    _inherits(LoginPanel, _Component);
+
+	    function LoginPanel(props) {
+	        _classCallCheck(this, LoginPanel);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LoginPanel).call(this, props));
+
+	        _this.handleEmail = function (e) {
+	            _this.setState({ email: e.target.value });
+	        };
+
+	        _this.handlePassword = function (e) {
+	            _this.setState({ password: e.target.value });
+	        };
+
+	        _this.submitLogin = function () {
+	            ref.authWithPassword({
+	                email: _this.state.email,
+	                password: _this.state.password
+	            }, function (error, authData) {
+	                if (error) {
+	                    console.log("Login Failed!", error);
+	                } else {
+	                    _reactRouter.browserHistory.push('/');
+	                    console.log("Authenticated successfully with payload:", authData);
+	                }
+	            });
+	        };
+
+	        _this.state = {
+	            email: '',
+	            password: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(LoginPanel, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _reactBootstrap.Panel,
+	                { id: 'login-panel' },
+	                _react2.default.createElement(
+	                    'form',
+	                    null,
+	                    _react2.default.createElement(
+	                        'h3',
+	                        { id: 'login-title' },
+	                        'Login'
+	                    ),
+	                    _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { md: 8 },
+	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
+	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
+	                        _react2.default.createElement(
+	                            _reactBootstrap.Button,
+	                            { type: 'button', bsStyle: 'primary', id: 'login-btn', onClick: this.submitLogin },
+	                            'Login'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return LoginPanel;
+	}(_react.Component);
+
+	exports.default = LoginPanel;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(546); if (makeExportsHot(module, __webpack_require__(139))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "loginPanel.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }

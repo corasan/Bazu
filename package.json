@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack && node server.js"
+    "start": "webpack && node server.js",
+    "dev": "webpack && node devServer.js"
   },
   "author": "corasan",
   "license": "ISC",
