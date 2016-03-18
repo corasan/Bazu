@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Input, Col, Button } from 'react-bootstrap'
 import Firebase from 'firebase'
+import { browserHistory } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 
@@ -29,6 +30,7 @@ export default class LoginPanel extends Component{
             if (error) {
                 console.log("Login Failed!", error);
             } else {
+                browserHistory.push('/');
                 console.log("Authenticated successfully with payload:", authData);
             }
         });
