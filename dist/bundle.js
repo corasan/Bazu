@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7e42aed5cd1c8091a431"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "48ea6818a731b8a1d8ba"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -50648,7 +50648,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new Firebase('https://sms-react.firebaseio.com/');
+	var contactsRef = new Firebase('https://sms-react.firebaseio.com/');
 
 	var SideNav = function (_Component) {
 	    _inherits(SideNav, _Component);
@@ -50665,6 +50665,13 @@
 	    }
 
 	    _createClass(SideNav, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            contactsRef.on('value', function (data) {
+	                this.setState({ contacts: data.val() });
+	            }.bind(this));
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -50674,17 +50681,13 @@
 	                    _reactBootstrap.Col,
 	                    { md: 3 },
 	                    _react2.default.createElement(
-	                        _reactBootstrap.ListGroup,
+	                        _reactBootstrap.Panel,
 	                        null,
 	                        _react2.default.createElement(
-	                            _reactBootstrap.ListGroupItem,
-	                            { href: '#link1' },
-	                            _react2.default.createElement(_newMessage2.default, null)
-	                        ),
-	                        _react2.default.createElement(
-	                            _reactBootstrap.ListGroupItem,
-	                            { href: '#link2' },
-	                            'Link 2'
+	                            _reactBootstrap.ListGroup,
+	                            null,
+	                            _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts }),
+	                            _react2.default.createElement(_addContact2.default, { contacts: this.state.contacts })
 	                        )
 	                    )
 	                )
@@ -50760,26 +50763,27 @@
 
 	        _this.sendMessage = function () {
 	            for (var i in _this.props.contacts) {
-	                _jquery2.default.post('/contacts', {
+	                _jquery2.default.post('/', {
 	                    number: _this.props.contacts[i].number,
 	                    message: _this.state.message
 	                });
+	                _this.close();
+	                _this.saveMessage();
+	                _this.setState({ message: '' });
 	            }
-	            _this.close();
-	            _this.saveMessage();
-	            _this.setState({ message: '' });
 	        };
 
 	        _this.saveMessage = function () {
 	            var user = ref.getAuth();
-	            ref.child('userMessages').child(user.password.email).push({
+	            ref.child('userMessages').child(user.password.email.replace(/\./, '')).push({
 	                message: _this.state.message
 	            });
 	        };
 
 	        _this.state = {
 	            showModal: false,
-	            message: ''
+	            message: '',
+	            contacts: {}
 	        };
 	        return _this;
 	    }
@@ -50797,7 +50801,7 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'li',
+	                    _reactBootstrap.Button,
 	                    { bsStyle: 'primary', onClick: this.open },
 	                    'Nuevo mensaje'
 	                ),
@@ -60719,7 +60723,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var contactsRef = new _firebase2.default('https://sms-react.firebaseio.com/contacts');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var AddContact = function (_Component) {
 	    _inherits(AddContact, _Component);
@@ -60750,7 +60754,8 @@
 	        };
 
 	        _this.saveNumber = function () {
-	            contactsRef.push({
+	            var user = ref.getAuth();
+	            ref.child('contacts').child(user.password.email.replace(/\./, '')).push({
 	                name: _this.state.name,
 	                email: _this.state.email,
 	                number: _this.state.num
@@ -60784,7 +60789,7 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'li',
+	                    _reactBootstrap.Button,
 	                    { bsStyle: 'primary', onClick: this.open },
 	                    'Agregar Contacto'
 	                ),
@@ -60917,7 +60922,7 @@
 	                null,
 	                _react2.default.createElement(
 	                    _reactBootstrap.Table,
-	                    { responsive: true },
+	                    { responsive: true, hover: true },
 	                    _react2.default.createElement(
 	                        'thead',
 	                        null,
@@ -61253,17 +61258,17 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"!!./../node_modules/css-loader/index.js!./styles.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var content = __webpack_require__(557);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(558)(content, {});
+	var update = __webpack_require__(559)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
 			module.hot.accept(557, function() {
-				var newContent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"!!./../node_modules/css-loader/index.js!./styles.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+				var newContent = __webpack_require__(557);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61273,8 +61278,77 @@
 	}
 
 /***/ },
-/* 557 */,
+/* 557 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(558)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-left: 90px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}\n\n.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
 /* 558 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

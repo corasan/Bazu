@@ -24,7 +24,7 @@ const authToken = process.env.PLIVO_AUTH_TOKEN;
 const plivoNumber = process.env.PLIVO_NUMBER;
 // Receives data from client and sends the message using Plivo
 var p = plivo.RestAPI({authId: authId, authToken: authToken});
-app.post('/contacts', function(req, res) {
+app.post('/', function(req, res) {
     p.send_message({
         src: plivoNumber,
     	dst: '1'+req.body.number,

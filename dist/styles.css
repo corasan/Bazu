@@ -30,6 +30,11 @@
     padding: 50 0 0 0;
 }
 
+.panel-body button.btn.btn-primary {
+    width: 100%;
+    border-radius: 0;
+}
+/*
 .list-group-item:first-child {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -37,16 +42,16 @@
 .list-group-item:last-child {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-}
+}*/
 
-.list-group-item {
+/*.list-group-item {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-left: 0;
     border-right: 0;
-}
+}*/
 
-.list-group {
+/*.list-group {
     margin-bottom: 0;
     border-radius: 0;
-}
+}*/

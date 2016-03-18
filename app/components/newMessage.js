@@ -10,7 +10,8 @@ export default class NewMessage extends Component{
         super(props);
         this.state = {
             showModal: false,
-            message: ''
+            message: '',
+            contacts: {}
         }
     }
     // Close modal
@@ -28,19 +29,19 @@ export default class NewMessage extends Component{
     // Sends the message to every contact to the server
     sendMessage = () => {
         for(let i in this.props.contacts) {
-            $.post('/contacts', {
+            $.post('/', {
                 number: this.props.contacts[i].number,
                 message: this.state.message
             });
+            this.close();
+            this.saveMessage();
+            this.setState({message: ''});
         }
-        this.close();
-        this.saveMessage();
-        this.setState({message: ''});
     }
 
     saveMessage = () => {
         let user = ref.getAuth();
-        ref.child('userMessages').child(user.password.email).push({
+        ref.child('userMessages').child(user.password.email.replace(/\./, '')).push({
             message: this.state.message
         });
     }
@@ -48,9 +49,9 @@ export default class NewMessage extends Component{
     render() {
         return(
             <div>
-                <li bsStyle="primary" onClick={this.open}>
+                <Button bsStyle="primary" onClick={this.open}>
                     Nuevo mensaje
-                </li>
+                </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
                     <Modal.Header closeButton>

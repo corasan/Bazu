@@ -23,7 +23,7 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                <Table responsive>
+                <Table responsive hover>
                     <thead>
                         <tr>
                             <th>#</th>

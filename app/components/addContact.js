@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 import Firebase from 'firebase'
-const contactsRef = new Firebase('https://sms-react.firebaseio.com/contacts');
+const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 export default class AddContact extends Component{
     constructor(props) {
@@ -34,7 +34,8 @@ export default class AddContact extends Component{
 
     // Saves information submitted in the form  to Firebase
     saveNumber = () => {
-        contactsRef.push({
+        let user = ref.getAuth();
+        ref.child('contacts').child(user.password.email.replace(/\./, '')).push({
             name: this.state.name,
             email: this.state.email,
             number: this.state.num
@@ -46,9 +47,9 @@ export default class AddContact extends Component{
  render() {
     return (
         <div>
-            <li bsStyle="primary" onClick={this.open}>
+            <Button bsStyle="primary" onClick={this.open}>
                 Agregar Contacto
-            </li>
+            </Button>
 
             <Modal show={this.state.showModal} onHide={this.close}>
                 <Modal.Header closeButton>
