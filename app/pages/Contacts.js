@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table, Grid, Row, Col } from 'react-bootstrap'
+import { Table, Grid, Row, Col, Panel } from 'react-bootstrap'
 import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
 import NewMessage from '../components/newMessage'
@@ -27,17 +27,11 @@ export default class Main extends Component{
             <div>
                 <h1 className="page-title">Contacts</h1>
                 <SideNav />
-                <Table responsive hover>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Numero</th>
-                        </tr>
-                    </thead>
-                    <ContactsList contacts={this.state.contacts}/>
-                </Table>
+                <Col md={9}>
+                    <Panel>
+                        <ContactsList contacts={this.state.contacts}/>
+                    </Panel>
+                </Col>
             </div>
         )
     }

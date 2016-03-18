@@ -21,7 +21,7 @@ export default class NavBar extends Component{
                 <Navbar.Collapse>
                     <Nav pullRight>
                         <NavDropdown eventKey={3} title={user.password.email} id="basic-nav-dropdown">
-                            <MenuItem eventKey={3.1}><Link to="messages">Mensajes</Link></MenuItem>
+                            <li><Link to="messages">Mensajes</Link></li>
                         </NavDropdown>
                         <li><Link to="login" onClick={this.logout}>Log out</Link></li>
                     </Nav>

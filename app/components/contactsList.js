@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Firebase from 'firebase'
+import { Table } from 'react-bootstrap'
 const contactsRef = new Firebase('https://sms-react.firebaseio.com/contacts');
 
 export default class ContactsList extends Component{
@@ -28,9 +29,19 @@ export default class ContactsList extends Component{
 
     render() {
         return(
-            <tbody>
-                {this.contact()}
-            </tbody>
+            <Table responsive hover>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Numero</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.contact()}
+                </tbody>
+            </Table>
         )
     }
 }
