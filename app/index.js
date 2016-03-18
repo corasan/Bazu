@@ -24,7 +24,7 @@ function requireAuth(nextState, replace) {
     var user = ref.getAuth();
     if (!user) {
         replace({
-            pathname: '/',
+            pathname: '/login',
             state: { nextPathname: nextState.location.pathname }
         })
     }
@@ -35,7 +35,7 @@ const routes = (
     <Router>
         <Route path="login" component={Login} />
         <Route path="/" component={App}>
-            <Route path="contacts" component={Contacts} onEnter={requireAuth}/>
+            <IndexRoute component={Contacts} onEnter={requireAuth}/>
         </Route>
     </Router>
 )
