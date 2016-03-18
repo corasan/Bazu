@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
-import Contacts from './pages/Contacts'
-import Login from './pages/Login'
 import Firebase from 'firebase'
+import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
+import NavBar from './components/navbar'
+
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 
@@ -11,9 +11,7 @@ class App extends Component{
     render() {
         return (
             <div>
-                <h1>Home</h1>
-                <Link to="/contacts">Contacts</Link>
-                <Link to="/login">Login</Link>
+                <NavBar />
                 {this.props.children}
             </div>
         )
@@ -31,7 +29,9 @@ function requireAuth(nextState, replace) {
     }
 }
 
-// Routes
+
+import Contacts from './pages/Contacts'
+import Login from './pages/Login'
 const routes = (
     <Router>
         <Route path="login" component={Login} />
