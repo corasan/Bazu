@@ -2,6 +2,15 @@
     margin-top: 100px;
 }*/
 
+.app-content {
+    margin-top: 40px;
+}
+
+.page-title {
+    margin-left: 500px;
+    padding-bottom: 50px;
+}
+
 #login-panel {
     margin-top: 50px;
 }
@@ -23,35 +32,18 @@
 }
 .panel {
     border-radius: 0;
+    margin-left: -50px;
+    margin-right: 70px;
 }
 
 .panel-body {
     /*padding-top: 50px;*/
-    padding: 50 0 0 0;
+    padding: 0 0 0 0;
 }
 
 .panel-body button.btn.btn-primary {
     width: 100%;
     border-radius: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
-/*
-.list-group-item:first-child {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-.list-group-item:last-child {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}*/
-
-/*.list-group-item {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-left: 0;
-    border-right: 0;
-}*/
-
-/*.list-group {
-    margin-bottom: 0;
-    border-radius: 0;
-}*/

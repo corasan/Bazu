@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Firebase from 'firebase'
 import { Router, Route, browserHistory, Link, IndexRoute } from 'react-router'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, Panel } from 'react-bootstrap'
 import NavBar from './components/navbar'
 import SideNav from './components/sidenav'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
@@ -12,12 +12,13 @@ class App extends Component{
         return (
             <div>
                 <NavBar />
-                <Grid>
-                    <Row>
-                        <SideNav />
-                        <Col md={8}>{this.props.children}</Col>
-                    </Row>
-                </Grid>
+                <div className="app-content">
+                    <Grid>
+                        <Row>
+                            {this.props.children}
+                        </Row>
+                    </Grid>
+                </div>
             </div>
         )
     }
@@ -47,11 +48,13 @@ function unAuth(nextState, replace) {
 
 import Contacts from './pages/Contacts'
 import Login from './pages/Login'
+import Messages from './pages/Messages'
 const routes = (
     <Router>
         <Route path="login" component={Login} onEnter={unAuth}/>
-        <Route path="/" component={App}>
-            <IndexRoute component={Contacts} onEnter={requireAuth}/>
+        <Route path="/" component={App} onEnter={requireAuth}>
+            <IndexRoute component={Contacts}/>
+            <Route path="/messages" component={Messages} />
         </Route>
     </Router>
 )

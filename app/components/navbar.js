@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { Link } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
@@ -20,7 +20,9 @@ export default class NavBar extends Component{
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavItem>{user.password.email}</NavItem>
+                        <NavDropdown eventKey={3} title={user.password.email} id="basic-nav-dropdown">
+                            <MenuItem eventKey={3.1}><Link to="messages">Mensajes</Link></MenuItem>
+                        </NavDropdown>
                         <li><Link to="login" onClick={this.logout}>Log out</Link></li>
                     </Nav>
                 </Navbar.Collapse>
