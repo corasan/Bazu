@@ -1,0 +1,17 @@
+body {
+    margin-top: 100px;
+}
+
+#login-panel {
+    margin-top: 50px;
+}
+
+#login-title {
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+#login-btn {
+    margin-left: 130px;
+    margin-bottom: 80px;
+}
