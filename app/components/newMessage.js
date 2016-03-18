@@ -33,10 +33,10 @@ export default class NewMessage extends Component{
                 number: this.props.contacts[i].number,
                 message: this.state.message
             });
-            this.close();
-            this.saveMessage();
-            this.setState({message: ''});
         }
+        this.close();
+        this.saveMessage();
+        this.setState({message: ''});
     }
 
     saveMessage = () => {

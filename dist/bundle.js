@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ed847c14d8f8a2285c40"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "097bad3d0c2e3c32de9d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -50648,7 +50648,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var contactsRef = new Firebase('https://sms-react.firebaseio.com/');
+	var ref = new Firebase('https://sms-react.firebaseio.com/users');
 
 	var SideNav = function (_Component) {
 	    _inherits(SideNav, _Component);
@@ -50667,7 +50667,8 @@
 	    _createClass(SideNav, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            contactsRef.on('value', function (data) {
+	            var user = ref.getAuth();
+	            ref.child(user.uid).child('contacts').on('value', function (data) {
 	                this.setState({ contacts: data.val() });
 	            }.bind(this));
 	        }
@@ -50683,7 +50684,7 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Panel,
 	                        null,
-	                        _react2.default.createElement(_addContact2.default, { contacts: this.state.contacts }),
+	                        _react2.default.createElement(_addContact2.default, null),
 	                        _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts })
 	                    )
 	                )
@@ -50735,7 +50736,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
 
 	var NewMessage = function (_Component) {
 	    _inherits(NewMessage, _Component);
@@ -50763,15 +50764,15 @@
 	                    number: _this.props.contacts[i].number,
 	                    message: _this.state.message
 	                });
-	                _this.close();
-	                _this.saveMessage();
-	                _this.setState({ message: '' });
 	            }
+	            _this.close();
+	            _this.saveMessage();
+	            _this.setState({ message: '' });
 	        };
 
 	        _this.saveMessage = function () {
 	            var user = ref.getAuth();
-	            ref.child('userMessages').child(user.password.email.replace(/\./, '')).push({
+	            ref.child(user.uid).child('messages').push({
 	                message: _this.state.message
 	            });
 	        };
@@ -60719,7 +60720,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
 
 	var AddContact = function (_Component) {
 	    _inherits(AddContact, _Component);
@@ -60751,7 +60752,7 @@
 
 	        _this.saveNumber = function () {
 	            var user = ref.getAuth();
-	            ref.child('contacts').child(user.password.email.replace(/\./, '')).push({
+	            ref.child(user.uid).child('contacts').push({
 	                name: _this.state.name,
 	                email: _this.state.email,
 	                number: _this.state.num
@@ -60883,7 +60884,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
 
 	var Main = function (_Component) {
 	    _inherits(Main, _Component);
@@ -60905,7 +60906,7 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            var user = ref.getAuth();
-	            ref.child('contacts').child(user.password.email.replace(/\./, '')).on('value', function (data) {
+	            ref.child(user.uid).child('contacts').on('value', function (data) {
 	                this.setState({ contacts: data.val() });
 	            }.bind(this));
 	        }
@@ -61283,7 +61284,7 @@
 
 
 	// module
-	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-left: 90px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n}\n/*\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}*/\n\n/*.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}*/\n\n/*.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}*/\n", ""]);
+	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 20px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n}\n/*\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}*/\n\n/*.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}*/\n\n/*.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}*/\n", ""]);
 
 	// exports
 
