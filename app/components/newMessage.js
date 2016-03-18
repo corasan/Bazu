@@ -34,12 +34,13 @@ export default class NewMessage extends Component{
             });
         }
         this.close();
-        this.setState({message: ''});
         this.saveMessage();
+        this.setState({message: ''});
     }
 
     saveMessage = () => {
-        ref.child('userMessages').push({
+        let user = ref.getAuth();
+        ref.child('userMessages').child(user.password.email).push({
             message: this.state.message
         });
     }
@@ -47,8 +48,8 @@ export default class NewMessage extends Component{
     render() {
         return(
             <div>
-                <Button bsStyle="primary" bsSize="large" onClick={this.open}>
-                    Nuevo mensaje +
+                <Button bsStyle="primary" onClick={this.open}>
+                    Nuevo mensaje
                 </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>

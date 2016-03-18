@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { Link, browserHistory } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
-var user = ref.getAuth();
 
 export default class NavBar extends Component{
     logout = () => {
         ref.unauth();
     }
-    
+
     render() {
+        var user = ref.getAuth();
         return(
             <Navbar>
                 <Navbar.Header>

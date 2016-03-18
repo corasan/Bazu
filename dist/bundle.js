@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "764493182fd5f4ad86c9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a823f65590f6eda4afec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8125,10 +8125,20 @@
 	    }
 	}
 
+	function unAuth(nextState, replace) {
+	    var user = ref.getAuth();
+	    if (user) {
+	        replace({
+	            pathname: '/',
+	            state: { nextPathname: nextState.location.pathname }
+	        });
+	    }
+	}
+
 	var routes = _react2.default.createElement(
 	    _reactRouter.Router,
 	    null,
-	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default, onEnter: unAuth }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: App },
@@ -33420,6 +33430,8 @@
 
 	var _reactBootstrap = __webpack_require__(303);
 
+	var _reactRouter = __webpack_require__(245);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33428,18 +33440,41 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var ref = new Firebase('https://sms-react.firebaseio.com/');
+
 	var NavBar = function (_Component) {
 	    _inherits(NavBar, _Component);
 
 	    function NavBar() {
+	        var _Object$getPrototypeO;
+
+	        var _temp, _this, _ret;
+
 	        _classCallCheck(this, NavBar);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(NavBar).apply(this, arguments));
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(NavBar)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.logout = function () {
+	            ref.unauth();
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
+	    // constructor(props) {
+	    //     super(props);
+	    //     this.state = {
+	    //         emal: ''
+	    //     }
+	    // }
+	    //
+	    // componentWillMount() {
+	    //     this.setState({email: user.password.email})
+	    // }
 
 	    _createClass(NavBar, [{
 	        key: 'render',
 	        value: function render() {
+	            var user = ref.getAuth();
 	            return _react2.default.createElement(
 	                _reactBootstrap.Navbar,
 	                null,
@@ -33450,9 +33485,9 @@
 	                        _reactBootstrap.Navbar.Brand,
 	                        null,
 	                        _react2.default.createElement(
-	                            'a',
-	                            { href: '#' },
-	                            'React-Bootstrap'
+	                            _reactRouter.Link,
+	                            { to: '/' },
+	                            'SMS App'
 	                        )
 	                    ),
 	                    _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
@@ -33465,13 +33500,17 @@
 	                        { pullRight: true },
 	                        _react2.default.createElement(
 	                            _reactBootstrap.NavItem,
-	                            { eventKey: 1, href: '#' },
-	                            'Link Right'
+	                            null,
+	                            user.password.email
 	                        ),
 	                        _react2.default.createElement(
-	                            _reactBootstrap.NavItem,
-	                            { eventKey: 2, href: '#' },
-	                            'Link Right'
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { to: 'login', onClick: this.logout },
+	                                'Log out'
+	                            )
 	                        )
 	                    )
 	                )

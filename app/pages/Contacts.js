@@ -25,10 +25,13 @@ export default class Main extends Component{
             <div>
                 <Grid>
                     <Row>
-                        <Col md={2} />
-                        <Col md={8}>
-                            <AddContact />
-                            <NewMessage contacts={this.state.contacts}/>
+                        <Col lg={4} />
+                        <Col lg={2}><AddContact /></Col>
+                        <Col lg={2}><NewMessage contacts={this.state.contacts}/></Col>
+                    </Row>
+                    <Row>
+                        <Col lg={2} />
+                        <Col lg={8}>
                             <Table responsive>
                                 <thead>
                                     <tr>
@@ -41,7 +44,7 @@ export default class Main extends Component{
                                 <ContactsList contacts={this.state.contacts}/>
                             </Table>
                         </Col>
-                        <Col md={2} />
+                        <Col lg={2} />
                     </Row>
                 </Grid>
             </div>
