@@ -25,7 +25,7 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                <h1 className="page-title">Contacts</h1>
+                <h2 className="page-title">Contactos</h2>
                 <SideNav />
                 <Col md={9}>
                     <Panel>

@@ -40,9 +40,15 @@ export default class NewMessage extends Component{
     }
 
     saveMessage = () => {
+        let date = new Date();
+        let day = date.getDate(),
+            month = date.getMonth(),
+            year = date.getFullYear();
+
         let user = ref.getAuth();
         ref.child(user.uid).child('messages').push({
-            message: this.state.message
+            message: this.state.message,
+            date: `${month}/${day}/${year}`
         });
     }
 

@@ -22,8 +22,8 @@ export default class Messages extends Component{
         return(
             <div>
                 <h2 className="page-title">Historial de Mensajes</h2>
-                <Col md={2}/>
-                <Col md={9}>
+                <Col md={3}/>
+                <Col md={8}>
                     <Panel>
                         <MessagesList messages={this.state.messages} />
                     </Panel>

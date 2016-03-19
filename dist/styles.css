@@ -3,8 +3,8 @@ body {
     padding-top: 70px;
 }
 .navbar-default .navbar-nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 18px;
+    padding-bottom: 18px;
 }
 
 .navbar-brand {
@@ -49,10 +49,15 @@ body {
     padding: 10px 50px 10px 50px;
 }
 
+.sidenav {
+    border-width: 0;
+}
+
 .sidenav li {
     list-style-type: none;
     text-align: center;
 }
+
 .panel {
     border-radius: 0;
     margin-left: -50px;
@@ -69,4 +74,26 @@ body {
     border-radius: 0;
     padding-top: 8px;
     padding-bottom: 8px;
+}
+
+.btn.btn-primary {
+    background-color: #3498DB;
+    border-color: #2980B9;
+    font-size: 16;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+    background-color: #2da7f6;
+}
+.dropdown-menu {
+    border-radius: 0;
+    padding: 0 0 0 0;
+    text-align: center;
+}
+
+.dropdown-menu>li>a{
+  border-radius: 0;
+  padding: 10px 0 10px 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }

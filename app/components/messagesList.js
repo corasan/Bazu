@@ -10,6 +10,7 @@ export default class MessagesList extends Component{
                 <tr key={counter}>
                     <td>{counter++}</td>
                     <td>{this.props.messages[i].message}</td>
+                    <td>{this.props.messages[i].date}</td>
                 </tr>
             )
         }
@@ -22,6 +23,7 @@ export default class MessagesList extends Component{
                     <tr>
                         <th>#</th>
                         <th>Mensaje</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>

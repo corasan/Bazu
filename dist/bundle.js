@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "097bad3d0c2e3c32de9d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b76f75b80bbc3c5f2ba1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -575,7 +575,7 @@
 	__webpack_require__(1);
 	__webpack_require__(74);
 	__webpack_require__(76);
-	module.exports = __webpack_require__(556);
+	module.exports = __webpack_require__(558);
 
 
 /***/ },
@@ -8084,6 +8084,10 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
+	var _Messages = __webpack_require__(556);
+
+	var _Messages2 = _interopRequireDefault(_Messages);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8111,15 +8115,14 @@
 	                null,
 	                _react2.default.createElement(_navbar2.default, null),
 	                _react2.default.createElement(
-	                    _reactBootstrap.Grid,
-	                    null,
+	                    'div',
+	                    { className: 'app-content' },
 	                    _react2.default.createElement(
-	                        _reactBootstrap.Row,
+	                        _reactBootstrap.Grid,
 	                        null,
-	                        _react2.default.createElement(_sidenav2.default, null),
 	                        _react2.default.createElement(
-	                            _reactBootstrap.Col,
-	                            { md: 8 },
+	                            _reactBootstrap.Row,
+	                            null,
 	                            this.props.children
 	                        )
 	                    )
@@ -8160,8 +8163,9 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default, onEnter: unAuth }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: '/', component: App },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Contacts2.default, onEnter: requireAuth })
+	        { path: '/', component: App, onEnter: requireAuth },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Contacts2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/messages', component: _Messages2.default })
 	    )
 	);
 
@@ -50434,7 +50438,7 @@
 	            var user = ref.getAuth();
 	            return _react2.default.createElement(
 	                _reactBootstrap.Navbar,
-	                null,
+	                { fixedTop: true },
 	                _react2.default.createElement(
 	                    _reactBootstrap.Navbar.Header,
 	                    null,
@@ -50456,9 +50460,17 @@
 	                        _reactBootstrap.Nav,
 	                        { pullRight: true },
 	                        _react2.default.createElement(
-	                            _reactBootstrap.NavItem,
-	                            null,
-	                            user.password.email
+	                            _reactBootstrap.NavDropdown,
+	                            { eventKey: 3, title: user.password.email, id: 'basic-nav-dropdown' },
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { to: 'messages' },
+	                                    'Mensajes'
+	                                )
+	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'li',
@@ -50771,9 +50783,18 @@
 	        };
 
 	        _this.saveMessage = function () {
+	            var date = new Date();
+	            var day = date.getDate(),
+	                month = date.getMonth(),
+	                year = date.getFullYear(),
+	                hour = date.getHours(),
+	                minutes = date.getMinutes(),
+	                seconds = date.getSeconds();
+
 	            var user = ref.getAuth();
 	            ref.child(user.uid).child('messages').push({
-	                message: _this.state.message
+	                message: _this.state.message,
+	                date: month + '/' + day + '/' + year + '  ' + hour + ':' + minutes + ':' + seconds
 	            });
 	        };
 
@@ -60872,6 +60893,10 @@
 
 	var _newMessage2 = _interopRequireDefault(_newMessage);
 
+	var _sidenav = __webpack_require__(548);
+
+	var _sidenav2 = _interopRequireDefault(_sidenav);
+
 	var _firebase = __webpack_require__(244);
 
 	var _firebase2 = _interopRequireDefault(_firebase);
@@ -60919,37 +60944,19 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    _reactBootstrap.Table,
-	                    { responsive: true, hover: true },
+	                    'h2',
+	                    { className: 'page-title' },
+	                    'Contactos'
+	                ),
+	                _react2.default.createElement(_sidenav2.default, null),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { md: 9 },
 	                    _react2.default.createElement(
-	                        'thead',
+	                        _reactBootstrap.Panel,
 	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                '#'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Nombre'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Email'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Numero'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(_contactsList2.default, { contacts: this.state.contacts })
+	                        _react2.default.createElement(_contactsList2.default, { contacts: this.state.contacts })
+	                    )
 	                )
 	            );
 	        }
@@ -60984,6 +60991,8 @@
 	var _firebase = __webpack_require__(244);
 
 	var _firebase2 = _interopRequireDefault(_firebase);
+
+	var _reactBootstrap = __webpack_require__(302);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61048,9 +61057,41 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'tbody',
-	                null,
-	                this.contact()
+	                _reactBootstrap.Table,
+	                { responsive: true, hover: true },
+	                _react2.default.createElement(
+	                    'thead',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            '#'
+	                        ),
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            'Nombre'
+	                        ),
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            'Email'
+	                        ),
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            'Numero'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    this.contact()
+	                )
 	            );
 	        }
 	    }]);
@@ -61253,20 +61294,220 @@
 /* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(139);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(302);
+
+	var _messagesList = __webpack_require__(557);
+
+	var _messagesList2 = _interopRequireDefault(_messagesList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new Firebase('https://sms-react.firebaseio.com/users');
+
+	var Messages = function (_Component) {
+	    _inherits(Messages, _Component);
+
+	    function Messages() {
+	        _classCallCheck(this, Messages);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Messages).call(this));
+
+	        _this.state = {
+	            messages: {}
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Messages, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            var user = ref.getAuth();
+	            ref.child(user.uid).child('messages').on('value', function (data) {
+	                this.setState({ messages: data.val() });
+	            }.bind(this));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    { className: 'page-title' },
+	                    'Historial de Mensajes'
+	                ),
+	                _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { md: 9 },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Panel,
+	                        null,
+	                        _react2.default.createElement(_messagesList2.default, { messages: this.state.messages })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Messages;
+	}(_react.Component);
+
+	exports.default = Messages;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(545); if (makeExportsHot(module, __webpack_require__(139))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Messages.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 557 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(139);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(302);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MessagesList = function (_Component) {
+	    _inherits(MessagesList, _Component);
+
+	    function MessagesList() {
+	        _classCallCheck(this, MessagesList);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(MessagesList).apply(this, arguments));
+	    }
+
+	    _createClass(MessagesList, [{
+	        key: 'message',
+	        value: function message() {
+	            var arr = [];
+	            var counter = 1;
+	            for (var i in this.props.messages) {
+	                arr.push(_react2.default.createElement(
+	                    'tr',
+	                    { key: counter },
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        counter++
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        this.props.messages[i].message
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        this.props.messages[i].date
+	                    )
+	                ));
+	            }
+	            return arr;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _reactBootstrap.Table,
+	                { responsive: true, hover: true },
+	                _react2.default.createElement(
+	                    'thead',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            '#'
+	                        ),
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            'Mensaje'
+	                        ),
+	                        _react2.default.createElement(
+	                            'th',
+	                            null,
+	                            'Date'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    this.message()
+	                )
+	            );
+	        }
+	    }]);
+
+	    return MessagesList;
+	}(_react.Component);
+
+	exports.default = MessagesList;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(545); if (makeExportsHot(module, __webpack_require__(139))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "messagesList.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 558 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(557);
+	var content = __webpack_require__(559);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(559)(content, {});
+	var update = __webpack_require__(561)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(557, function() {
-				var newContent = __webpack_require__(557);
+			module.hot.accept(559, function() {
+				var newContent = __webpack_require__(559);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -61276,21 +61517,21 @@
 	}
 
 /***/ },
-/* 557 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(558)();
+	exports = module.exports = __webpack_require__(560)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/*body {\n    margin-top: 100px;\n}*/\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 20px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n.panel {\n    border-radius: 0;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 50 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n}\n/*\n.list-group-item:first-child {\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n}\n.list-group-item:last-child {\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n}*/\n\n/*.list-group-item {\n    border-top: 1px solid #ddd;\n    border-bottom: 1px solid #ddd;\n    border-left: 0;\n    border-right: 0;\n}*/\n\n/*.list-group {\n    margin-bottom: 0;\n    border-radius: 0;\n}*/\n", ""]);
+	exports.push([module.id, "body {\n    /*background-color: #ddd;*/\n    padding-top: 70px;\n}\n.navbar-default .navbar-nav>li>a {\n    padding-top: 18px;\n    padding-bottom: 18px;\n}\n\n.navbar-brand {\n    padding-top: 20px;\n}\n\n.navbar-default .navbar-nav>li>a:focus,\n.navbar-default .navbar-nav>li>a:hover {\n    background-color: #e7e7e7;\n}\n\n.navbar.navbar-default {\n    background-color: #fff;\n    /*padding-top: 8px;\n    padding-bottom: 8px;*/\n}\n.navbar {\n    font-size: 16;\n}\n\n.app-content {\n    margin-top: 40px;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 20px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav {\n    border-width: 0;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n\n.panel {\n    border-radius: 0;\n    margin-left: -50px;\n    margin-right: 70px;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 0 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n}\n\n.btn.btn-primary {\n    background-color: #3498DB;\n    border-color: #2980B9;\n    font-size: 16;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #2da7f6;\n}\n.dropdown-menu {\n    border-radius: 0;\n    padding: 0 0 0 0;\n    text-align: center;\n}\n\n.dropdown-menu>li>a{\n  border-radius: 0;\n  padding: 10px 0 10px 0;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 558 */
+/* 560 */
 /***/ function(module, exports) {
 
 	/*
@@ -61346,7 +61587,7 @@
 
 
 /***/ },
-/* 559 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
