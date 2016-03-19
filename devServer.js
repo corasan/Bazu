@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
+var config = require('./webpack.devconfig');
 
 // Dev server with hot reload enabled
 new WebpackDevServer(webpack(config), {

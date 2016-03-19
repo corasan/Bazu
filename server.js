@@ -1,7 +1,6 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var config = require('./config');
 var plivo = require('plivo');
 
 var app = express();
@@ -25,13 +24,15 @@ const plivoNumber = process.env.PLIVO_NUMBER;
 // Receives data from client and sends the message using Plivo
 var p = plivo.RestAPI({authId: authId, authToken: authToken});
 app.post('/', function(req, res) {
+    console.log(req.url);
     p.send_message({
         src: plivoNumber,
     	dst: '1'+req.body.number,
-        text: req.body.message
+        text: req.body.message,
     }, function(status, response) {
         console.log('Status:', status);
         console.log('API Response:\n', response);
+        res.send('message sent');
     });
 });
 

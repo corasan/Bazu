@@ -27,7 +27,8 @@ export default class NewMessage extends Component{
         this.setState({message: e.target.value})
     }
     // Sends the message to every contact to the server
-    sendMessage = () => {
+    sendMessage = (e) => {
+        e.preventDefault();
         for(let i in this.props.contacts) {
             $.post('/', {
                 number: this.props.contacts[i].number,
@@ -63,14 +64,16 @@ export default class NewMessage extends Component{
                     <Modal.Header closeButton>
                         <Modal.Title>Nuevo mensaje</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <Input type="textarea" label="Mensaje" value={this.state.message} onChange={this.handleMessage}/>
-                        <p>Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.close}>Close</Button>
-                        <Button onClick={this.sendMessage}>Enviar</Button>
-                    </Modal.Footer>
+                    <form onSubmit={this.sendMessage}>
+                        <Modal.Body>
+                            <Input type="textarea" label="Mensaje" value={this.state.message} onChange={this.handleMessage}/>
+                            <p>Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.close}>Close</Button>
+                            <Button type="submit">Enviar</Button>
+                        </Modal.Footer>
+                    </form>
                 </Modal>
             </div>
         )

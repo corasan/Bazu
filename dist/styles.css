@@ -35,7 +35,9 @@ body {
 }
 
 #login-panel {
-    margin-top: 50px;
+    margin-top: 60px;
+    margin-left: 450px;
+    margin-right: 450px;
 }
 
 #login-title {
