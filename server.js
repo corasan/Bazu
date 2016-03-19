@@ -32,7 +32,7 @@ app.post('/', function(req, res) {
     }, function(status, response) {
         console.log('Status:', status);
         console.log('API Response:\n', response);
-        res.send('message sent');
+        res.end();
     });
 });
 
