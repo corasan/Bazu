@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1e33d1f8ffbb90d01ef1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "425834d46735bd157ab3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43108,14 +43108,14 @@
 	                        { pullRight: true },
 	                        _react2.default.createElement(
 	                            _reactBootstrap.NavDropdown,
-	                            { eventKey: 3, title: user.password.email, id: 'basic-nav-dropdown' },
+	                            { eventKey: 1, title: user.password.email, id: 'basic-nav-dropdown' },
 	                            _react2.default.createElement(
 	                                'li',
 	                                null,
 	                                _react2.default.createElement(
 	                                    _reactRouter.Link,
 	                                    { to: 'messages' },
-	                                    'Mensajes'
+	                                    'Historial de mensajes'
 	                                )
 	                            )
 	                        ),
@@ -53597,15 +53597,11 @@
 	                    { className: 'page-title' },
 	                    'Contactos'
 	                ),
-	                _react2.default.createElement(_sidenav2.default, null),
 	                _react2.default.createElement(
-	                    _reactBootstrap.Col,
-	                    { md: 9 },
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Panel,
-	                        null,
-	                        _react2.default.createElement(_contactsList2.default, { contacts: this.state.contacts })
-	                    )
+	                    _reactBootstrap.Panel,
+	                    null,
+	                    _react2.default.createElement(_sidenav2.default, null),
+	                    _react2.default.createElement(_contactsList2.default, { contacts: this.state.contacts })
 	                )
 	            );
 	        }
@@ -53797,25 +53793,7 @@
 	    _createClass(App, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    _reactBootstrap.Grid,
-	                    null,
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Row,
-	                        null,
-	                        _react2.default.createElement(_reactBootstrap.Col, { md: 4 }),
-	                        _react2.default.createElement(
-	                            _reactBootstrap.Col,
-	                            { md: 6 },
-	                            _react2.default.createElement(_loginPanel2.default, null)
-	                        ),
-	                        _react2.default.createElement(_reactBootstrap.Col, { md: 2 })
-	                    )
-	                )
-	            );
+	            return _react2.default.createElement(_loginPanel2.default, null);
 	        }
 	    }]);
 
@@ -54006,10 +53984,10 @@
 	                    { className: 'page-title' },
 	                    'Historial de Mensajes'
 	                ),
-	                _react2.default.createElement(_reactBootstrap.Col, { md: 3 }),
+	                _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
 	                _react2.default.createElement(
 	                    _reactBootstrap.Col,
-	                    { md: 8 },
+	                    { md: 10 },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Panel,
 	                        null,
@@ -54174,7 +54152,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    /*background-color: #ddd;*/\n    padding-top: 70px;\n}\n.navbar-default .navbar-nav>li>a {\n    padding-top: 18px;\n    padding-bottom: 18px;\n}\n\n.navbar-brand {\n    padding-top: 20px;\n}\n\n.navbar-default .navbar-nav>li>a:focus,\n.navbar-default .navbar-nav>li>a:hover {\n    background-color: #e7e7e7;\n}\n\n.navbar.navbar-default {\n    background-color: #fff;\n    /*padding-top: 8px;\n    padding-bottom: 8px;*/\n}\n.navbar {\n    font-size: 16;\n}\n\n.app-content {\n    margin-top: 40px;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n#login-panel {\n    margin-top: 50px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 20px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav {\n    border-width: 0;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n\n.panel {\n    border-radius: 0;\n    margin-left: -50px;\n    margin-right: 70px;\n}\n\n.panel-body {\n    /*padding-top: 50px;*/\n    padding: 0 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n}\n\n.btn.btn-primary {\n    background-color: #3498DB;\n    border-color: #2980B9;\n    font-size: 16;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #2da7f6;\n}\n.dropdown-menu {\n    border-radius: 0;\n    padding: 0 0 0 0;\n    text-align: center;\n}\n\n.dropdown-menu>li>a{\n  border-radius: 0;\n  padding: 10px 0 10px 0;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n", ""]);
+	exports.push([module.id, "body {\n    background-color: #f6f6f6;\n    padding-top: 70px;\n}\n.navbar-default .navbar-nav>li>a {\n    padding-top: 18px;\n    padding-bottom: 18px;\n}\n\n.navbar-brand {\n    padding-top: 20px;\n}\n\n.navbar-default .navbar-nav>li>a:focus,\n.navbar-default .navbar-nav>li>a:hover {\n    background-color: #e7e7e7;\n}\n\n.navbar.navbar-default {\n    background-color: #fff;\n    padding-top: 8px;\n    padding-bottom: 8px;\n}\n.navbar {\n    font-size: 16;\n}\n\n.app-content {\n    margin-top: 40px;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n#login-panel {\n    margin-top: 60px;\n    margin-left: 450px;\n    margin-right: 450px;\n}\n\n#login-title {\n    margin-bottom: 80px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 20px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n\n.sidenav {\n    border-width: 0;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n\n.panel {\n    border-radius: 0;\n    margin-left: -50px;\n    margin-right: 70px;\n}\n\n.panel-body {\n    padding-top: 50px;\n    padding: 0 0 0 0;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    border-radius: 0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n}\n\n.btn.btn-primary {\n    background-color: #3498DB;\n    border-color: #2980B9;\n    font-size: 16;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #2da7f6;\n}\n.dropdown-menu {\n    border-radius: 0;\n    padding: 0 0 0 0;\n    text-align: center;\n}\n\n.dropdown-menu>li>a{\n  border-radius: 0;\n  padding: 10px 0 10px 0;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n", ""]);
 
 	// exports
 

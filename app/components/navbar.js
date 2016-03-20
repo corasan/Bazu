@@ -20,8 +20,8 @@ export default class NavBar extends Component{
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavDropdown eventKey={3} title={user.password.email} id="basic-nav-dropdown">
-                            <li><Link to="messages">Mensajes</Link></li>
+                        <NavDropdown eventKey={1} title={user.password.email} id="basic-nav-dropdown">
+                            <li><Link to="messages">Historial de mensajes</Link></li>
                         </NavDropdown>
                         <li><Link to="login" onClick={this.logout}>Log out</Link></li>
                     </Nav>

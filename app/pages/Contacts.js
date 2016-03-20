@@ -27,7 +27,7 @@ export default class Main extends Component{
             <div>
                 <h2 className="page-title">Contactos</h2>
                 <SideNav />
-                <Col md={9}>
+                <Col md={8}>
                     <Panel>
                         <ContactsList contacts={this.state.contacts}/>
                     </Panel>

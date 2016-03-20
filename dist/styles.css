@@ -1,10 +1,10 @@
 body {
-    /*background-color: #ddd;*/
+    background-color: #f6f6f6;
     padding-top: 70px;
 }
 .navbar-default .navbar-nav>li>a {
-    padding-top: 18px;
-    padding-bottom: 18px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .navbar-brand {
@@ -18,8 +18,6 @@ body {
 
 .navbar.navbar-default {
     background-color: #fff;
-    /*padding-top: 8px;
-    padding-bottom: 8px;*/
 }
 .navbar {
     font-size: 16;
@@ -60,22 +58,23 @@ body {
     text-align: center;
 }
 
-.panel {
+/*.panel {
     border-radius: 0;
     margin-left: -50px;
     margin-right: 70px;
-}
+}*/
 
-.panel-body {
-    /*padding-top: 50px;*/
+/*.panel-body {
+    padding-top: 50px;
     padding: 0 0 0 0;
-}
+}*/
 
 .panel-body button.btn.btn-primary {
     width: 100%;
-    border-radius: 0;
+    /*border-radius: 0;*/
     padding-top: 8px;
     padding-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .btn.btn-primary {
