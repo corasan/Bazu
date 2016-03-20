@@ -45,26 +45,12 @@ function unAuth(nextState, replace) {
     }
 }
 
-function saveUser() {
-    var user = ref.getAuth();
-    ref.child('users').once('value', function(data) {
-        console.log('inside user save');
-        if(!data.child(user.uid).exists()) {
-            ref.child('users').child(user.uid).set({
-                email: user.password.email,
-                name: ''
-            });
-            console.log('User Saved!');
-        }
-    });
-}
-
 import Contacts from './pages/Contacts'
 import Login from './pages/Login'
 import Messages from './pages/Messages'
 const routes = (
     <Router>
-        <Route path="login" component={Login} onEnter={unAuth} onLeave={saveUser}/>
+        <Route path="login" component={Login} onEnter={unAuth}/>
         <Route path="/" component={App} onEnter={requireAuth}>
             <IndexRoute component={Contacts}/>
             <Route path="/messages" component={Messages} />

@@ -38,14 +38,6 @@ export default class LoginPanel extends Component{
             if (error) {
                 console.log("Login Failed!", error);
             } else {
-                // ref.onAuth(function(authData) {
-                //     if (authData && this.isNewUser()) {
-                //         ref.child("users").child(authData.uid).set({
-                //             provider: authData.provider,
-                //             name: getName(authData)
-                //         });
-                //     }
-                // }.bind(this));
                 if (!this.alreadyUser()) {
                     ref.child("users").child(authData.uid).set({
                         email: authData.password.email,
