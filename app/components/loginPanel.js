@@ -22,9 +22,15 @@ export default class LoginPanel extends Component{
         this.setState({ password: e.target.value });
     }
 
+    alreadyUser() {
+        let user = ref.getAuth();
+        ref.child('users').on('value', function(data) {
+            return data.child(user.uid).exists();
+            console.log('isNewUser');
+        });
+    }
 
     submitLogin = () => {
-        let isNewUser = false;
         ref.authWithPassword({
             email: this.state.email,
             password: this.state.password
@@ -32,18 +38,24 @@ export default class LoginPanel extends Component{
             if (error) {
                 console.log("Login Failed!", error);
             } else {
+                // ref.onAuth(function(authData) {
+                //     if (authData && this.isNewUser()) {
+                //         ref.child("users").child(authData.uid).set({
+                //             provider: authData.provider,
+                //             name: getName(authData)
+                //         });
+                //     }
+                // }.bind(this));
+                if (!this.alreadyUser()) {
+                    ref.child("users").child(authData.uid).set({
+                        email: authData.password.email,
+                        name: ''
+                    });
+                }
                 browserHistory.push('/');
                 console.log("Authenticated successfully with payload:", authData);
             }
-            let user = ref.getAuth();
-            if(!data.child(user.uid).exists()) {
-                ref.child('users').child(user.uid).set({
-                    email: authData.password.email,
-                    name: ''
-                });
-                console.log('User Saved!');
-            }
-        });
+        }.bind(this));
     }
 
     render() {
