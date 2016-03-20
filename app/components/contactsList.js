@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Firebase from 'firebase'
 import { Table } from 'react-bootstrap'
-const contactsRef = new Firebase('https://sms-react.firebaseio.com/contacts');
 
 export default class ContactsList extends Component{
     constructor(props) {

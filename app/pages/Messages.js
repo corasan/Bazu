@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ListGroup, ListGroupItem, Grid, Row, Col, Panel } from 'react-bootstrap'
 import MessagesList from '../components/messagesList'
-const ref = new Firebase('https://sms-react.firebaseio.com/users');
+const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 export default class Messages extends Component{
     constructor() {
@@ -13,7 +13,7 @@ export default class Messages extends Component{
 
     componentWillMount() {
         let user = ref.getAuth();
-        ref.child(user.uid).child('messages').on('value', function(data) {
+        ref.child('messages').child(user.uid).on('value', function(data) {
             this.setState({messages: data.val()});
         }.bind(this));
     }

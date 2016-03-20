@@ -22,7 +22,9 @@ export default class LoginPanel extends Component{
         this.setState({ password: e.target.value });
     }
 
+
     submitLogin = () => {
+        let isNewUser = false;
         ref.authWithPassword({
             email: this.state.email,
             password: this.state.password
@@ -32,6 +34,14 @@ export default class LoginPanel extends Component{
             } else {
                 browserHistory.push('/');
                 console.log("Authenticated successfully with payload:", authData);
+            }
+            let user = ref.getAuth();
+            if(!data.child(user.uid).exists()) {
+                ref.child('users').child(user.uid).set({
+                    email: authData.password.email,
+                    name: ''
+                });
+                console.log('User Saved!');
             }
         });
     }

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
 import $ from 'jquery'
 import Firebase from 'firebase'
-const ref = new Firebase('https://sms-react.firebaseio.com/users');
+const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 
 export default class NewMessage extends Component{
@@ -47,7 +47,7 @@ export default class NewMessage extends Component{
             year = date.getFullYear();
 
         let user = ref.getAuth();
-        ref.child(user.uid).child('messages').push({
+        ref.child('messages').child(user.uid).push({
             message: this.state.message,
             date: `${month}/${day}/${year}`
         });
