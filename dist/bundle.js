@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "51043a7305e15842087a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7858204902f4de6ffb0c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43307,7 +43307,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new Firebase('https://sms-react.firebaseio.com/users');
+	var ref = new Firebase('https://sms-react.firebaseio.com/');
 
 	var SideNav = function (_Component) {
 	    _inherits(SideNav, _Component);
@@ -43327,8 +43327,7 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            var user = ref.getAuth();
-	            var email = user.password.email.replace(/\./, '');
-	            ref.child('contacts').child(email).on('value', function (data) {
+	            ref.child('contacts').child(user.uid).on('value', function (data) {
 	                this.setState({ contacts: data.val() });
 	            }.bind(this));
 	        }
@@ -43396,7 +43395,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var NewMessage = function (_Component) {
 	    _inherits(NewMessage, _Component);
@@ -43438,8 +43437,7 @@
 	                year = date.getFullYear();
 
 	            var user = ref.getAuth();
-	            var email = user.password.email.replace(/\.com/, '');
-	            ref.child('messages').child(email).push({
+	            ref.child('messages').child(user.uid).push({
 	                message: _this.state.message,
 	                date: month + '/' + day + '/' + year
 	            });
@@ -53392,7 +53390,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var AddContact = function (_Component) {
 	    _inherits(AddContact, _Component);
@@ -53424,8 +53422,7 @@
 
 	        _this.saveNumber = function () {
 	            var user = ref.getAuth();
-	            var email = user.password.email.replace(/\./, '');
-	            ref.child('contacts').child(email).child(_this.state.name).set({
+	            ref.child('contacts').child(user.uid).child(_this.state.name).set({
 	                name: _this.state.name,
 	                email: _this.state.email,
 	                number: _this.state.num
@@ -53561,7 +53558,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new _firebase2.default('https://sms-react.firebaseio.com/users');
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
 
 	var Main = function (_Component) {
 	    _inherits(Main, _Component);
@@ -53583,8 +53580,7 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            var user = ref.getAuth();
-	            var email = user.password.email.replace(/\./, '');
-	            ref.child('contacts').child(email).on('value', function (data) {
+	            ref.child('contacts').child(user.uid).on('value', function (data) {
 	                this.setState({ contacts: data.val() });
 	            }.bind(this));
 	        }
@@ -53654,8 +53650,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var contactsRef = new _firebase2.default('https://sms-react.firebaseio.com/contacts');
 
 	var ContactsList = function (_Component) {
 	    _inherits(ContactsList, _Component);
@@ -53873,10 +53867,16 @@
 	                if (error) {
 	                    console.log("Login Failed!", error);
 	                } else {
+	                    if (!this.alreadyUser()) {
+	                        ref.child("users").child(authData.uid).set({
+	                            email: authData.password.email,
+	                            name: ''
+	                        });
+	                    }
 	                    _reactRouter.browserHistory.push('/');
 	                    console.log("Authenticated successfully with payload:", authData);
 	                }
-	            });
+	            }.bind(_this));
 	        };
 
 	        _this.state = {
@@ -53887,6 +53887,15 @@
 	    }
 
 	    _createClass(LoginPanel, [{
+	        key: 'alreadyUser',
+	        value: function alreadyUser() {
+	            var user = ref.getAuth();
+	            ref.child('users').on('value', function (data) {
+	                return data.child(user.uid).exists();
+	                console.log('isNewUser');
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -53957,7 +53966,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ref = new Firebase('https://sms-react.firebaseio.com/users');
+	var ref = new Firebase('https://sms-react.firebaseio.com/');
 
 	var Messages = function (_Component) {
 	    _inherits(Messages, _Component);
@@ -53977,8 +53986,7 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            var user = ref.getAuth();
-	            var email = user.password.email.replace(/\./, '');
-	            ref.child('messages').child(email).on('value', function (data) {
+	            ref.child('messages').child(user.uid).on('value', function (data) {
 	                this.setState({ messages: data.val() });
 	            }.bind(this));
 	        }

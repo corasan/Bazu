@@ -64,7 +64,7 @@ export default class AddContact extends Component{
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.close}>Close</Button>
-                        <Button onClick={this.saveNumber}>Guardar</Button>
+                        <Button onClick={this.saveNumber} bsStyle="success">Guardar</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

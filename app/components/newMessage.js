@@ -71,7 +71,7 @@ export default class NewMessage extends Component{
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close}>Close</Button>
-                            <Button type="submit">Enviar</Button>
+                            <Button type="submit" bsStyle="success">Enviar</Button>
                         </Modal.Footer>
                     </form>
                 </Modal>
