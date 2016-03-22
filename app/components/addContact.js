@@ -47,25 +47,25 @@ export default class AddContact extends Component{
     render() {
         return (
             <div>
-                <Button bsStyle="primary" onClick={this.open}>
-                    Agregar Contacto
-                </Button>
+                <Button onClick={this.open} bsStyle="default" id="add-contact-btn">Nuevo Contacto</Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
-                    <Modal.Header closeButton>
+                    <Modal.Header>
+                        <a onClick={this.close}><span className="close-modal">X</span></a>
                         <Modal.Title>Agregar Contacto</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form>
-                            <Input type="text" label="Nombre" value={this.state.name} onChange={this.handleName}/>
-                            <Input type="email" label="Email" value={this.state.email} onChange={this.handleEmail}/>
-                            <Input type="number" label="Numero" value={this.state.num} onChange={this.handleNum}/>
+                        <form className="contact-form">
+                            <Input type="text" placeholder="Nombre" value={this.state.name} onChange={this.handleName}/>
+                            <Input type="number" placeholder="Numero" value={this.state.num} onChange={this.handleNum}/>
+                            <Input type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmail}/>
                         </form>
                     </Modal.Body>
-                    <Modal.Footer>
+                    <hr/>
+                    <div className="footer-modal">
                         <Button onClick={this.close}>Close</Button>
-                        <Button onClick={this.saveNumber} bsStyle="success">Guardar</Button>
-                    </Modal.Footer>
+                        <Button onClick={this.saveNumber} bsStyle="primary">Guardar</Button>
+                    </div>
                 </Modal>
             </div>
         );

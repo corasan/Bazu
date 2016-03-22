@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table, Grid, Row, Col, Panel } from 'react-bootstrap'
+import { Table, Grid, Row, Col, Panel, Button } from 'react-bootstrap'
 import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
 import NewMessage from '../components/newMessage'
@@ -24,6 +24,7 @@ export default class Main extends Component{
     render() {
         return (
             <div>
+                <AddContact />
                 <ContactsList contacts={this.state.contacts}/>
             </div>
         )
