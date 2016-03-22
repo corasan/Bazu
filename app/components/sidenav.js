@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { ListGroup, ListGroupItem, Grid, Row, Col, Panel } from 'react-bootstrap'
-import { Link } from 'react-router'
+import { ListGroup, ListGroupItem, Grid, Row, Col, Panel, Button } from 'react-bootstrap'
+import { Link, browserHistory } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 import AddContact from './addContact'
 
@@ -27,7 +27,11 @@ export default class SideNav extends Component{
 
     componentWillMount() {
         this.setState({messagesCount: this.counter('messages'), contactsCount: this.counter('contacts')});
-        console.log(this.counter('messages'));
+        console.log('Messages:', this.counter('messages'));
+    }
+
+    logout = () => {
+        ref.unauth();
     }
 
     render() {
@@ -39,6 +43,7 @@ export default class SideNav extends Component{
                     <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
                     <Link to="messages"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
                 </ul>
+                <Button bsStyle="primary" onClick={this.logout} href="login" id="logout-btn">Log out</Button>
             </div>
         )
     }

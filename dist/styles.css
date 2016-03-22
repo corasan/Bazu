@@ -3,8 +3,16 @@ body {
     letter-spacing: 1px;
 }
 
+button {
+    outline: 0 !important;
+}
+
+#logout-btn {
+    color: #fff;
+}
+
 .app-content {
-    padding-top: 110px;
+    padding-top: 160px;
     margin-left: 160px;
     margin-right: 20px;
     padding-left: 180px;
@@ -22,7 +30,7 @@ body {
     padding-top: 6px;
     font-size: 24;
     color: #5DC7C7 !important;
-    margin-left: -80px !important;
+    margin-left: -120px !important;
 }
 
 .page-title {
@@ -33,7 +41,7 @@ body {
 .sidenav {
     height: 100%;
     background: #fff;
-    width: 230px;
+    width: 210px;
     position: fixed;
     border: 1px solid #F3F3F3;
     padding-left: 20px;
@@ -41,7 +49,7 @@ body {
 }
 .sidenav #sidenav-user-name {
     margin-top: 95px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 50px;
@@ -63,9 +71,14 @@ body {
     text-decoration: none;
     color: #929292;
 }
-.sidenav a:active, .sidenav a:hover  {
+.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {
     text-decoration: none;
     color: #5DC7C7;
+}
+.sidenav .btn-primary {
+    width: 121px;
+    margin-top: 60px;
+    margin-left: 20px;
 }
 
 .panel-body button.btn.btn-primary {
@@ -83,7 +96,10 @@ body {
 }
 
 .btn-primary:focus, .btn-primary:hover {
-    background-color: #FF3C42;
+    background-color: #FF3C42 !important;
+}
+.btn-primary:active {
+    background-color: #E23035
 }
 /*Login styles*/
 
@@ -95,7 +111,7 @@ body {
     height: 555px;
     border: 3px solid;
     border-color: #F3F3F3;
-    border-radius: 9px;
+    border-radius: 12px;
     text-align: center;
 }
 .panel-title {
@@ -106,8 +122,8 @@ body {
     width: 518px;
     margin-top: -22px;
     margin-left: -2px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 .panel-title h3 {
     padding-top: 15px;
@@ -119,10 +135,10 @@ body {
     padding-left: 100px;
 }
 .panels input {
-    border-radius: 14px;
+    border-radius: 16px;
     border: 3px solid #F3F3F3;
     width: 100%;
-    height: 34px;
+    height: 35px;
     padding-left: 25px;
 }
 #forgot-password {
