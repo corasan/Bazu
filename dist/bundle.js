@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1ef0bbceb5da6b2c19fa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c12126dfd1c940497874"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43235,7 +43235,16 @@
 	                    { show: this.state.showModal, onHide: this.close },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Modal.Header,
-	                        { closeButton: true },
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { onClick: this.close },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'close-modal' },
+	                                'X'
+	                            )
+	                        ),
 	                        _react2.default.createElement(
 	                            _reactBootstrap.Modal.Title,
 	                            null,
@@ -43248,24 +43257,25 @@
 	                        _react2.default.createElement(
 	                            _reactBootstrap.Modal.Body,
 	                            null,
-	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'textarea', label: 'Mensaje', value: this.state.message, onChange: this.handleMessage }),
+	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'textarea', value: this.state.message, onChange: this.handleMessage }),
 	                            _react2.default.createElement(
 	                                'p',
-	                                null,
+	                                { id: 'note-modal' },
 	                                'Nota: Este mensaje sera enviado automaticamente a sus contactos.'
 	                            )
 	                        ),
+	                        _react2.default.createElement('hr', null),
 	                        _react2.default.createElement(
-	                            _reactBootstrap.Modal.Footer,
-	                            null,
+	                            'div',
+	                            { className: 'footer-modal' },
 	                            _react2.default.createElement(
 	                                _reactBootstrap.Button,
 	                                { onClick: this.close },
-	                                'Close'
+	                                'Cancelar'
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactBootstrap.Button,
-	                                { type: 'submit', bsStyle: 'success' },
+	                                { type: 'submit', bsStyle: 'primary' },
 	                                'Enviar'
 	                            )
 	                        )
@@ -53291,6 +53301,10 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SideNav).call(this, props));
 
+	        _this.logout = function () {
+	            ref.unauth();
+	        };
+
 	        var user = ref.getAuth();
 	        _this.state = {
 	            name: user.password.email,
@@ -53317,7 +53331,7 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            this.setState({ messagesCount: this.counter('messages'), contactsCount: this.counter('contacts') });
-	            console.log(this.counter('messages'));
+	            console.log('Messages:', this.counter('messages'));
 	        }
 	    }, {
 	        key: 'render',
@@ -53362,6 +53376,11 @@
 	                            this.state.messagesCount
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Button,
+	                    { bsStyle: 'primary', onClick: this.logout, href: 'login', id: 'logout-btn' },
+	                    'Log out'
 	                )
 	            );
 	        }
@@ -54181,7 +54200,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1px;\n}\n\n.app-content {\n    padding-top: 110px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n}\n.navbar-brand {\n    padding-top: 6px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    margin-left: -80px !important;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 230px;\n    position: fixed;\n    border: 1px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 16px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42;\n}\n/*Login styles*/\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 9px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 9px;\n    border-top-right-radius: 9px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 14px;\n    border: 3px solid #F3F3F3;\n    width: 100%;\n    height: 34px;\n    padding-left: 25px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 170px;\n    margin-top: 6px;\n    text-decoration: underline;\n}\n\n.panels input:first-child {\n    margin-bottom: 28px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n.panel-foot hr {\n    border: 1px solid #F3F3F3;\n    width: 400px;\n}\n\n#login-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n}\n\n\na {\n    text-decoration: none;\n    color: #929292;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n}\n.navbar-brand {\n    padding-top: 6px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    margin-left: -120px !important;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 1px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    border: 3px solid #F3F3F3;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 170px;\n    margin-top: 6px;\n    text-decoration: underline;\n}\n\n.panels input:first-child {\n    margin-bottom: 28px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n\n#login-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 12px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n", ""]);
 
 	// exports
 
