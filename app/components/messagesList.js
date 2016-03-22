@@ -7,8 +7,7 @@ export default class MessagesList extends Component{
         let counter = 1;
         for(let i in this.props.messages) {
             arr.push(
-                <tr key={counter}>
-                    <td>{counter++}</td>
+                <tr key={counter++}>
                     <td>{this.props.messages[i].message}</td>
                     <td>{this.props.messages[i].date}</td>
                 </tr>
@@ -21,7 +20,6 @@ export default class MessagesList extends Component{
             <Table responsive hover>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Mensaje</th>
                         <th>Fecha</th>
                     </tr>
