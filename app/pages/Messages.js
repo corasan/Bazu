@@ -21,10 +21,7 @@ export default class Messages extends Component{
     render() {
         return(
             <div>
-                <h2 className="page-title">Historial de Mensajes</h2>
-                <Panel>
-                    <MessagesList messages={this.state.messages} />
-                </Panel>
+                <MessagesList messages={this.state.messages} />
             </div>
         )
     }

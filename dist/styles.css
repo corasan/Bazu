@@ -4,7 +4,7 @@ body {
 }
 
 .app-content {
-    padding-top: 70px;
+    padding-top: 110px;
     margin-left: 160px;
     margin-right: 20px;
     padding-left: 180px;
@@ -22,10 +22,7 @@ body {
     padding-top: 6px;
     font-size: 24;
     color: #5DC7C7 !important;
-}
-
-.app-content {
-    margin-top: 40px;
+    margin-left: -80px !important;
 }
 
 .page-title {
@@ -36,14 +33,39 @@ body {
 .sidenav {
     height: 100%;
     background: #fff;
-    width: 220px;
+    width: 230px;
     position: fixed;
     border: 1px solid #F3F3F3;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-
-.sidenav li {
-    list-style-type: none;
+.sidenav #sidenav-user-name {
+    margin-top: 95px;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
+    margin-bottom: 50px;
+}
+.sidenav ul {
+    margin-top: 20px;
+}
+.sidenav li {
+    padding-left: 0px;
+    list-style-type: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    margin-left: -30px;
+}
+.sidenav a {
+    text-decoration: none;
+    color: #929292;
+}
+.sidenav a:active, .sidenav a:hover  {
+    text-decoration: none;
+    color: #5DC7C7;
 }
 
 .panel-body button.btn.btn-primary {
@@ -70,7 +92,7 @@ body {
     margin-left: 450px;
     margin-right: 450px;
     width: 520px;
-    height: 565px;
+    height: 555px;
     border: 3px solid;
     border-color: #F3F3F3;
     border-radius: 9px;
@@ -118,7 +140,6 @@ body {
     margin-top: 35px;
 }
 .panel-foot hr {
-
     border: 1px solid #F3F3F3;
     width: 400px;
 }
