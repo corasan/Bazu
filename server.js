@@ -1,10 +1,8 @@
 var express = require('express');
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var plivo = require('plivo');
 
 var app = express();
-app.use(morgan('dev'));
 
 app.set('view engine', 'ejs');
 app.set('views', 'public');
