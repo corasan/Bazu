@@ -61,18 +61,20 @@ export default class NewMessage extends Component{
                 </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
-                    <Modal.Header closeButton>
+                    <Modal.Header>
+                        <a onClick={this.close}><span className="close-modal">X</span></a>
                         <Modal.Title>Nuevo mensaje</Modal.Title>
                     </Modal.Header>
                     <form onSubmit={this.sendMessage}>
                         <Modal.Body>
-                            <Input type="textarea" label="Mensaje" value={this.state.message} onChange={this.handleMessage}/>
-                            <p>Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
+                            <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
+                            <p id="note-modal">Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.close}>Close</Button>
-                            <Button type="submit" bsStyle="success">Enviar</Button>
-                        </Modal.Footer>
+                        <hr/>
+                        <div className="footer-modal">
+                            <Button onClick={this.close}>Cancelar</Button>
+                            <Button type="submit" bsStyle="primary">Enviar</Button>
+                        </div>
                     </form>
                 </Modal>
             </div>

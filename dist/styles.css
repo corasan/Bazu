@@ -11,8 +11,14 @@ input {
     outline: 0 !important;
 }
 
-#logout-btn {
-    color: #fff;
+
+a {
+    text-decoration: none;
+    color: #929292;
+}
+
+hr {
+    border: 1px solid #F3F3F3;
 }
 
 .app-content {
@@ -84,6 +90,9 @@ input {
     margin-top: 60px;
     margin-left: 20px;
 }
+#logout-btn {
+    color: #fff;
+}
 
 .panel-body button.btn.btn-primary {
     width: 100%;
@@ -91,21 +100,28 @@ input {
     padding-bottom: 8px;
     margin-bottom: 10px;
 }
-
 .btn.btn-primary {
     background-color: #F1555A;
     border: 0px;
     font-size: 16;
     border-radius: 25px;
 }
-
 .btn-primary:focus, .btn-primary:hover {
     background-color: #FF3C42 !important;
 }
 .btn-primary:active {
     background-color: #E23035
 }
-/*Login styles*/
+.btn-default {
+    background-color: #EBEBEB;
+    border: 0;
+    border-radius: 25px;
+    color: #929292;
+}
+.btn-default:focus, .btn-default:hover {
+    background-color: #F0F0F0;
+    color: #929292;
+}
 
 .panels {
     margin-top: 80px;
@@ -160,7 +176,6 @@ input {
     margin-top: 35px;
 }
 .panel-foot hr {
-    border: 1px solid #F3F3F3;
     width: 400px;
 }
 
@@ -169,4 +184,69 @@ input {
     margin-top: 40px;
     margin-bottom: 65px;
     padding: 10px 50px 10px 50px;
+}
+
+.modal-dialog {
+    margin: 90px auto;
+}
+.modal-content {
+    border-radius: 12px;
+    width: 615px;
+    box-shadow: none;
+    border: 2px solid #E3E3E3;
+}
+.modal-header {
+    background-color: #2C3E50;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-top: -2px;
+    color: #5DC7C7;
+    text-align: center;
+    width: 615px;
+    margin-left: -2px;
+}
+.modal-title {
+    font-size: 24px;
+    width: 300px;
+    margin-top: -28px;
+    margin-left: 130px;
+}
+.close-modal {
+    color: #5DC7C7;
+    margin-left: 550px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+#note-modal {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 40px;
+}
+.footer-modal button.btn.btn-default {
+    margin-right: 20px !important;
+}
+.footer-modal {
+    margin-left: 280px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+.footer-modal button.btn {
+    font-size: 16px;
+    font-weight: bold;
+    height: 41px;
+    width: 130px;
+}
+.modal-content hr {
+    width: 430px;
+    margin-right: 100px
+}
+
+textarea.form-control {
+    height: 190px;
+    width: 500px;
+    margin-left: 42px;
+    margin-top: 40px;
+    border-radius: 12px;
+    border: 3px solid #E3E3E3;
+    box-shadow: none;
 }
