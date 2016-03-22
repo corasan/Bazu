@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7858204902f4de6ffb0c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b4f8a25f4e1ba48f7283"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43114,7 +43114,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _reactRouter.Link,
-	                                    { to: 'messages' },
+	                                    { eventKey: 1.1, to: 'messages' },
 	                                    'Historial de mensajes'
 	                                )
 	                            )
@@ -43125,7 +43125,7 @@
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { to: 'login', onClick: this.logout },
-	                                'Log out'
+	                                'Cerrar Sesion'
 	                            )
 	                        )
 	                    )
@@ -43503,7 +43503,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactBootstrap.Button,
-	                                { type: 'submit' },
+	                                { type: 'submit', bsStyle: 'success' },
 	                                'Enviar'
 	                            )
 	                        )
@@ -53493,7 +53493,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            _reactBootstrap.Button,
-	                            { onClick: this.saveNumber },
+	                            { onClick: this.saveNumber, bsStyle: 'success' },
 	                            'Guardar'
 	                        )
 	                    )
@@ -53907,7 +53907,7 @@
 	                    _react2.default.createElement(
 	                        'h3',
 	                        { id: 'login-title' },
-	                        'Login'
+	                        'Iniciar Sesion'
 	                    ),
 	                    _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
 	                    _react2.default.createElement(

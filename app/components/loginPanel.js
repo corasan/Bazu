@@ -57,11 +57,16 @@ export default class LoginPanel extends Component{
                     <h3 id="login-title">Login</h3>
                     <Col md={2}/>
                     <Col md={8}>
-                        <Input type="email" placeholder="Email" onChange={this.handleEmail} />
-                        <Input type="password" placeholder="Password" onChange={this.handlePassword} />
-                    <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Login</Button>
+                        <input type="email" placeholder="Email" onChange={this.handleEmail} />
+                        <input type="password" placeholder="Password" onChange={this.handlePassword} />
+                        <p id="forgot-password">Olvido la contrasena?</p>
+                        <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
                     </Col>
                 </form>
+                <hr/>
+                <div className="signup-link">
+                    <h4>No tiene cuenta? <a style={{color: "#5DC7C7"}}>Crear cuenta</a></h4>
+                </div>
             </Panel>
         )
     }
