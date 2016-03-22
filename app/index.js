@@ -44,13 +44,13 @@ function unAuth(nextState, replace) {
 
 import Contacts from './pages/Contacts'
 import Login from './pages/Login'
-import Messages from './pages/Messages'
+import History from './pages/History'
 const routes = (
     <Router>
         <Route path="login" component={Login} onEnter={unAuth}/>
         <Route path="/" component={App} onEnter={requireAuth}>
             <IndexRoute component={Contacts}/>
-            <Route path="/messages" component={Messages} />
+            <Route path="/history" component={History} />
         </Route>
     </Router>
 )

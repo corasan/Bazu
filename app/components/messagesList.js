@@ -17,7 +17,7 @@ export default class MessagesList extends Component{
     }
     render() {
         return(
-            <Table responsive hover>
+            <Table responsive hover id="messages-table">
                 <thead>
                     <tr>
                         <th>Mensaje</th>

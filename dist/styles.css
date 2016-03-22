@@ -13,7 +13,6 @@ input {
     border-radius: 14px !important;
 }
 
-
 a {
     text-decoration: none;
     color: #929292;
@@ -56,7 +55,7 @@ hr {
     background: #fff;
     width: 210px;
     position: fixed;
-    border: 1px solid #F3F3F3;
+    border: 2px solid #F3F3F3;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -208,6 +207,8 @@ hr {
     text-align: center;
     width: 615px;
     margin-left: -2px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .modal-title {
     font-size: 24px;
@@ -259,7 +260,6 @@ button.btn {
     font-size: 14px !important;
     height: 41px;
 }
-
 textarea.form-control {
     height: 190px;
     width: 500px;
@@ -269,8 +269,13 @@ textarea.form-control {
     border: 3px solid #E3E3E3;
     box-shadow: none;
 }
-
 #add-contact-btn {
     height: 41px;
     margin-bottom: 20px;
+}
+
+#messages-table td {
+    height: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
