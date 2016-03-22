@@ -2,11 +2,6 @@ body {
     color: #929292;
     letter-spacing: 1px;
 }
-hr {
-    margin-top: 380px;
-    border: 1px solid #F3F3F3;
-    width: 400px;
-}
 
 .app-content {
     padding-top: 70px;
@@ -36,10 +31,6 @@ hr {
 .page-title {
     text-align: center;
     padding-bottom: 50px;
-}
-
-.signup-link {
-    margin-top: 40px;
 }
 
 .sidenav {
@@ -72,11 +63,10 @@ hr {
 .btn-primary:focus, .btn-primary:hover {
     background-color: #FF3C42;
 }
-
 /*Login styles*/
 
-#login-panel {
-    margin-top: 20px;
+.panels {
+    margin-top: 80px;
     margin-left: 450px;
     margin-right: 450px;
     width: 520px;
@@ -86,33 +76,56 @@ hr {
     border-radius: 9px;
     text-align: center;
 }
-#login-panel input {
+.panel-title {
+    width: 100%;
+    background-color: #2C3E50;
+    margin-bottom: 70px;
+    height: 64px;
+    width: 518px;
+    margin-top: -22px;
+    margin-left: -2px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.panel-title h3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #5DC7C7;
+}
+.panel-content {
+    padding-right: 100px;
+    padding-left: 100px;
+}
+.panels input {
     border-radius: 14px;
     border: 3px solid #F3F3F3;
     width: 100%;
     height: 34px;
-    padding-left: 15px;
+    padding-left: 25px;
 }
 #forgot-password {
     font-size: 12px;
     color: #5DC7C7;
-    margin-left: 150px;
-    margin-top: 5px;
+    margin-left: 170px;
+    margin-top: 6px;
     text-decoration: underline;
 }
 
-#login-panel input:first-child {
+.panels input:first-child {
     margin-bottom: 28px;
 }
+.panel-foot h4 {
+    margin-top: 35px;
+}
+.panel-foot hr {
 
-#login-title {
-    margin-top: 30px;
-    margin-bottom: 70px;
-    text-align: center;
+    border: 1px solid #F3F3F3;
+    width: 400px;
 }
 
 #login-btn {
-    margin-top: 50px;
-    margin-bottom: 80px;
+    width: 80%;
+    margin-top: 40px;
+    margin-bottom: 65px;
     padding: 10px 50px 10px 50px;
 }

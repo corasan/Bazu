@@ -52,22 +52,23 @@ export default class LoginPanel extends Component{
 
     render() {
         return(
-            <Panel id="login-panel">
-                <form>
-                    <h3 id="login-title">Login</h3>
-                    <Col md={2}/>
-                    <Col md={8}>
-                        <input type="email" placeholder="Email" onChange={this.handleEmail} />
-                        <input type="password" placeholder="Password" onChange={this.handlePassword} />
-                        <p id="forgot-password">Olvido la contrasena?</p>
-                        <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
-                    </Col>
-                </form>
-                <hr/>
-                <div className="signup-link">
-                    <h4>No tiene cuenta? <a style={{color: "#5DC7C7"}}>Crear cuenta</a></h4>
+            <div>
+                <div className="panels">
+                    <div className="panel-title"><h3>Login</h3></div>
+                    <div className="panel-content">
+                        <form>
+                            <input type="email" placeholder="Email" onChange={this.handleEmail} />
+                            <input type="password" placeholder="Password" onChange={this.handlePassword} />
+                            <p id="forgot-password">Olvido la contrasena?</p>
+                            <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
+                        </form>
+                    </div>
+                    <div className="panel-foot">
+                        <hr/>
+                        <h4>No tiene cuenta? <a style={{color: "#5DC7C7"}}>Crear cuenta</a></h4>
+                    </div>
                 </div>
-            </Panel>
+            </div>
         )
     }
 }

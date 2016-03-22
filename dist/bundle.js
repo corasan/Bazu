@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "179c7c54fc07374ac4a2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "eabee1c9baf5270a5d18"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53836,46 +53836,54 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                _reactBootstrap.Panel,
-	                { id: 'login-panel' },
-	                _react2.default.createElement(
-	                    'form',
-	                    null,
-	                    _react2.default.createElement(
-	                        'h3',
-	                        { id: 'login-title' },
-	                        'Login'
-	                    ),
-	                    _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Col,
-	                        { md: 8 },
-	                        _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
-	                        _react2.default.createElement('input', { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
-	                        _react2.default.createElement(
-	                            'p',
-	                            { id: 'forgot-password' },
-	                            'Olvido la contrasena?'
-	                        ),
-	                        _react2.default.createElement(
-	                            _reactBootstrap.Button,
-	                            { type: 'button', bsStyle: 'primary', id: 'login-btn', onClick: this.submitLogin },
-	                            'Iniciar sesion'
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement('hr', null),
+	                'div',
+	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'signup-link' },
+	                    { className: 'login-panel' },
 	                    _react2.default.createElement(
-	                        'h4',
-	                        null,
-	                        'No tiene cuenta? ',
+	                        'div',
+	                        { className: 'panel-title' },
 	                        _react2.default.createElement(
-	                            'a',
-	                            { style: { color: "#5DC7C7" } },
-	                            'Crear cuenta'
+	                            'h3',
+	                            null,
+	                            'Login'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'form',
+	                        null,
+	                        _react2.default.createElement(_reactBootstrap.Col, { md: 2 }),
+	                        _react2.default.createElement(
+	                            _reactBootstrap.Col,
+	                            { md: 8 },
+	                            _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
+	                            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
+	                            _react2.default.createElement(
+	                                'p',
+	                                { id: 'forgot-password' },
+	                                'Olvido la contrasena?'
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { type: 'button', bsStyle: 'primary', id: 'login-btn', onClick: this.submitLogin },
+	                                'Iniciar sesion'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'signup-link' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            'No tiene cuenta? ',
+	                            _react2.default.createElement(
+	                                'a',
+	                                { style: { color: "#5DC7C7" } },
+	                                'Crear cuenta'
+	                            )
 	                        )
 	                    )
 	                )
@@ -54121,7 +54129,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1px;\n}\nhr {\n    margin-top: 380px;\n    border: 1px solid #F3F3F3;\n    width: 400px;\n}\n\n.app-content {\n    padding-top: 70px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n}\n.navbar-brand {\n    padding-top: 6px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n}\n\n.app-content {\n    margin-top: 40px;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.signup-link {\n    margin-top: 40px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 220px;\n    position: fixed;\n    border: 1px solid #F3F3F3;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42;\n}\n\n/*Login styles*/\n\n#login-panel {\n    margin-top: 20px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 565px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 9px;\n    text-align: center;\n}\n#login-panel input {\n    border-radius: 14px;\n    border: 3px solid #F3F3F3;\n    width: 100%;\n    height: 34px;\n    padding-left: 15px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: 5px;\n    text-decoration: underline;\n}\n\n#login-panel input:first-child {\n    margin-bottom: 28px;\n}\n\n#login-title {\n    margin-top: 30px;\n    margin-bottom: 70px;\n    text-align: center;\n}\n\n#login-btn {\n    margin-top: 50px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1px;\n}\nhr {\n    margin-top: 380px;\n    border: 1px solid #F3F3F3;\n    width: 400px;\n}\n\n.app-content {\n    padding-top: 70px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n}\n.navbar-brand {\n    padding-top: 6px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n}\n\n.app-content {\n    margin-top: 40px;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 220px;\n    position: fixed;\n    border: 1px solid #F3F3F3;\n}\n\n.sidenav li {\n    list-style-type: none;\n    text-align: center;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42;\n}\n/*.panel-title {\n    width: 100%;\n    background-color: blue;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 520px;\n}*/\n/*Login styles*/\n\n.login-panel {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 565px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 9px;\n    text-align: center;\n}\n.login-panel input {\n    border-radius: 14px;\n    border: 3px solid #F3F3F3;\n    width: 100%;\n    height: 34px;\n    padding-left: 15px;\n}\n.forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: 5px;\n    text-decoration: underline;\n}\n\n.login-panel input:first-child {\n    margin-bottom: 28px;\n}\n.signup-link {\n    margin-top: 30px;\n}\n\n/*#login-title {\n    margin-top: 30px;\n    margin-bottom: 70px;\n    text-align: center;\n}*/\n\n#login-btn {\n    margin-top: 50px;\n    margin-bottom: 80px;\n    padding: 10px 50px 10px 50px;\n}\n", ""]);
 
 	// exports
 
