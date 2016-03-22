@@ -22,12 +22,9 @@ export default class Messages extends Component{
         return(
             <div>
                 <h2 className="page-title">Historial de Mensajes</h2>
-                <Col md={1}/>
-                <Col md={10}>
-                    <Panel>
-                        <MessagesList messages={this.state.messages} />
-                    </Panel>
-                </Col>
+                <Panel>
+                    <MessagesList messages={this.state.messages} />
+                </Panel>
             </div>
         )
     }

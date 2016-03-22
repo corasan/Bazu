@@ -8,12 +8,13 @@ export default class SideNav extends Component{
     render() {
         return(
             <div className="sidenav">
-                <Col md={3}>
-                    <Panel>
-                        <AddContact />
-                    </Panel>
-                </Col>
+
             </div>
         )
     }
 }
+{/*<Col md={3}>
+    <Panel>
+        <AddContact />
+    </Panel>
+</Col>*/}

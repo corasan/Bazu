@@ -3,7 +3,6 @@ import { Table, Grid, Row, Col, Panel } from 'react-bootstrap'
 import AddContact from '../components/addContact'
 import ContactsList from '../components/contactsList'
 import NewMessage from '../components/newMessage'
-import SideNav from '../components/sidenav'
 import Firebase from 'firebase'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
@@ -25,13 +24,7 @@ export default class Main extends Component{
     render() {
         return (
             <div>
-                <h2 className="page-title">Contactos</h2>
-                <SideNav />
-                <Col md={8}>
-                    <Panel>
-                        <ContactsList contacts={this.state.contacts}/>
-                    </Panel>
-                </Col>
+                <ContactsList contacts={this.state.contacts}/>
             </div>
         )
     }

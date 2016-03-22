@@ -12,12 +12,9 @@ class App extends Component{
         return (
             <div>
                 <NavBar />
+                <SideNav />
                 <div className="app-content">
-                    <Grid>
-                        <Row>
-                            {this.props.children}
-                        </Row>
-                    </Grid>
+                    {this.props.children}
                 </div>
             </div>
         )

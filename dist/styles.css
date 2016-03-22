@@ -1,6 +1,5 @@
 body {
     /*background-color: #f6f6f6;*/
-    padding-top: 70px;
     color: #929292;
     letter-spacing: 1px;
 }
@@ -10,8 +9,17 @@ hr {
     width: 400px;
 }
 
+.app-content {
+    padding-top: 70px;
+    margin-left: 160px;
+    margin-right: 20px;
+    padding-left: 180px;
+    padding-right: 120px;
+}
+
 .navbar.navbar-default {
     background-color: #2C3E50;
+    border: 0px;
 }
 .navbar {
     padding-top: 12px;
@@ -29,6 +37,42 @@ hr {
 .page-title {
     text-align: center;
     padding-bottom: 50px;
+}
+
+.signup-link {
+    margin-top: 40px;
+}
+
+.sidenav {
+    height: 100%;
+    background: #fff;
+    width: 220px;
+    position: fixed;
+    border: 1px solid #F3F3F3;
+}
+
+.sidenav li {
+    list-style-type: none;
+    text-align: center;
+}
+
+.panel-body button.btn.btn-primary {
+    width: 100%;
+    /*border-radius: 0;*/
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.btn.btn-primary {
+    background-color: #F1555A;
+    border: 0px;
+    font-size: 16;
+    border-radius: 25px;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+    background-color: #FF3C42;
 }
 
 #login-panel {
@@ -71,35 +115,4 @@ hr {
     margin-top: 50px;
     margin-bottom: 80px;
     padding: 10px 50px 10px 50px;
-}
-.signup-link {
-    margin-top: 40px;
-}
-
-.sidenav {
-    border-width: 0;
-}
-
-.sidenav li {
-    list-style-type: none;
-    text-align: center;
-}
-
-.panel-body button.btn.btn-primary {
-    width: 100%;
-    /*border-radius: 0;*/
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
-}
-
-.btn.btn-primary {
-    background-color: #F1555A;
-    border: 0px;
-    font-size: 16;
-    border-radius: 25px;
-}
-
-.btn-primary:focus, .btn-primary:hover {
-    background-color: #FF3C42;
 }
