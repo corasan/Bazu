@@ -2,6 +2,7 @@ body {
     /*background-color: #f6f6f6;*/
     padding-top: 70px;
     color: #929292;
+    letter-spacing: 1px;
 }
 hr {
     margin-top: 380px;
@@ -9,25 +10,16 @@ hr {
     width: 400px;
 }
 
-.navbar-default .navbar-nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.navbar-brand {
-    padding-top: 20px;
-}
-
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover {
-    background-color: #e7e7e7;
-}
-
 .navbar.navbar-default {
-    background-color: #fff;
+    background-color: #2C3E50;
 }
 .navbar {
-    font-size: 16;
+    padding-top: 12px;
+}
+.navbar-brand {
+    padding-top: 6px;
+    font-size: 24;
+    color: #5DC7C7 !important;
 }
 
 .app-content {
@@ -40,7 +32,7 @@ hr {
 }
 
 #login-panel {
-    margin-top: 60px;
+    margin-top: 20px;
     margin-left: 450px;
     margin-right: 450px;
     width: 520px;
