@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fe453047b5a66b09ea94"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4e22d9c89788a5cf8f0e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53685,6 +53685,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+
 	var ContactsList = function (_Component) {
 	    _inherits(ContactsList, _Component);
 
@@ -53693,20 +53695,26 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ContactsList).call(this, props));
 
+	        _this.removeContact = function (contactName) {
+	            var user = ref.getAuth();
+	            ref.child('contacts').child(user.uid).child(contactName).remove();
+	        };
+
 	        _this.state = {
 	            contacts_arr: []
 	        };
 	        return _this;
 	    }
-	    // Receives props and iterate over it, make a new row for each element in the object received
-
 
 	    _createClass(ContactsList, [{
 	        key: 'contact',
+
+	        // Receives props and iterate over it, make a new row for each element in the object received
 	        value: function contact() {
 	            var arr = [];
 	            var counter = 1;
-	            for (var i in this.props.contacts) {
+	            var contacts = this.props.contacts;
+	            for (var i in contacts) {
 	                arr.push(_react2.default.createElement(
 	                    'tr',
 	                    { key: counter },
@@ -53718,17 +53726,26 @@
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        this.props.contacts[i].name
+	                        contacts[i].name
 	                    ),
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        this.props.contacts[i].email
+	                        contacts[i].email
 	                    ),
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        this.props.contacts[i].number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')
+	                        contacts[i].number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        { id: 'delete-contact' },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { onClick: this.removeContact(contacts[i].name).bind(this) },
+	                            'X'
+	                        )
 	                    )
 	                ));
 	            }
@@ -53765,7 +53782,8 @@
 	                            'th',
 	                            null,
 	                            'Numero'
-	                        )
+	                        ),
+	                        _react2.default.createElement('th', null)
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -54419,7 +54437,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    margin-left: -120px !important;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: -15px;\n    text-decoration: underline;\n}\n\n/*.panels input:first-child {\n    margin-bottom: 28px;\n}*/\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -50px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    margin-left: -120px !important;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: -15px;\n    text-decoration: underline;\n}\n\n/*.panels input:first-child {\n    margin-bottom: 28px;\n}*/\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -50px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n#delete-contact {\n    font-weight: bolder;\n}\n#delete-contact:hover, #delete-contact:active, #delete-contact:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\n", ""]);
 
 	// exports
 
