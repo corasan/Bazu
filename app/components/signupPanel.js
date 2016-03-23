@@ -10,7 +10,7 @@ export default class SignupPanel extends Component {
         this.state = {
             email: '',
             password: '',
-            name: '',
+            firstname: '',
             lastname: ''
         }
     }
@@ -22,7 +22,7 @@ export default class SignupPanel extends Component {
         this.setState({ password: e.target.value });
     }
     handleName = (e) => {
-        this.setState({ name: e.target.value });
+        this.setState({ firstname: e.target.value });
     }
     handleLastname = (e) => {
         this.setState({ lastname: e.target.value });
@@ -37,7 +37,7 @@ export default class SignupPanel extends Component {
 
     submitSignup = () => {
         ref.createUser({
-            name: this.state.name,
+            firstname: this.state.firstname,
             lastname: this.state.lastname,
             email: this.state.email,
             password: this.state.password
@@ -53,7 +53,8 @@ export default class SignupPanel extends Component {
                     else {
                         ref.child('users').child(authData.uid).set({
                             email: this.state.email,
-                            name: ''
+                            firstname: this.state.firstname,
+                            lastname: this.state.lastname
                         });
                         console.log('Authenticated successfully with payload:', authData);
                     }

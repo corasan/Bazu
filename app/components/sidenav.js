@@ -9,10 +9,16 @@ export default class SideNav extends Component{
         super(props);
         let user = ref.getAuth();
         this.state = {
-            name: user.password.email,
+            name: user.,
             messagesCount: 0,
             contactsCount: 0
         }
+    }
+
+    getName() {
+        ref.child('users').child(user.uid).on('value', function(data) {
+            this.setState({name: data.val().firstname + ' ' + data.val().lastname})
+        })
     }
 
     counter(where) {
