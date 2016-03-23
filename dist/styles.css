@@ -13,7 +13,7 @@ input {
     border-radius: 14px !important;
 }
 
-a {
+a, a:hover, a:active, a:focus {
     text-decoration: none;
     color: #929292;
 }

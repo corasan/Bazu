@@ -80,7 +80,7 @@ export default class SignupPanel extends Component {
                     </div>
                     <div className="panel-foot" id="signup-footer">
                         <hr/>
-                        <h4><a style={{color: "#5DC7C7", cursor:"pointer"}}>Login</a></h4>
+                        <h4><Link to="login" style={{color: "#5DC7C7", cursor:"pointer"}}>Login</Link></h4>
                     </div>
                 </div>
             </div>
