@@ -18,7 +18,7 @@ export default class DeleteContact extends Component {
 
     render() {
         return(
-            <td><a id="delete-contact" onClick={this.removeContact}>X</a></td>
+            <td><a onClick={this.removeContact}>X</a></td>
         )
     }
 }

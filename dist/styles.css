@@ -18,7 +18,7 @@ a, a:hover, a:active, a:focus {
     color: #929292;
 }
 .link-btn, .link-btn:active, .link-btn:hover {
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
 }
 
@@ -292,10 +292,10 @@ textarea.form-control {
     padding-top: 30px;
     padding-bottom: 30px;
 }
-#delete-contact {
-    font-weight: bolder;
-}
-#delete-contact:hover, #delete-contact:active, #delete-contact:focus {
+td>a:hover, td>a:active, td>a:focus {
     color: #F1555A;
     cursor: pointer;
+}
+td>a {
+    font-weight: bolder;
 }
