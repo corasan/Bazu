@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "593df4bfbe426ec9d07a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "35beb995b99d87af1b17"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53310,9 +53310,8 @@
 	            ref.unauth();
 	        };
 
-	        var user = ref.getAuth();
 	        _this.state = {
-	            // name: user.
+	            name: '',
 	            messagesCount: 0,
 	            contactsCount: 0
 	        };
@@ -53322,9 +53321,10 @@
 	    _createClass(SideNav, [{
 	        key: 'getName',
 	        value: function getName() {
+	            var user = ref.getAuth();
 	            ref.child('users').child(user.uid).on('value', function (data) {
 	                this.setState({ name: data.val().firstname + ' ' + data.val().lastname });
-	            });
+	            }.bind(this));
 	        }
 	    }, {
 	        key: 'counter',
@@ -53342,7 +53342,11 @@
 	    }, {
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            this.setState({ messagesCount: this.counter('messages'), contactsCount: this.counter('contacts') });
+	            this.setState({
+	                messagesCount: this.counter('messages'),
+	                contactsCount: this.counter('contacts'),
+	                name: this.getName()
+	            });
 	            console.log('Messages:', this.counter('messages'));
 	        }
 	    }, {
@@ -53354,7 +53358,7 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    { id: 'sidenav-user-name' },
-	                    'Henry'
+	                    this.state.name
 	                ),
 	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(
