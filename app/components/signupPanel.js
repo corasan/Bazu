@@ -31,8 +31,7 @@ export default class SignupPanel extends Component {
     alreadyUser() {
         let user = ref.getAuth();
         ref.child('users').on('value', function(data) {
-            return data.child(user.uid).exists();
-            console.log('isNewUser');
+            return data.child(user.uid.email).exists();
         });
     }
 
@@ -46,15 +45,20 @@ export default class SignupPanel extends Component {
             if (error) {
                 console.log('Failed to create user!', error);
             } else {
-                if (!this.alreadyUser()) {
-                    console.log('creating user')
-                    ref.child('users').child(authData.uid).set({
-                        email: this.state.email,
-                        name: ''
-                    });
-                }
-                browserHistory.push('/login');
-                console.log('Authenticated successfully with payload:', authData);
+                ref.authWithPassword({
+                    email: this.state.email,
+                    password: this.state.password
+                }, function(error, authData) {
+                    if (error) { console.log("Login Failed!", error); }
+                    else {
+                        ref.child('users').child(authData.uid).set({
+                            email: this.state.email,
+                            name: ''
+                        });
+                        console.log('Authenticated successfully with payload:', authData);
+                    }
+                    browserHistory.push('/');
+                }.bind(this));
             }
         }.bind(this));
     }

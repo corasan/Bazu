@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "17850707e5d02287d94d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "76cd63a71a02ac5bcde7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -54282,15 +54282,21 @@
 	                if (error) {
 	                    console.log('Failed to create user!', error);
 	                } else {
-	                    if (!this.alreadyUser()) {
-	                        console.log('creating user');
-	                        ref.child('users').child(authData.uid).set({
-	                            email: this.state.email,
-	                            name: ''
-	                        });
-	                    }
-	                    _reactRouter.browserHistory.push('/login');
-	                    console.log('Authenticated successfully with payload:', authData);
+	                    ref.authWithPassword({
+	                        email: this.state.email,
+	                        password: this.state.password
+	                    }, function (error, authData) {
+	                        if (error) {
+	                            console.log("Login Failed!", error);
+	                        } else {
+	                            ref.child('users').child(authData.uid).set({
+	                                email: this.state.email,
+	                                name: ''
+	                            });
+	                            console.log('Authenticated successfully with payload:', authData);
+	                        }
+	                        _reactRouter.browserHistory.push('/');
+	                    }.bind(this));
 	                }
 	            }.bind(_this));
 	        };
@@ -54309,8 +54315,7 @@
 	        value: function alreadyUser() {
 	            var user = ref.getAuth();
 	            ref.child('users').on('value', function (data) {
-	                return data.child(user.uid).exists();
-	                console.log('isNewUser');
+	                return data.child(user.uid.email).exists();
 	            });
 	        }
 	    }, {
