@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Panel, Input, Col, Row, Grid } from 'react-bootstrap'
-// import LoginPanel from '../components/loginPanel'
+import { Panel, Input, Col, Row, Grid, Button } from 'react-bootstrap'
+import SignupPanel from '../components/SignupPanel'
 
 export default class Signup extends Component {
     render() {
         return (
-            <h1>Login</h1>
+            <SignupPanel />
         )
     }
 }

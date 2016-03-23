@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Input, Col, Button } from 'react-bootstrap'
 import Firebase from 'firebase'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
 
@@ -22,14 +22,6 @@ export default class LoginPanel extends Component{
         this.setState({ password: e.target.value });
     }
 
-    alreadyUser() {
-        let user = ref.getAuth();
-        ref.child('users').on('value', function(data) {
-            return data.child(user.uid).exists();
-            console.log('isNewUser');
-        });
-    }
-
     submitLogin = () => {
         ref.authWithPassword({
             email: this.state.email,
@@ -38,12 +30,6 @@ export default class LoginPanel extends Component{
             if (error) {
                 console.log("Login Failed!", error);
             } else {
-                if (!this.alreadyUser()) {
-                    ref.child("users").child(authData.uid).set({
-                        email: authData.password.email,
-                        name: ''
-                    });
-                }
                 browserHistory.push('/');
                 console.log("Authenticated successfully with payload:", authData);
             }
@@ -60,12 +46,14 @@ export default class LoginPanel extends Component{
                             <input type="email" placeholder="Email" onChange={this.handleEmail} />
                             <input type="password" placeholder="Password" onChange={this.handlePassword} />
                             <p id="forgot-password">Olvido la contrasena?</p>
-                            <Button type="button" bsStyle="primary" id="login-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
+                            <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
                         </form>
                     </div>
                     <div className="panel-foot">
                         <hr/>
-                        <h4>No tiene cuenta? <a style={{color: "#5DC7C7"}}>Crear cuenta</a></h4>
+                        <h4>No tiene cuenta?
+                            <Link to="signup" style={{color: "#5DC7C7", cursor:"pointer"}}> Crear cuenta</Link>
+                        </h4>
                     </div>
                 </div>
             </div>
