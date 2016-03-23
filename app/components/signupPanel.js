@@ -74,9 +74,11 @@ export default class SignupPanel extends Component {
                             <input type="text" placeholder="Apellido" onChange={this.handleLastname} />
                             <input type="email" placeholder="Email" onChange={this.handleEmail} />
                             <input type="password" placeholder="Password" onChange={this.handlePassword} />
-                            <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitSignup}>
-                                <Link to="/" className="link-btn">Crear cuenta</Link>
-                            </Button>
+                            <Link to="/" className="link-btn">
+                                <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitSignup}>
+                                    Crear cuenta
+                                </Button>
+                            </Link>
                         </form>
                     </div>
                     <div className="panel-foot" id="signup-footer">

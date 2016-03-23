@@ -49,8 +49,11 @@ export default class SideNav extends Component{
                     <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
                     <Link to="history"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
                 </ul>
-                <Button bsStyle="primary" onClick={this.logout} id="logout-btn">
-                    <Link to="login" className="link-btn">Log out</Link></Button>
+                <Link to="login" className="link-btn">
+                    <Button bsStyle="primary" onClick={this.logout} id="logout-btn">
+                        Log out
+                    </Button>
+                </Link>
             </div>
         )
     }
