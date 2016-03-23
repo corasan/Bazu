@@ -295,7 +295,7 @@ textarea.form-control {
 #delete-contact {
     font-weight: bolder;
 }
-td #delete-contact:hover, #delete-contact:active, #delete-contact:focus {
+#delete-contact:hover, #delete-contact:active, #delete-contact:focus {
     color: #F1555A;
     cursor: pointer;
 }
