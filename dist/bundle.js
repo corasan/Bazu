@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ffe94299f8a5df31d9fc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "593df4bfbe426ec9d07a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53312,7 +53312,7 @@
 
 	        var user = ref.getAuth();
 	        _this.state = {
-	            name: user.password.email,
+	            // name: user.
 	            messagesCount: 0,
 	            contactsCount: 0
 	        };
@@ -53320,6 +53320,13 @@
 	    }
 
 	    _createClass(SideNav, [{
+	        key: 'getName',
+	        value: function getName() {
+	            ref.child('users').child(user.uid).on('value', function (data) {
+	                this.setState({ name: data.val().firstname + ' ' + data.val().lastname });
+	            });
+	        }
+	    }, {
 	        key: 'counter',
 	        value: function counter(where) {
 	            var user = ref.getAuth();
@@ -53383,11 +53390,11 @@
 	                    )
 	                ),
 	                _react2.default.createElement(
-	                    _reactBootstrap.Button,
-	                    { bsStyle: 'primary', onClick: this.logout, id: 'logout-btn' },
+	                    _reactRouter.Link,
+	                    { to: 'login', className: 'link-btn' },
 	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: 'login', className: 'link-btn' },
+	                        _reactBootstrap.Button,
+	                        { bsStyle: 'primary', onClick: this.logout, id: 'logout-btn' },
 	                        'Log out'
 	                    )
 	                )
@@ -54355,7 +54362,7 @@
 	        };
 
 	        _this.handleName = function (e) {
-	            _this.setState({ name: e.target.value });
+	            _this.setState({ firstname: e.target.value });
 	        };
 
 	        _this.handleLastname = function (e) {
@@ -54364,7 +54371,7 @@
 
 	        _this.submitSignup = function () {
 	            ref.createUser({
-	                name: _this.state.name,
+	                firstname: _this.state.firstname,
 	                lastname: _this.state.lastname,
 	                email: _this.state.email,
 	                password: _this.state.password
@@ -54381,7 +54388,8 @@
 	                        } else {
 	                            ref.child('users').child(authData.uid).set({
 	                                email: this.state.email,
-	                                name: ''
+	                                firstname: this.state.firstname,
+	                                lastname: this.state.lastname
 	                            });
 	                            console.log('Authenticated successfully with payload:', authData);
 	                        }
@@ -54394,7 +54402,7 @@
 	        _this.state = {
 	            email: '',
 	            password: '',
-	            name: '',
+	            firstname: '',
 	            lastname: ''
 	        };
 	        return _this;
@@ -54437,11 +54445,11 @@
 	                            _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
 	                            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
 	                            _react2.default.createElement(
-	                                _reactBootstrap.Button,
-	                                { type: 'button', bsStyle: 'primary', className: 'auth-btn', onClick: this.submitSignup },
+	                                _reactRouter.Link,
+	                                { to: '/', className: 'link-btn' },
 	                                _react2.default.createElement(
-	                                    _reactRouter.Link,
-	                                    { to: '/', className: 'link-btn' },
+	                                    _reactBootstrap.Button,
+	                                    { type: 'button', bsStyle: 'primary', className: 'auth-btn', onClick: this.submitSignup },
 	                                    'Crear cuenta'
 	                                )
 	                            )
