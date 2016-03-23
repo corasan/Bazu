@@ -7,18 +7,18 @@ import AddContact from './addContact'
 export default class SideNav extends Component{
     constructor(props) {
         super(props);
-        let user = ref.getAuth();
         this.state = {
-            // name: user.
+            name: '',
             messagesCount: 0,
             contactsCount: 0
         }
     }
 
     getName() {
+        let user = ref.getAuth();
         ref.child('users').child(user.uid).on('value', function(data) {
             this.setState({name: data.val().firstname + ' ' + data.val().lastname})
-        })
+        }.bind(this));
     }
 
     counter(where) {
@@ -32,7 +32,11 @@ export default class SideNav extends Component{
     }
 
     componentWillMount() {
-        this.setState({messagesCount: this.counter('messages'), contactsCount: this.counter('contacts')});
+        this.setState({
+            messagesCount: this.counter('messages'),
+            contactsCount: this.counter('contacts'),
+            name: this.getName()
+        });
         console.log('Messages:', this.counter('messages'));
     }
 
@@ -43,7 +47,7 @@ export default class SideNav extends Component{
     render() {
         return(
             <div className="sidenav">
-                <p id="sidenav-user-name">Henry</p>
+                <p id="sidenav-user-name">{this.state.name}</p>
                 <hr/>
                 <ul>
                     <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
