@@ -23,19 +23,24 @@ export default class NavBar extends Component{
     render() {
         var user = ref.getAuth();
         return(
-            <Navbar fixedTop>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">Bazu</Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                </Navbar.Header>
-                <Navbar.Collapse>
-                    <Nav pullRight>
-                        <NewMessage contacts={this.state.contacts} />
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div id="bazu-navbar">
+                <div id="nav-brand"><Link to="/">Bazu</Link></div>
+                <NewMessage contacts={this.state.contacts} />
+            </div>
         )
     }
 }
+
+// <Navbar fixedTop>
+//     <Navbar.Header>
+//         <Navbar.Brand>
+//             <Link to="/">Bazu</Link>
+//         </Navbar.Brand>
+//         <Navbar.Toggle />
+//     </Navbar.Header>
+//     <Navbar.Collapse>
+//         <Nav pullRight>
+//             <NewMessage contacts={this.state.contacts} />
+//         </Nav>
+//     </Navbar.Collapse>
+// </Navbar>

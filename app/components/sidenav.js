@@ -46,19 +46,33 @@ export default class SideNav extends Component{
 
     render() {
         return(
-            <div className="sidenav">
-                <p id="sidenav-user-name">{this.state.name}</p>
-                <hr/>
-                <ul>
-                    <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
-                    <Link to="history"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
-                </ul>
-                <Link to="login" className="link-btn">
-                    <Button bsStyle="primary" onClick={this.logout} id="logout-btn">
-                        Log out
-                    </Button>
-                </Link>
+            <div id="side-nav">
+                <div className="link-sidenav">
+                    <Link to="/"  id="user">
+                        <span className="hide-text">{this.state.name}</span>
+                    </Link>
+                    <Link to="/" id="contacts">
+                        <span className="hide-text">Contactos</span>
+                    </Link>
+                    <Link to="history" id="history">
+                        <span className="hide-text">Historial</span>
+                    </Link>
+                    <Link to="login">
+                        <button id="logout"><span className="hide-text">Log out</span></button>
+                    </Link>
+                </div>
             </div>
         )
     }
 }
+
+{/*<hr/>
+<ul>
+    <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
+    <Link to="history"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
+</ul>
+<Link to="login" className="link-btn">
+    <Button bsStyle="primary" onClick={this.logout} id="logout-btn">
+        Log out
+    </Button>
+</Link>*/}

@@ -1,0 +1,669 @@
+.link-sidenav>a, .link-sidenav>a:hover,
+.link-sidenav>a:active, .link-sidenav>a:focus {
+    text-decoration: none;
+    color: #929292;
+}
+
+.primaryContainer {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+}
+
+#bazu-navbar {
+    float: left;
+    height: 63px;
+    margin-left: 0px;
+    margin-top: 0px;
+    clear: none;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0%;
+    background-color: rgb(44, 62, 80);
+}
+
+#nav-brand {
+    float: left;
+    font-size: 24px;
+    width: 9.505326%;
+    height: auto;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1em;
+    margin-left: 4.351768%;
+    margin-top: 0px;
+    clear: none;
+    min-height: 63px;
+    color: rgb(93, 199, 199);
+    padding-top: 18px;
+    padding-left: 12px;
+    letter-spacing: 1px;
+}
+
+#side-nav {
+    float: left;
+    height: 720px;
+    margin-left: 0px;
+    margin-top: 0px;
+    clear: none;
+    width: 150px;
+    position: fixed;
+    top: 63px;
+    left: 0%;
+    border-right-color: rgb(243, 243, 243);
+    border-right-width: 3px;
+    border-right-style: solid;
+}
+
+#new-message {
+    float: right;
+    height: 41px;
+    font-size: 18px;
+    margin-left: 0px;
+    margin-top: 10px;
+    clear: none;
+    width: 160px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-style: none;
+    background-color: rgb(241, 85, 90);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: rgb(255, 255, 255);
+    font-family: 'Helvetica Neue';
+    margin-right: 50px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#logout {
+    float: none;
+    height: 41px;
+    font-size: 18px;
+    margin-left: 8px;
+    margin-top: 393px;
+    clear: none;
+    width: 130px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: rgb(241, 85, 90);
+    background-attachment: scroll;
+    -webkit-background-size: auto;
+    background-size: auto;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    margin-right: auto;
+    letter-spacing: 1px;
+    border-style: none;
+    max-width: 130px;
+    background-position: 50% 50%;
+    background-repeat: repeat repeat;
+}
+
+#contacts {
+    float: left;
+    height: 62px;
+    font-size: 1em;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: both;
+    width: 100%;
+    color: #929292;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-style: none;
+    background-color: rgb(255, 255, 255);
+    /*background-image:url("img/Contact%20Card-64.png");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#history {
+    float: left;
+    height: 62px;
+    font-size: 1em;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: both;
+    width: 100.000002%;
+    color: #929292;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-style: none;
+    /*background-image:url("img/calendar-outline.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(255, 255, 255);
+    margin-right: 0%;
+    display: block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#account {
+    float: left;
+    height: 62px;
+    font-size: 1em;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: both;
+    width: 100.000002%;
+    color: #929292;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-style: none;
+    margin-right: 0%;
+    /*background-image:url("img/wrench-solid.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(255, 255, 255);
+    display: block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#user {
+    float: left;
+    height: 62px;
+    font-size: 1em;
+    margin-left: 0%;
+    margin-top: 63px;
+    clear: none;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    /*background-image:url("img/Gender%20Neutral%20User-64.png");*/
+    background-attachment: inherit;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-style: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    display: block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#user:hover {
+    /*background-image:url("img/Gender%20Neutral%20User-64.png");*/
+    background-attachment: inherit;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#user:active {
+    /*background-image:url("img/Gender%20Neutral%20User-64.png");*/
+    background-attachment: inherit;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#user:focus {
+    /*background-image:url("img/Gender%20Neutral%20User-64.png");*/
+    background-attachment: inherit;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#history:hover {
+    /*background-image:url("img/calendar-outline.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#history:active {
+    /*background-image:url("img/calendar-outline.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#history:focus {
+    /*background-image:url("img/calendar-outline.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#account:hover {
+    /*background-image:url("img/wrench-solid.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#account:active {
+    /*background-image:url("img/wrench-solid.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#account:focus {
+    /*background-image:url("img/wrench-solid.svg");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#contacts:hover {
+    /*background-image:url("img/Contact%20Card-64.png");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#contacts:active {
+    /*background-image:url("img/Contact%20Card-64.png");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#contacts:focus {
+    /*background-image:url("img/Contact%20Card-64.png");*/
+    background-attachment: scroll;
+    -webkit-background-size: 40px;
+    background-size: 40px;
+    background-color: rgb(243, 243, 243);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#app-content {
+    float: left;
+    height: 657px;
+    margin-left: 23.199513%;
+    margin-top: 126px;
+    clear: none;
+    width: 70.666648%;
+    padding: 20px 26px;
+}
+
+@media only screen and (max-width: 750px) {
+    span.hide-text {
+        display: none;
+    }
+    #bazu-navbar {
+        float: left;
+        height: 63px;
+        margin-left: 0px;
+        margin-top: 0px;
+        clear: none;
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0%;
+        background-color: rgb(44, 62, 80);
+    }
+
+    #nav-brand {
+        float: left;
+        font-size: 24px;
+        width: 23.196429%;
+        height: auto;
+        text-align: left;
+        font-weight: 700;
+        line-height: 1em;
+        margin-left: 0%;
+        margin-top: 0px;
+        clear: none;
+        min-height: 63px;
+        color: rgb(93, 199, 199);
+        padding-top: 18px;
+        padding-left: 12px;
+        letter-spacing: 1px;
+    }
+
+    #side-nav {
+        float: left;
+        height: 720px;
+        margin-left: 0px;
+        margin-top: 0px;
+        clear: none;
+        width: 17.061281%;
+        position: fixed;
+        top: 63px;
+        left: 0%;
+        border-right-color: rgb(243, 243, 243);
+        border-right-width: 3px;
+        border-right-style: solid;
+        padding-bottom: 0px;
+    }
+
+    #new-message {
+        float: left;
+        height: 63px;
+        font-size: 1em;
+        margin-top: 0px;
+        clear: none;
+        width: 17.064583%;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-style: none;
+        display: block;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        margin-left: 59.7375%;
+        margin-right: 0px;
+        background-color: rgb(44, 62, 80);
+        background-image:url("./img/compose-solid.svg");
+        background-attachment: scroll;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #logout {
+        float: left;
+        height: 62px;
+        font-size: 30px;
+        margin-left: 0%;
+        margin-top: 0px;
+        clear: both;
+        width: 100%;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-style: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background-color: rgb(241, 85, 90);
+        color: rgb(255, 255, 255);
+        display: block;
+        max-height: 62px;
+        min-height: 60px;
+    }
+
+    #contacts {
+        float: left;
+        height: 62px;
+        font-size: 1em;
+        margin-left: 0%;
+        margin-top: 0px;
+        clear: both;
+        width: 100%;
+        color: rgb(255, 255, 255);
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-style: none;
+        background-color: rgb(255, 255, 255);
+        background-image:url("./img/Contact%20Card-64.png");
+        background-attachment: scroll;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        display: block;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #contacts:hover {
+        background-image:url("./img/Contact%20Card-64.png");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #contacts:active {
+        background-image:url("./img/Contact%20Card-64.png");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #contacts:focus {
+        background-image:url("./img/Contact%20Card-64.png");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #history:hover {
+        background-image:url("./img/calendar-outline.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #history:active {
+        background-image:url("./img/calendar-outline.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #history:focus {
+        background-image:url("./img/calendar-outline.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #history {
+        float: left;
+        height: 62px;
+        font-size: 1em;
+        margin-left: 0%;
+        margin-top: 0px;
+        clear: both;
+        width: 100.000002%;
+        color: rgb(255, 255, 255);
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-style: none;
+        background-image:url("./img/calendar-outline.svg");
+        background-attachment: scroll;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-color: rgb(255, 255, 255);
+        margin-right: 0%;
+        display: block;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #account:hover {
+        background-image:url("./img/wrench-solid.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #account:active {
+        background-image:url("./img/wrench-solid.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #account:focus {
+        background-image:url("./img/wrench-solid.svg");
+        background-attachment: scroll;
+        background-color: rgb(243, 243, 243);
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #account {
+        float: left;
+        height: 62px;
+        font-size: 1em;
+        margin-left: 0%;
+        margin-top: 0px;
+        clear: both;
+        width: 100.000002%;
+        color: rgb(255, 255, 255);
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-style: none;
+        margin-right: 0%;
+        background-image:url("./img/wrench-solid.svg");
+        background-attachment: scroll;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-color: rgb(255, 255, 255);
+        display: block;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #user {
+        float: left;
+        height: 62px;
+        font-size: 1em;
+        margin-left: 0%;
+        margin-top: 64px;
+        clear: none;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        background-image:url("./img/Gender%20Neutral%20User-64.png");
+        background-attachment: inherit;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-style: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        display: block;
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #user:hover {
+        background-image:url("./img/Gender%20Neutral%20User-64.png");
+        background-attachment: inherit;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-color: rgb(243, 243, 243);
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #user:active {
+        background-image:url("./img/Gender%20Neutral%20User-64.png");
+        background-attachment: inherit;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-color: rgb(243, 243, 243);
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    #user:focus {
+        background-image:url("./img/Gender%20Neutral%20User-64.png");
+        background-attachment: inherit;
+        -webkit-background-size: 40px;
+        background-size: 40px;
+        background-color: rgb(243, 243, 243);
+        background-position: 50% 50%;
+        background-repeat: no-repeat no-repeat;
+    }
+}

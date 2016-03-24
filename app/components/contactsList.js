@@ -33,20 +33,22 @@ export default class ContactsList extends Component{
 
     render() {
         return(
-            <Table responsive hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Numero</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.contact()}
-                </tbody>
-            </Table>
+            <h1>Contacts list</h1>
         )
     }
 }
+//
+// <Table responsive hover>
+//     <thead>
+//         <tr>
+//             <th>#</th>
+//             <th>Nombre</th>
+//             <th>Email</th>
+//             <th>Numero</th>
+//             <th></th>
+//         </tr>
+//     </thead>
+//     <tbody>
+//         {this.contact()}
+//     </tbody>
+// </Table>

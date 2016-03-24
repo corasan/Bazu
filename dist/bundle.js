@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "35beb995b99d87af1b17"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fa42ab3101e2406c6835"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -23038,7 +23038,9 @@
 	    _TransitionUtils.runLeaveHooks(leaveRoutes);
 
 	    // Tear down confirmation hooks for left routes
-	    leaveRoutes.forEach(removeListenBeforeHooksForRoute);
+	    leaveRoutes.filter(function (route) {
+	      return enterRoutes.indexOf(route) === -1;
+	    }).forEach(removeListenBeforeHooksForRoute);
 
 	    _TransitionUtils.runEnterHooks(enterRoutes, nextState, function (error, redirectInfo) {
 	      if (error) {
@@ -23307,16 +23309,25 @@
 	  var leaveRoutes = undefined,
 	      enterRoutes = undefined;
 	  if (prevRoutes) {
-	    leaveRoutes = prevRoutes.filter(function (route) {
-	      return nextRoutes.indexOf(route) === -1 || routeParamsChanged(route, prevState, nextState);
-	    });
+	    (function () {
+	      var parentIsLeaving = false;
+	      leaveRoutes = prevRoutes.filter(function (route) {
+	        if (parentIsLeaving) {
+	          return true;
+	        } else {
+	          var isLeaving = nextRoutes.indexOf(route) === -1 || routeParamsChanged(route, prevState, nextState);
+	          if (isLeaving) parentIsLeaving = true;
+	          return isLeaving;
+	        }
+	      });
 
-	    // onLeave hooks start at the leaf route.
-	    leaveRoutes.reverse();
+	      // onLeave hooks start at the leaf route.
+	      leaveRoutes.reverse();
 
-	    enterRoutes = nextRoutes.filter(function (route) {
-	      return prevRoutes.indexOf(route) === -1 || leaveRoutes.indexOf(route) !== -1;
-	    });
+	      enterRoutes = nextRoutes.filter(function (route) {
+	        return prevRoutes.indexOf(route) === -1 || leaveRoutes.indexOf(route) !== -1;
+	      });
+	    })();
 	  } else {
 	    leaveRoutes = [];
 	    enterRoutes = nextRoutes;
@@ -43089,37 +43100,39 @@
 	        value: function render() {
 	            var user = ref.getAuth();
 	            return _react2.default.createElement(
-	                _reactBootstrap.Navbar,
-	                { fixedTop: true },
+	                'div',
+	                { id: 'bazu-navbar' },
 	                _react2.default.createElement(
-	                    _reactBootstrap.Navbar.Header,
-	                    null,
+	                    'div',
+	                    { id: 'nav-brand' },
 	                    _react2.default.createElement(
-	                        _reactBootstrap.Navbar.Brand,
-	                        null,
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: '/' },
-	                            'Bazu'
-	                        )
-	                    ),
-	                    _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
-	                ),
-	                _react2.default.createElement(
-	                    _reactBootstrap.Navbar.Collapse,
-	                    null,
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Nav,
-	                        { pullRight: true },
-	                        _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts })
+	                        _reactRouter.Link,
+	                        { to: '/' },
+	                        'Bazu'
 	                    )
-	                )
+	                ),
+	                _react2.default.createElement(_newMessage2.default, { contacts: this.state.contacts })
 	            );
 	        }
 	    }]);
 
 	    return NavBar;
 	}(_react.Component);
+
+	// <Navbar fixedTop>
+	//     <Navbar.Header>
+	//         <Navbar.Brand>
+	//             <Link to="/">Bazu</Link>
+	//         </Navbar.Brand>
+	//         <Navbar.Toggle />
+	//     </Navbar.Header>
+	//     <Navbar.Collapse>
+	//         <Nav pullRight>
+	//             <NewMessage contacts={this.state.contacts} />
+	//         </Nav>
+	//     </Navbar.Collapse>
+	// </Navbar>
+
 
 	exports.default = NavBar;
 
@@ -43231,9 +43244,13 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    _reactBootstrap.Button,
-	                    { bsStyle: 'primary', onClick: this.open },
-	                    'Nuevo mensaje'
+	                    'button',
+	                    { id: 'new-message', onClick: this.open },
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'Nuevo Mensaje'
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    _reactBootstrap.Modal,
@@ -43303,7 +43320,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v2.2.1
+	 * jQuery JavaScript Library v2.2.2
 	 * http://jquery.com/
 	 *
 	 * Includes Sizzle.js
@@ -43313,7 +43330,7 @@
 	 * Released under the MIT license
 	 * http://jquery.org/license
 	 *
-	 * Date: 2016-02-22T19:11Z
+	 * Date: 2016-03-17T17:51Z
 	 */
 
 	(function( global, factory ) {
@@ -43369,7 +43386,7 @@
 
 
 	var
-		version = "2.2.1",
+		version = "2.2.2",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -43580,6 +43597,7 @@
 		},
 
 		isPlainObject: function( obj ) {
+			var key;
 
 			// Not plain objects:
 			// - Any object or value whose internal [[Class]] property is not "[object Object]"
@@ -43589,14 +43607,18 @@
 				return false;
 			}
 
+			// Not own constructor property must be Object
 			if ( obj.constructor &&
-					!hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ) {
+					!hasOwn.call( obj, "constructor" ) &&
+					!hasOwn.call( obj.constructor.prototype || {}, "isPrototypeOf" ) ) {
 				return false;
 			}
 
-			// If the function hasn't returned already, we're confident that
-			// |obj| is a plain object, created by {} or constructed with new Object
-			return true;
+			// Own properties are enumerated firstly, so to speed up,
+			// if last one is own, then all properties are own
+			for ( key in obj ) {}
+
+			return key === undefined || hasOwn.call( obj, key );
 		},
 
 		isEmptyObject: function( obj ) {
@@ -50629,6 +50651,12 @@
 		}
 	} );
 
+	// Support: IE <=11 only
+	// Accessing the selectedIndex property
+	// forces the browser to respect setting selected
+	// on the option
+	// The getter ensures a default option is selected
+	// when in an optgroup
 	if ( !support.optSelected ) {
 		jQuery.propHooks.selected = {
 			get: function( elem ) {
@@ -50637,6 +50665,16 @@
 					parent.parentNode.selectedIndex;
 				}
 				return null;
+			},
+			set: function( elem ) {
+				var parent = elem.parentNode;
+				if ( parent ) {
+					parent.selectedIndex;
+
+					if ( parent.parentNode ) {
+						parent.parentNode.selectedIndex;
+					}
+				}
 			}
 		};
 	}
@@ -50831,7 +50869,8 @@
 
 
 
-	var rreturn = /\r/g;
+	var rreturn = /\r/g,
+		rspaces = /[\x20\t\r\n\f]+/g;
 
 	jQuery.fn.extend( {
 		val: function( value ) {
@@ -50907,9 +50946,15 @@
 			option: {
 				get: function( elem ) {
 
-					// Support: IE<11
-					// option.value not trimmed (#14858)
-					return jQuery.trim( elem.value );
+					var val = jQuery.find.attr( elem, "value" );
+					return val != null ?
+						val :
+
+						// Support: IE10-11+
+						// option.text throws exceptions (#14686, #14858)
+						// Strip and collapse whitespace
+						// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
+						jQuery.trim( jQuery.text( elem ) ).replace( rspaces, " " );
 				}
 			},
 			select: {
@@ -50962,7 +51007,7 @@
 					while ( i-- ) {
 						option = options[ i ];
 						if ( option.selected =
-								jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
+							jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
 						) {
 							optionSet = true;
 						}
@@ -52657,18 +52702,6 @@
 
 
 
-	// Support: Safari 8+
-	// In Safari 8 documents created via document.implementation.createHTMLDocument
-	// collapse sibling forms: the second one becomes a child of the first one.
-	// Because of that, this security measure has to be disabled in Safari 8.
-	// https://bugs.webkit.org/show_bug.cgi?id=137337
-	support.createHTMLDocument = ( function() {
-		var body = document.implementation.createHTMLDocument( "" ).body;
-		body.innerHTML = "<form></form><form></form>";
-		return body.childNodes.length === 2;
-	} )();
-
-
 	// Argument "data" should be string of html
 	// context (optional): If specified, the fragment will be created in this context,
 	// defaults to document
@@ -52681,12 +52714,7 @@
 			keepScripts = context;
 			context = false;
 		}
-
-		// Stop scripts or inline event handlers from being executed immediately
-		// by using document.implementation
-		context = context || ( support.createHTMLDocument ?
-			document.implementation.createHTMLDocument( "" ) :
-			document );
+		context = context || document;
 
 		var parsed = rsingleTag.exec( data ),
 			scripts = !keepScripts && [];
@@ -53354,53 +53382,20 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'sidenav' },
+	                { id: 'side-nav' },
 	                _react2.default.createElement(
-	                    'p',
-	                    { id: 'sidenav-user-name' },
-	                    this.state.name
-	                ),
-	                _react2.default.createElement('hr', null),
-	                _react2.default.createElement(
-	                    'ul',
-	                    null,
+	                    _reactRouter.Link,
+	                    { to: '/', id: 'user' },
 	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: '/' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            'Contactos'
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            this.state.contactsCount
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: 'history' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            'Historial'
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            this.state.messagesCount
-	                        )
+	                        'span',
+	                        null,
+	                        this.state.name
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    _reactRouter.Link,
-	                    { to: 'login', className: 'link-btn' },
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Button,
-	                        { bsStyle: 'primary', onClick: this.logout, id: 'logout-btn' },
-	                        'Log out'
-	                    )
+	                    { to: '/', id: 'contacts' },
+	                    'Contactos'
 	                )
 	            );
 	        }
@@ -53410,6 +53405,18 @@
 	}(_react.Component);
 
 	exports.default = SideNav;
+
+
+	{/*<hr/>
+	    <ul>
+	       <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
+	       <Link to="history"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
+	    </ul>
+	    <Link to="login" className="link-btn">
+	       <Button bsStyle="primary" onClick={this.logout} id="logout-btn">
+	           Log out
+	       </Button>
+	    </Link>*/}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "sidenav.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
@@ -53762,48 +53769,31 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                _reactBootstrap.Table,
-	                { responsive: true, hover: true },
-	                _react2.default.createElement(
-	                    'thead',
-	                    null,
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            '#'
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            'Nombre'
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            'Email'
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            'Numero'
-	                        ),
-	                        _react2.default.createElement('th', null)
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'tbody',
-	                    null,
-	                    this.contact()
-	                )
+	                'h1',
+	                null,
+	                'Contacts list'
 	            );
 	        }
 	    }]);
 
 	    return ContactsList;
 	}(_react.Component);
+	//
+	// <Table responsive hover>
+	//     <thead>
+	//         <tr>
+	//             <th>#</th>
+	//             <th>Nombre</th>
+	//             <th>Email</th>
+	//             <th>Numero</th>
+	//             <th></th>
+	//         </tr>
+	//     </thead>
+	//     <tbody>
+	//         {this.contact()}
+	//     </tbody>
+	// </Table>
+
 
 	exports.default = ContactsList;
 
@@ -54496,7 +54486,7 @@
 	var content = __webpack_require__(489);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(494)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
@@ -54521,7 +54511,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff !important;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    margin-left: -120px !important;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: -15px;\n    text-decoration: underline;\n}\n\n/*.panels input:first-child {\n    margin-bottom: 28px;\n}*/\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -50px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\ntd>a:hover, td>a:active, td>a:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\ntd>a {\n    font-weight: bolder;\n}\n", ""]);
+	exports.push([module.id, "/* This code is only meant for previewing your Reflow design. */\n.primaryContainer {\n    height: auto;\n    margin-left: auto;\n    margin-right: auto;\n    min-height: 100%;\n    width: 100%;\n}\n\n#bazu-navbar {\n    float: left;\n    height: 63px;\n    margin-left: 0px;\n    margin-top: 0px;\n    clear: none;\n    width: 100%;\n    position: fixed;\n    top: 0px;\n    left: 0%;\n    background-color: rgb(44, 62, 80);\n}\n\n#nav-brand {\n    float: left;\n    font-size: 24px;\n    width: 9.505326%;\n    height: auto;\n    text-align: left;\n    font-weight: 700;\n    line-height: 1em;\n    margin-left: 4.351768%;\n    margin-top: 0px;\n    clear: none;\n    min-height: 63px;\n    color: rgb(93, 199, 199);\n    padding-top: 18px;\n    padding-left: 12px;\n    letter-spacing: 1px;\n}\n\n#side-nav {\n    float: left;\n    height: 720px;\n    margin-left: 0px;\n    margin-top: 0px;\n    clear: none;\n    width: 150px;\n    position: fixed;\n    top: 63px;\n    left: 0%;\n    border-right-color: rgb(243, 243, 243);\n    border-right-width: 3px;\n    border-right-style: solid;\n}\n\n#new-message {\n    float: right;\n    height: 41px;\n    font-size: 18px;\n    margin-left: 0px;\n    margin-top: 10px;\n    clear: none;\n    width: 160px;\n    border-top-left-radius: 25px;\n    border-top-right-radius: 25px;\n    border-bottom-right-radius: 25px;\n    border-bottom-left-radius: 25px;\n    border-style: none;\n    background-color: rgb(241, 85, 90);\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    color: rgb(255, 255, 255);\n    font-family: 'Helvetica Neue';\n    margin-right: 50px;\n    font-weight: 600;\n    letter-spacing: 1px;\n}\n\n#logout {\n    float: none;\n    height: 41px;\n    font-size: 18px;\n    margin-left: auto;\n    margin-top: 393px;\n    clear: none;\n    width: 130px;\n    border-top-left-radius: 25px;\n    border-top-right-radius: 25px;\n    border-bottom-right-radius: 25px;\n    border-bottom-left-radius: 25px;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    background-color: rgb(241, 85, 90);\n    background-attachment: scroll;\n    -webkit-background-size: auto;\n    background-size: auto;\n    color: rgb(255, 255, 255);\n    font-weight: 600;\n    margin-right: auto;\n    letter-spacing: 1px;\n    border-style: none;\n    max-width: 130px;\n    background-position: 50% 50%;\n    background-repeat: repeat repeat;\n}\n\n#contacts {\n    float: left;\n    height: 62px;\n    font-size: 1em;\n    margin-left: 0%;\n    margin-top: 0px;\n    clear: both;\n    width: 100%;\n    color: rgb(255, 255, 255);\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n    border-bottom-right-radius: 0px;\n    border-bottom-left-radius: 0px;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    border-style: none;\n    background-color: rgb(255, 255, 255);\n    /*background-image:url(\"img/Contact%20Card-64.png\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#history {\n    float: left;\n    height: 62px;\n    font-size: 1em;\n    margin-left: 0%;\n    margin-top: 0px;\n    clear: both;\n    width: 100.000002%;\n    color: rgb(255, 255, 255);\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n    border-bottom-right-radius: 0px;\n    border-bottom-left-radius: 0px;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    border-style: none;\n    /*background-image:url(\"img/calendar-outline.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(255, 255, 255);\n    margin-right: 0%;\n    display: block;\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#account {\n    float: left;\n    height: 62px;\n    font-size: 1em;\n    margin-left: 0%;\n    margin-top: 0px;\n    clear: both;\n    width: 100.000002%;\n    color: rgb(255, 255, 255);\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n    border-bottom-right-radius: 0px;\n    border-bottom-left-radius: 0px;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    border-style: none;\n    margin-right: 0%;\n    /*background-image:url(\"img/wrench-solid.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(255, 255, 255);\n    display: block;\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#user {\n    float: left;\n    height: 62px;\n    font-size: 1em;\n    margin-left: 0%;\n    margin-top: 63px;\n    clear: none;\n    width: 100%;\n    background-color: rgb(255, 255, 255);\n    /*background-image:url(\"img/Gender%20Neutral%20User-64.png\");*/\n    background-attachment: inherit;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n    border-bottom-right-radius: 0px;\n    border-bottom-left-radius: 0px;\n    border-style: none;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    display: block;\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#user:hover {\n    /*background-image:url(\"img/Gender%20Neutral%20User-64.png\");*/\n    background-attachment: inherit;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#user:active {\n    /*background-image:url(\"img/Gender%20Neutral%20User-64.png\");*/\n    background-attachment: inherit;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#user:focus {\n    /*background-image:url(\"img/Gender%20Neutral%20User-64.png\");*/\n    background-attachment: inherit;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#history:hover {\n    /*background-image:url(\"img/calendar-outline.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#history:active {\n    /*background-image:url(\"img/calendar-outline.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#history:focus {\n    /*background-image:url(\"img/calendar-outline.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#account:hover {\n    /*background-image:url(\"img/wrench-solid.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#account:active {\n    /*background-image:url(\"img/wrench-solid.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#account:focus {\n    /*background-image:url(\"img/wrench-solid.svg\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#contacts:hover {\n    /*background-image:url(\"img/Contact%20Card-64.png\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#contacts:active {\n    /*background-image:url(\"img/Contact%20Card-64.png\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#contacts:focus {\n    /*background-image:url(\"img/Contact%20Card-64.png\");*/\n    background-attachment: scroll;\n    -webkit-background-size: 40px;\n    background-size: 40px;\n    background-color: rgb(243, 243, 243);\n    background-position: 50% 50%;\n    background-repeat: no-repeat no-repeat;\n}\n\n#app-content {\n    float: left;\n    height: 657px;\n    margin-left: 23.199513%;\n    margin-top: 126px;\n    clear: none;\n    width: 70.666648%;\n    padding: 20px 26px;\n}\n\n@media only screen and (max-width: 750px) {\n    span {\n        display: none;\n    }\n    #bazu-navbar {\n        float: left;\n        height: 63px;\n        margin-left: 0px;\n        margin-top: 0px;\n        clear: none;\n        width: 100%;\n        position: fixed;\n        top: 0px;\n        left: 0%;\n        background-color: rgb(44, 62, 80);\n    }\n\n    #nav-brand {\n        float: left;\n        font-size: 24px;\n        width: 23.196429%;\n        height: auto;\n        text-align: left;\n        font-weight: 700;\n        line-height: 1em;\n        margin-left: 0%;\n        margin-top: 0px;\n        clear: none;\n        min-height: 63px;\n        color: rgb(93, 199, 199);\n        padding-top: 18px;\n        padding-left: 12px;\n        letter-spacing: 1px;\n    }\n\n    #side-nav {\n        float: left;\n        height: 720px;\n        margin-left: 0px;\n        margin-top: 0px;\n        clear: none;\n        width: 17.061281%;\n        position: fixed;\n        top: 63px;\n        left: 0%;\n        border-right-color: rgb(243, 243, 243);\n        border-right-width: 3px;\n        border-right-style: solid;\n        padding-bottom: 0px;\n    }\n\n    #new-message {\n        float: left;\n        height: 63px;\n        font-size: 1em;\n        margin-top: 0px;\n        clear: none;\n        width: 17.064583%;\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        border-style: none;\n        display: block;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        margin-left: 59.7375%;\n        margin-right: 0px;\n        background-color: rgb(44, 62, 80);\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/compose-solid.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #logout {\n        float: left;\n        height: 62px;\n        font-size: 30px;\n        margin-left: 0%;\n        margin-top: 0px;\n        clear: both;\n        width: 100%;\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        border-style: none;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        background-color: rgb(241, 85, 90);\n        color: rgb(255, 255, 255);\n        display: block;\n        max-height: 62px;\n        min-height: 60px;\n    }\n\n    #contacts {\n        float: left;\n        height: 62px;\n        font-size: 1em;\n        margin-left: 0%;\n        margin-top: 0px;\n        clear: both;\n        width: 100%;\n        color: rgb(255, 255, 255);\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        border-style: none;\n        background-color: rgb(255, 255, 255);\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Contact%20Card-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        display: block;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #contacts:hover {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Contact%20Card-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #contacts:active {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Contact%20Card-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #contacts:focus {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Contact%20Card-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #history:hover {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/calendar-outline.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #history:active {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/calendar-outline.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #history:focus {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/calendar-outline.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #history {\n        float: left;\n        height: 62px;\n        font-size: 1em;\n        margin-left: 0%;\n        margin-top: 0px;\n        clear: both;\n        width: 100.000002%;\n        color: rgb(255, 255, 255);\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        border-style: none;\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/calendar-outline.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-color: rgb(255, 255, 255);\n        margin-right: 0%;\n        display: block;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #account:hover {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/wrench-solid.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #account:active {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/wrench-solid.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #account:focus {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/wrench-solid.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        background-color: rgb(243, 243, 243);\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #account {\n        float: left;\n        height: 62px;\n        font-size: 1em;\n        margin-left: 0%;\n        margin-top: 0px;\n        clear: both;\n        width: 100.000002%;\n        color: rgb(255, 255, 255);\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        border-style: none;\n        margin-right: 0%;\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/wrench-solid.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: scroll;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-color: rgb(255, 255, 255);\n        display: block;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #user {\n        float: left;\n        height: 62px;\n        font-size: 1em;\n        margin-left: 0%;\n        margin-top: 64px;\n        clear: none;\n        width: 100%;\n        background-color: rgb(255, 255, 255);\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Gender%20Neutral%20User-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: inherit;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        border-top-left-radius: 0px;\n        border-top-right-radius: 0px;\n        border-bottom-right-radius: 0px;\n        border-bottom-left-radius: 0px;\n        border-style: none;\n        -webkit-box-shadow: none;\n        box-shadow: none;\n        display: block;\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #user:hover {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Gender%20Neutral%20User-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: inherit;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-color: rgb(243, 243, 243);\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #user:active {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Gender%20Neutral%20User-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: inherit;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-color: rgb(243, 243, 243);\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n\n    #user:focus {\n        background-image:url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./img/Gender%20Neutral%20User-64.png\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n        background-attachment: inherit;\n        -webkit-background-size: 40px;\n        background-size: 40px;\n        background-color: rgb(243, 243, 243);\n        background-position: 50% 50%;\n        background-repeat: no-repeat no-repeat;\n    }\n}\n", ""]);
 
 	// exports
 
@@ -54583,7 +54573,10 @@
 
 
 /***/ },
-/* 491 */
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
