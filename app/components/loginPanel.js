@@ -3,6 +3,7 @@ import { Panel, Input, Col, Button } from 'react-bootstrap'
 import Firebase from 'firebase'
 import { browserHistory, Link } from 'react-router'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
+import ForgotPassword from './forgotPassword'
 
 
 export default class LoginPanel extends Component{
@@ -45,7 +46,7 @@ export default class LoginPanel extends Component{
                         <form>
                             <input type="email" placeholder="Email" onChange={this.handleEmail} />
                             <input type="password" placeholder="Password" onChange={this.handlePassword} />
-                            <p id="forgot-password">Olvido la contrasena?</p>
+                            <Link to="reset-password" id="forgot-password">Olvido la contrasena?</Link>
                             <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitLogin}>Iniciar sesion</Button>
                         </form>
                     </div>

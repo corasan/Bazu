@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c26da92ac7c4b9e827e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9c67a2f1df12feb3bf80"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -573,7 +573,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(488);
+	module.exports = __webpack_require__(490);
 
 
 /***/ },
@@ -622,9 +622,13 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Signup = __webpack_require__(486);
+	var _Signup = __webpack_require__(487);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
+
+	var _ResetPassword = __webpack_require__(489);
+
+	var _ResetPassword2 = _interopRequireDefault(_ResetPassword);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -693,6 +697,7 @@
 	    null,
 	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default, onEnter: unAuth }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default, onEnter: unAuth }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'reset-password', component: _ResetPassword2.default, onEnter: unAuth }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: App, onEnter: requireAuth },
@@ -54166,6 +54171,10 @@
 
 	var _reactRouter = __webpack_require__(172);
 
+	var _forgotPassword = __webpack_require__(486);
+
+	var _forgotPassword2 = _interopRequireDefault(_forgotPassword);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54240,8 +54249,8 @@
 	                            _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
 	                            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
 	                            _react2.default.createElement(
-	                                'p',
-	                                { id: 'forgot-password' },
+	                                _reactRouter.Link,
+	                                { to: 'reset-password', id: 'forgot-password' },
 	                                'Olvido la contrasena?'
 	                            ),
 	                            _react2.default.createElement(
@@ -54297,9 +54306,164 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _firebase = __webpack_require__(171);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
 	var _reactBootstrap = __webpack_require__(229);
 
-	var _SignupPanel = __webpack_require__(487);
+	var _reactRouter = __webpack_require__(172);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+
+	var ForgotPassword = function (_Component) {
+	    _inherits(ForgotPassword, _Component);
+
+	    function ForgotPassword(props) {
+	        _classCallCheck(this, ForgotPassword);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ForgotPassword).call(this, props));
+
+	        _this.handleEmail = function (e) {
+	            _this.setState({ email: e.target.value });
+	        };
+
+	        _this.resetPassword = function () {
+	            console.log('inside reset');
+	            ref.resetPassword({
+	                email: _this.state.email
+	            }, function (error) {
+	                if (error === null) {
+	                    console.log("Password reset email sent successfully");
+	                } else {
+	                    console.log("Error sending password reset email:", error);
+	                }
+	            });
+	        };
+
+	        _this.state = {
+	            email: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ForgotPassword, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panels' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-title' },
+	                        _react2.default.createElement(
+	                            'h3',
+	                            null,
+	                            'Login'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-content' },
+	                        _react2.default.createElement(
+	                            'form',
+	                            null,
+	                            _react2.default.createElement(
+	                                'p',
+	                                { style: { margin: "100px 0 20px 0" } },
+	                                'Le enviaremos un email para cambiar la contrasena'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { type: 'button', bsStyle: 'primary', className: 'auth-btn',
+	                                    onClick: this.resetPassword, href: 'login' },
+	                                'Enviar'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-foot' },
+	                        _react2.default.createElement('hr', null),
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { style: { margin: "0 0 50px 0" } },
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { to: 'login', style: { color: "#5DC7C7", cursor: "pointer" } },
+	                                'Iniciar Sesion'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ForgotPassword;
+	}(_react.Component);
+
+	exports.default = ForgotPassword;
+
+
+	{/*<div>
+	       <p id="forgot-password" onClick={this.open}>Olvido la contrasena?</p>
+	        <Modal show={this.state.showModal} onHide={this.close}>
+	           <Modal.Header>
+	               <a onClick={this.close}><span className="close-modal">X</span></a>
+	               <Modal.Title>Olvido Contrasena</Modal.Title>
+	           </Modal.Header>
+	           <form>
+	               <Modal.Body>
+	                   <p style={{margin: "30px 0 0 80px"}}>Le enviaremos un email para cambiar la contrasena</p>
+	                   <Input type="text" id="reset-pass" placeholder="Email" value={this.state.email}
+	                   onChange={this.handleEmail}/>
+	               </Modal.Body>
+	               <hr/>
+	               <div className="footer-modal">
+	                   <Button onClick={this.close}>Cancelar</Button>
+	                   <Button type="submit" bsStyle="primary" onClick={this.resetPassword}>Enviar</Button>
+	               </div>
+	           </form>
+	       </Modal>
+	    </div>*/}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "forgotPassword.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(66);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(229);
+
+	var _SignupPanel = __webpack_require__(488);
 
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 
@@ -54336,7 +54500,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 487 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54509,23 +54673,77 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 488 */
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(66);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _forgotPassword = __webpack_require__(486);
+
+	var _forgotPassword2 = _interopRequireDefault(_forgotPassword);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ResetPassword = function (_Component) {
+	    _inherits(ResetPassword, _Component);
+
+	    function ResetPassword() {
+	        _classCallCheck(this, ResetPassword);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ResetPassword).apply(this, arguments));
+	    }
+
+	    _createClass(ResetPassword, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_forgotPassword2.default, null);
+	        }
+	    }]);
+
+	    return ResetPassword;
+	}(_react.Component);
+
+	exports.default = ResetPassword;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ResetPassword.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(489);
+	var content = __webpack_require__(491);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(493)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(489, function() {
-				var newContent = __webpack_require__(489);
+			module.hot.accept(491, function() {
+				var newContent = __webpack_require__(491);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54535,21 +54753,21 @@
 	}
 
 /***/ },
-/* 489 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(492)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n}\ninput:focus {\n    border-color: #929292;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff !important;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    float: left;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    margin-top: 80px;\n    margin-left: 450px;\n    margin-right: 450px;\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin-top: -22px;\n    margin-left: -2px;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: -15px;\n    text-decoration: underline;\n}\n\n/*.panels input:first-child {\n    margin-bottom: 28px;\n}*/\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -50px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\ntd>a:hover, td>a:active, td>a:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\ntd>a {\n    font-weight: bolder;\n}\n", ""]);
+	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n    padding-left: 22px !important;\n}\ninput:focus {\n    border-color: #929292;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff !important;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    float: left;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n    float: none;\n    margin: 80px auto;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin: -22px auto;\n    float:none;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    float:none;\n    margin: 60px auto;\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    margin-top: -15px;\n    text-decoration: underline;\n    cursor: pointer;\n}\n\n/*.panels input:first-child {\n    margin-bottom: 28px;\n}*/\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -50px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n    float: none;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\ntd>a:hover, td>a:active, td>a:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\ntd>a {\n    font-weight: bolder;\n}\n\n#reset-pass {\n    width: 400px;\n    margin-left: 80px;\n    margin-top: 30px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 490 */
+/* 492 */
 /***/ function(module, exports) {
 
 	/*
@@ -54605,7 +54823,7 @@
 
 
 /***/ },
-/* 491 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

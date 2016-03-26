@@ -11,6 +11,7 @@ input {
     outline: 0 !important;
     border: 2px solid #E3E3E3 !important;
     border-radius: 14px !important;
+    padding-left: 22px !important;
 }
 input:focus {
     border-color: #929292;
@@ -135,15 +136,14 @@ hr {
 }
 
 .panels {
-    margin-top: 80px;
-    margin-left: 450px;
-    margin-right: 450px;
     width: 520px;
     height: 555px;
     border: 3px solid;
     border-color: #F3F3F3;
     border-radius: 12px;
     text-align: center;
+    float: none;
+    margin: 80px auto;
 }
 .panel-title {
     width: 100%;
@@ -151,8 +151,8 @@ hr {
     margin-bottom: 70px;
     height: 64px;
     width: 518px;
-    margin-top: -22px;
-    margin-left: -2px;
+    margin: -22px auto;
+    float:none;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
@@ -162,6 +162,8 @@ hr {
     color: #5DC7C7;
 }
 .panel-content {
+    float:none;
+    margin: 60px auto;
     padding-right: 100px;
     padding-left: 100px;
 }
@@ -178,6 +180,7 @@ hr {
     margin-left: 150px;
     margin-top: -15px;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 /*.panels input:first-child {
@@ -214,6 +217,7 @@ hr {
     width: 615px;
     box-shadow: none;
     border: 2px solid #E3E3E3;
+    float: none;
 }
 .modal-header {
     background-color: #2C3E50;
@@ -302,4 +306,10 @@ td>a:hover, td>a:active, td>a:focus {
 }
 td>a {
     font-weight: bolder;
+}
+
+#reset-pass {
+    width: 400px;
+    margin-left: 80px;
+    margin-top: 30px;
 }

@@ -46,10 +46,12 @@ import Contacts from './pages/Contacts'
 import History from './pages/History'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ResetPassword from './pages/ResetPassword'
 const routes = (
     <Router>
         <Route path="login" component={Login} onEnter={unAuth} />
         <Route path="signup" component={Signup} onEnter={unAuth} />
+        <Route path="reset-password" component={ResetPassword} onEnter={unAuth} />
         <Route path="/" component={App} onEnter={requireAuth}>
             <IndexRoute component={Contacts} />
             <Route path="/history" component={History} />
