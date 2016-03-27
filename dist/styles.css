@@ -317,3 +317,13 @@ td>a {
         width: 1280px;
     }
 }
+
+#profile-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    color: #5DC7C7;
+}

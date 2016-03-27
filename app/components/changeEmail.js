@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
+import {browserHistory, Link} from 'react-router'
 import { FormControls, Input, Button } from 'react-bootstrap'
 
 export default class ChangeEmail extends Component {
@@ -11,7 +12,7 @@ export default class ChangeEmail extends Component {
             password: ''
         }
     }
-    changeEmail = () => {
+    changeUserEmail = () => {
         ref.changeEmail({
             oldEmail : this.state.currentEmail,
             newEmail : this.state.newEmail,
@@ -19,14 +20,15 @@ export default class ChangeEmail extends Component {
         }, function(error) {
             if (error === null) {
                 console.log("Email changed successfully");
+                browserHistory.push('/');
             } else {
                 console.log("Error changing email:", error);
             }
         });
     }
-    componentWillMount() {
-        const user = ref.getAuth();
-        this.setState({ currentEmail: user.password.email});
+    handleEmail = (e) => {
+        e.preventDefault();
+        this.setState({ currentEmail: e.target.value });
     }
     handleNewEmail = (e) => {
         e.preventDefault();
@@ -38,12 +40,14 @@ export default class ChangeEmail extends Component {
     }
     render() {
         return (
-            <form style={{margin: "40px 0 0 0"}}>
-                <FormControls.Static label="Email" value={this.state.currentEmail} />
-                <Input type="email" label="Nuevo Email" placeholder="Nuevo email" onChange={this.handleNewEmail} />
-                <Input type="password" label="Contrasena" onChange={this.handlePassword} />
-                <Button role="submit" bsStyle="primary" onClick={this.changeEmail}>Guardar</Button>
-            </form>
+            <div>
+                <form style={{margin: "40px 0 0 0"}}>
+                    <Input type="email" label="Email" onChange={this.handleEmail} />
+                    <Input type="email" label="Nuevo Email" onChange={this.handleNewEmail} />
+                    <Input type="password" label="Contrasena" onChange={this.handlePassword} />
+                    <Button role="button" bsStyle="primary" onClick={this.changeUserEmail}>Guardar</Button>
+                </form>
+            </div>
         )
     }
 }

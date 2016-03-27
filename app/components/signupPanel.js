@@ -58,7 +58,6 @@ export default class SignupPanel extends Component {
                         });
                         console.log('Authenticated successfully with payload:', authData);
                     }
-                    browserHistory.push('/');
                 }.bind(this));
             }
         }.bind(this));
