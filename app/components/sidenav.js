@@ -47,7 +47,7 @@ export default class SideNav extends Component{
     render() {
         return(
             <div className="sidenav">
-                <p id="sidenav-user-name">{this.state.name}</p>
+                <Link to="account"><p id="sidenav-user-name">{this.state.name}</p></Link>
                 <hr/>
                 <ul>
                     <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
