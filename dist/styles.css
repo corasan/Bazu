@@ -14,7 +14,7 @@ input {
     padding-left: 22px !important;
 }
 input:focus {
-    border-color: #929292;
+    border: 3px solid #a9dbea !important;
 }
 
 a, a:hover, a:active, a:focus {
