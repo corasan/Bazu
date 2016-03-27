@@ -174,18 +174,15 @@ hr {
     padding-left: 25px;
     margin-bottom: 30px;
 }
+
 #forgot-password {
     font-size: 12px;
     color: #5DC7C7;
     margin-left: 150px;
-    margin-top: -15px;
     text-decoration: underline;
     cursor: pointer;
 }
 
-/*.panels input:first-child {
-    margin-bottom: 28px;
-}*/
 #panels-signup {
     height: 600px;
 }
@@ -193,7 +190,7 @@ hr {
     margin-top: 35px;
 }
 #signup-footer {
-    margin-top: -50px;
+    margin-top: -60px;
 }
 .panel-foot hr {
     width: 400px;
@@ -246,7 +243,8 @@ hr {
 #note-modal {
     font-size: 12px;
     font-style: italic;
-    margin-left: 40px;
+    margin-left: 50px;
+    margin-top: 40px;
 }
 .footer-modal button.btn.btn-default {
     margin-right: 20px !important;
@@ -312,4 +310,10 @@ td>a {
     width: 400px;
     margin-left: 80px;
     margin-top: 30px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1280px;
+    }
 }

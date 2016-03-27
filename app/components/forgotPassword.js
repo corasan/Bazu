@@ -46,7 +46,7 @@ export default class ForgotPassword extends Component {
                         <hr/>
                         <h4 style={{margin: "0 0 50px 0"}}>
                             <Link to="login" style={{color: "#5DC7C7", cursor:"pointer"}}>
-                                Iniciar Sesion
+                                Login
                             </Link>
                         </h4>
                     </div>
@@ -55,26 +55,3 @@ export default class ForgotPassword extends Component {
         )
     }
 }
-
-{/*<div>
-    <p id="forgot-password" onClick={this.open}>Olvido la contrasena?</p>
-
-    <Modal show={this.state.showModal} onHide={this.close}>
-        <Modal.Header>
-            <a onClick={this.close}><span className="close-modal">X</span></a>
-            <Modal.Title>Olvido Contrasena</Modal.Title>
-        </Modal.Header>
-        <form>
-            <Modal.Body>
-                <p style={{margin: "30px 0 0 80px"}}>Le enviaremos un email para cambiar la contrasena</p>
-                <Input type="text" id="reset-pass" placeholder="Email" value={this.state.email}
-                onChange={this.handleEmail}/>
-            </Modal.Body>
-            <hr/>
-            <div className="footer-modal">
-                <Button onClick={this.close}>Cancelar</Button>
-                <Button type="submit" bsStyle="primary" onClick={this.resetPassword}>Enviar</Button>
-            </div>
-        </form>
-    </Modal>
-</div>*/}
