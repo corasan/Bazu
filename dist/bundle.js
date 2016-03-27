@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "efb358ae2655f0aa9a61"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3ac5079e38899959951e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -573,7 +573,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(492);
+	module.exports = __webpack_require__(494);
 
 
 /***/ },
@@ -622,15 +622,15 @@
 
 	var _Account2 = _interopRequireDefault(_Account);
 
-	var _Login = __webpack_require__(486);
+	var _Login = __webpack_require__(488);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Signup = __webpack_require__(489);
+	var _Signup = __webpack_require__(491);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
-	var _ResetPassword = __webpack_require__(491);
+	var _ResetPassword = __webpack_require__(493);
 
 	var _ResetPassword2 = _interopRequireDefault(_ResetPassword);
 
@@ -53388,9 +53388,13 @@
 	                'div',
 	                { className: 'sidenav' },
 	                _react2.default.createElement(
-	                    'p',
-	                    { id: 'sidenav-user-name' },
-	                    this.state.name
+	                    _reactRouter.Link,
+	                    { to: 'account' },
+	                    _react2.default.createElement(
+	                        'p',
+	                        { id: 'sidenav-user-name' },
+	                        this.state.name
+	                    )
 	                ),
 	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(
@@ -54123,9 +54127,21 @@
 
 	var _reactBootstrap = __webpack_require__(229);
 
-	var _ChangeEmail = __webpack_require__(485);
+	var _changeEmail = __webpack_require__(485);
 
-	var _ChangeEmail2 = _interopRequireDefault(_ChangeEmail);
+	var _changeEmail2 = _interopRequireDefault(_changeEmail);
+
+	var _profile = __webpack_require__(486);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _changePassword = __webpack_require__(487);
+
+	var _changePassword2 = _interopRequireDefault(_changePassword);
+
+	var _firebase = __webpack_require__(171);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54135,35 +54151,62 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+
 	var AccountProfile = function (_Component) {
 	    _inherits(AccountProfile, _Component);
 
-	    function AccountProfile() {
+	    function AccountProfile(props) {
 	        _classCallCheck(this, AccountProfile);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(AccountProfile).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AccountProfile).call(this, props));
+
+	        _this.state = {
+	            email: '',
+	            name: '',
+	            lastname: ''
+	        };
+	        return _this;
 	    }
 
 	    _createClass(AccountProfile, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            var user = ref.getAuth();
+	            ref.child('users').child(user.uid).on('value', function (data) {
+	                var userData = data.val();
+	                this.setState({ name: userData.firstname, lastname: userData.lastname, email: userData.email });
+	            }.bind(this));
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                _reactBootstrap.Tabs,
-	                { defaultActiveKey: 2 },
+	                'div',
+	                null,
 	                _react2.default.createElement(
-	                    _reactBootstrap.Tab,
-	                    { eventKey: 1, title: 'Perfil' },
-	                    'Tab 1 content'
+	                    'h3',
+	                    { id: 'profile-title' },
+	                    'Account'
 	                ),
 	                _react2.default.createElement(
-	                    _reactBootstrap.Tab,
-	                    { eventKey: 2, title: 'Cambiar Email' },
-	                    _react2.default.createElement(_ChangeEmail2.default, null)
-	                ),
-	                _react2.default.createElement(
-	                    _reactBootstrap.Tab,
-	                    { eventKey: 3, title: 'Cambiar Contrasena' },
-	                    'Tab 3 content'
+	                    _reactBootstrap.Tabs,
+	                    { defaultActiveKey: 1 },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Tab,
+	                        { eventKey: 1, title: 'Perfil' },
+	                        _react2.default.createElement(_profile2.default, { name: this.state.name, lastname: this.state.lastname, email: this.state.email })
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Tab,
+	                        { eventKey: 2, title: 'Cambiar Email' },
+	                        _react2.default.createElement(_changeEmail2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Tab,
+	                        { eventKey: 3, title: 'Cambiar Contrasena' },
+	                        _react2.default.createElement(_changePassword2.default, null)
+	                    )
 	                )
 	            );
 	        }
@@ -54195,6 +54238,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(172);
+
 	var _reactBootstrap = __webpack_require__(229);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -54215,7 +54260,7 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ChangeEmail).call(this, props));
 
-	        _this.changeEmail = function () {
+	        _this.changeUserEmail = function () {
 	            ref.changeEmail({
 	                oldEmail: _this.state.currentEmail,
 	                newEmail: _this.state.newEmail,
@@ -54223,10 +54268,16 @@
 	            }, function (error) {
 	                if (error === null) {
 	                    console.log("Email changed successfully");
+	                    _reactRouter.browserHistory.push('/');
 	                } else {
 	                    console.log("Error changing email:", error);
 	                }
 	            });
+	        };
+
+	        _this.handleEmail = function (e) {
+	            e.preventDefault();
+	            _this.setState({ currentEmail: e.target.value });
 	        };
 
 	        _this.handleNewEmail = function (e) {
@@ -54248,24 +54299,22 @@
 	    }
 
 	    _createClass(ChangeEmail, [{
-	        key: 'componentWillMount',
-	        value: function componentWillMount() {
-	            var user = ref.getAuth();
-	            this.setState({ currentEmail: user.password.email });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'form',
-	                { style: { margin: "40px 0 0 0" } },
-	                _react2.default.createElement(_reactBootstrap.FormControls.Static, { label: 'Email', value: this.state.currentEmail }),
-	                _react2.default.createElement(_reactBootstrap.Input, { type: 'email', label: 'Nuevo Email', placeholder: 'Nuevo email', onChange: this.handleNewEmail }),
-	                _react2.default.createElement(_reactBootstrap.Input, { type: 'password', label: 'Contrasena', onChange: this.handlePassword }),
+	                'div',
+	                null,
 	                _react2.default.createElement(
-	                    _reactBootstrap.Button,
-	                    { role: 'submit', bsStyle: 'primary', onClick: this.changeEmail },
-	                    'Guardar'
+	                    'form',
+	                    { style: { margin: "40px 0 0 0" } },
+	                    _react2.default.createElement(_reactBootstrap.Input, { type: 'email', label: 'Email', onChange: this.handleEmail }),
+	                    _react2.default.createElement(_reactBootstrap.Input, { type: 'email', label: 'Nuevo Email', onChange: this.handleNewEmail }),
+	                    _react2.default.createElement(_reactBootstrap.Input, { type: 'password', label: 'Contrasena', onChange: this.handlePassword }),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Button,
+	                        { role: 'button', bsStyle: 'primary', onClick: this.changeUserEmail },
+	                        'Guardar'
+	                    )
 	                )
 	            );
 	        }
@@ -54276,7 +54325,7 @@
 
 	exports.default = ChangeEmail;
 
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ChangeEmail.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "changeEmail.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
@@ -54297,9 +54346,173 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _firebase = __webpack_require__(171);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
 	var _reactBootstrap = __webpack_require__(229);
 
-	var _loginPanel = __webpack_require__(487);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new _firebase2.default('https://sms-react.firebaseio.com/');
+
+	var Profile = function (_Component) {
+	    _inherits(Profile, _Component);
+
+	    function Profile() {
+	        _classCallCheck(this, Profile);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Profile).apply(this, arguments));
+	    }
+
+	    _createClass(Profile, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'form',
+	                { style: { margin: "40px 0 0 0" } },
+	                _react2.default.createElement(_reactBootstrap.FormControls.Static, { label: 'Nombre', value: this.props.name + ' ' + this.props.lastname }),
+	                _react2.default.createElement(_reactBootstrap.FormControls.Static, { label: 'Email', value: this.props.email })
+	            );
+	        }
+	    }]);
+
+	    return Profile;
+	}(_react.Component);
+
+	exports.default = Profile;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "profile.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(66);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(229);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ref = new Firebase('https://sms-react.firebaseio.com/');
+
+	var ChangePassword = function (_Component) {
+	    _inherits(ChangePassword, _Component);
+
+	    function ChangePassword(props) {
+	        _classCallCheck(this, ChangePassword);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ChangePassword).call(this, props));
+
+	        _this.changePassword = function () {
+	            ref.changePassword({
+	                email: _this.props.email,
+	                password: _this.state.currenPassword,
+	                newPassword: _this.state.newPassword
+	            }, function (error) {
+	                if (error === null) {
+	                    console.log("Password changed successfully");
+	                    _reactBootstrap.browserHistory.push('/');
+	                } else {
+	                    console.log("Error changing password:", error);
+	                }
+	            });
+	        };
+
+	        _this.handleEmail = function (e) {
+	            e.preventDefault();
+	            _this.setState({ currentEmail: e.target.value });
+	        };
+
+	        _this.handleNewPassword = function (e) {
+	            e.preventDefault();
+	            _this.setState({ newPassword: e.target.value });
+	        };
+
+	        _this.handlePassword = function (e) {
+	            e.preventDefault();
+	            _this.setState({ currenPassword: e.target.value });
+	        };
+
+	        _this.state = {
+	            currentPassword: '',
+	            newPassword: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ChangePassword, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'form',
+	                { style: { margin: "40px 0 0 0" } },
+	                _react2.default.createElement(_reactBootstrap.Input, { type: 'email', label: 'Email', onChange: this.handleEmail }),
+	                _react2.default.createElement(_reactBootstrap.Input, { type: 'password', label: 'Contrasena', onChange: this.handleNewPassword }),
+	                _react2.default.createElement(_reactBootstrap.Input, { type: 'password', label: ' Nueva contrasena', onChange: this.handlePassword }),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Button,
+	                    { role: 'submit', bsStyle: 'primary', onClick: this.changeEmail },
+	                    'Guardar'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ChangePassword;
+	}(_react.Component);
+
+	exports.default = ChangePassword;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(474); if (makeExportsHot(module, __webpack_require__(66))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "changePassword.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(66);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrap = __webpack_require__(229);
+
+	var _loginPanel = __webpack_require__(489);
 
 	var _loginPanel2 = _interopRequireDefault(_loginPanel);
 
@@ -54336,7 +54549,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 487 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54361,7 +54574,7 @@
 
 	var _reactRouter = __webpack_require__(172);
 
-	var _forgotPassword = __webpack_require__(488);
+	var _forgotPassword = __webpack_require__(490);
 
 	var _forgotPassword2 = _interopRequireDefault(_forgotPassword);
 
@@ -54479,7 +54692,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 488 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54611,7 +54824,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 489 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54630,7 +54843,7 @@
 
 	var _reactBootstrap = __webpack_require__(229);
 
-	var _SignupPanel = __webpack_require__(490);
+	var _SignupPanel = __webpack_require__(492);
 
 	var _SignupPanel2 = _interopRequireDefault(_SignupPanel);
 
@@ -54667,7 +54880,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 490 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54750,7 +54963,6 @@
 	                            });
 	                            console.log('Authenticated successfully with payload:', authData);
 	                        }
-	                        _reactRouter.browserHistory.push('/');
 	                    }.bind(this));
 	                }
 	            }.bind(_this));
@@ -54840,7 +55052,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 491 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(3), RootInstanceProvider = __webpack_require__(11), ReactMount = __webpack_require__(13), React = __webpack_require__(66); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -54857,7 +55069,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _forgotPassword = __webpack_require__(488);
+	var _forgotPassword = __webpack_require__(490);
 
 	var _forgotPassword2 = _interopRequireDefault(_forgotPassword);
 
@@ -54894,23 +55106,23 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 492 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(493);
+	var content = __webpack_require__(495);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(495)(content, {});
+	var update = __webpack_require__(497)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(493, function() {
-				var newContent = __webpack_require__(493);
+			module.hot.accept(495, function() {
+				var newContent = __webpack_require__(495);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -54920,21 +55132,21 @@
 	}
 
 /***/ },
-/* 493 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(494)();
+	exports = module.exports = __webpack_require__(496)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n    padding-left: 22px !important;\n}\ninput:focus {\n    border: 3px solid #a9dbea !important;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff !important;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    float: left;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n    float: none;\n    margin: 80px auto;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin: -22px auto;\n    float:none;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    float:none;\n    margin: 60px auto;\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    text-decoration: underline;\n    cursor: pointer;\n}\n\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -60px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n    float: none;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 50px;\n    margin-top: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\ntd>a:hover, td>a:active, td>a:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\ntd>a {\n    font-weight: bolder;\n}\n\n#reset-pass {\n    width: 400px;\n    margin-left: 80px;\n    margin-top: 30px;\n}\n\n@media (min-width: 1200px) {\n    .container {\n        width: 1280px;\n    }\n}\n", ""]);
+	exports.push([module.id, "body {\n    color: #929292;\n    letter-spacing: 1.5px;\n}\n\nbutton {\n    outline: 0 !important;\n}\n\ninput {\n    outline: 0 !important;\n    border: 2px solid #E3E3E3 !important;\n    border-radius: 14px !important;\n    padding-left: 22px !important;\n}\ninput:focus {\n    border: 3px solid #a9dbea !important;\n}\n\na, a:hover, a:active, a:focus {\n    text-decoration: none;\n    color: #929292;\n}\n.link-btn, .link-btn:active, .link-btn:hover {\n    color: #fff !important;\n    text-decoration: none;\n}\n\nhr {\n    border: 1px solid #F3F3F3;\n}\n\n.app-content {\n    padding-top: 160px;\n    margin-left: 160px;\n    margin-right: 20px;\n    padding-left: 180px;\n    padding-right: 120px;\n}\n\n.navbar.navbar-default {\n    background-color: #2C3E50;\n    border: 0px;\n}\n.navbar {\n    padding-top: 12px;\n    padding-bottom: 4px;\n}\n.navbar-brand {\n    padding-top: 8px;\n    font-size: 24;\n    color: #5DC7C7 !important;\n    float: left;\n}\n\n.page-title {\n    text-align: center;\n    padding-bottom: 50px;\n}\n\n.sidenav {\n    height: 100%;\n    background: #fff;\n    width: 210px;\n    position: fixed;\n    border: 2px solid #F3F3F3;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n.sidenav #sidenav-user-name {\n    margin-top: 95px;\n    font-size: 18px;\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 50px;\n}\n.sidenav ul {\n    margin-top: 20px;\n}\n.sidenav li {\n    padding-left: 0px;\n    list-style-type: none;\n    font-size: 16px;\n    font-weight: 500;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    text-align: left;\n    margin-left: -30px;\n}\n\n.sidenav a {\n    text-decoration: none;\n    color: #929292;\n}\n.sidenav a:active, .sidenav a:hover, .sidenav a:focus  {\n    text-decoration: none;\n    color: #5DC7C7;\n}\n.sidenav .btn-primary {\n    width: 121px;\n    margin-top: 60px;\n    margin-left: 20px;\n}\n#logout-btn {\n    color: #fff;\n    margin-left: 15px;\n}\n\n.panel-body button.btn.btn-primary {\n    width: 100%;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    margin-bottom: 10px;\n}\n.btn.btn-primary {\n    background-color: #F1555A;\n    border: 0px;\n    font-size: 16;\n    border-radius: 25px;\n}\n.btn-primary:focus, .btn-primary:hover {\n    background-color: #FF3C42 !important;\n}\n.btn-primary:active {\n    background-color: #E23035\n}\n.btn-default {\n    background-color: #EBEBEB;\n    border: 0;\n    border-radius: 25px;\n    color: #929292;\n}\n.btn-default:focus, .btn-default:hover {\n    background-color: #F0F0F0;\n    color: #929292;\n}\n\n.panels {\n    width: 520px;\n    height: 555px;\n    border: 3px solid;\n    border-color: #F3F3F3;\n    border-radius: 12px;\n    text-align: center;\n    float: none;\n    margin: 80px auto;\n}\n.panel-title {\n    width: 100%;\n    background-color: #2C3E50;\n    margin-bottom: 70px;\n    height: 64px;\n    width: 518px;\n    margin: -22px auto;\n    float:none;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n}\n.panel-title h3 {\n    padding-top: 15px;\n    padding-bottom: 15px;\n    color: #5DC7C7;\n}\n.panel-content {\n    float:none;\n    margin: 60px auto;\n    padding-right: 100px;\n    padding-left: 100px;\n}\n.panels input {\n    border-radius: 16px;\n    width: 100%;\n    height: 35px;\n    padding-left: 25px;\n    margin-bottom: 30px;\n}\n\n#forgot-password {\n    font-size: 12px;\n    color: #5DC7C7;\n    margin-left: 150px;\n    text-decoration: underline;\n    cursor: pointer;\n}\n\n#panels-signup {\n    height: 600px;\n}\n.panel-foot h4 {\n    margin-top: 35px;\n}\n#signup-footer {\n    margin-top: -60px;\n}\n.panel-foot hr {\n    width: 400px;\n}\n.panel-foot.signup hr {\n    width: 400px;\n}\n\n.auth-btn {\n    width: 80%;\n    margin-top: 40px;\n    margin-bottom: 65px;\n    padding: 10px 50px 10px 50px;\n}\n\n.modal-dialog {\n    margin: 90px auto;\n}\n.modal-content {\n    border-radius: 14px;\n    width: 615px;\n    box-shadow: none;\n    border: 2px solid #E3E3E3;\n    float: none;\n}\n.modal-header {\n    background-color: #2C3E50;\n    border-top-left-radius: 12px;\n    border-top-right-radius: 12px;\n    margin-top: -2px;\n    color: #5DC7C7;\n    text-align: center;\n    width: 615px;\n    margin-left: -2px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n}\n.modal-title {\n    font-size: 24px;\n    width: 300px;\n    margin-top: -28px;\n    margin-left: 130px;\n}\n.close-modal {\n    color: #5DC7C7;\n    margin-left: 550px;\n    margin-bottom: 0;\n    cursor: pointer;\n}\n#note-modal {\n    font-size: 12px;\n    font-style: italic;\n    margin-left: 50px;\n    margin-top: 40px;\n}\n.footer-modal button.btn.btn-default {\n    margin-right: 20px !important;\n}\n.footer-modal {\n    margin-left: 280px;\n    margin-top: 40px;\n    margin-bottom: 50px;\n}\n.footer-modal button.btn {\n    font-size: 16px;\n    font-weight: bold;\n    height: 41px;\n    width: 130px;\n}\n.modal-content hr {\n    width: 430px;\n    margin-right: 100px\n}\n.modal-body form.contact-form {\n    padding-left: 100px;\n    padding-right: 100px;\n    margin-top: 30px;\n    margin-bottom: 40px;\n}\n\n.modal-body form.contact-form input {\n    margin-bottom: 30px;\n}\nbutton.btn {\n    font-weight: bold !important;\n    font-size: 14px !important;\n    height: 41px;\n}\ntextarea.form-control {\n    height: 190px;\n    width: 500px;\n    margin-left: 42px;\n    margin-top: 40px;\n    border-radius: 12px;\n    border: 3px solid #E3E3E3;\n    box-shadow: none;\n}\n#add-contact-btn {\n    height: 41px;\n    margin-bottom: 20px;\n}\n\n#messages-table td {\n    height: 100px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\ntd>a:hover, td>a:active, td>a:focus {\n    color: #F1555A;\n    cursor: pointer;\n}\ntd>a {\n    font-weight: bolder;\n}\n\n#reset-pass {\n    width: 400px;\n    margin-left: 80px;\n    margin-top: 30px;\n}\n\n@media (min-width: 1200px) {\n    .container {\n        width: 1280px;\n    }\n}\n\n#profile-title {\n    text-align: center;\n    margin-bottom: 50px;\n}\n\n.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus,\n.nav-tabs>li.active>a:hover {\n    color: #5DC7C7;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 494 */
+/* 496 */
 /***/ function(module, exports) {
 
 	/*
@@ -54990,7 +55202,7 @@
 
 
 /***/ },
-/* 495 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
