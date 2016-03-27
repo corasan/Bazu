@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3ac5079e38899959951e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "267fa7ba366b559818a0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -54953,15 +54953,16 @@
 	                        email: this.state.email,
 	                        password: this.state.password
 	                    }, function (error, authData) {
-	                        if (error) {
-	                            console.log("Login Failed!", error);
-	                        } else {
+	                        if (error === null) {
+	                            _reactRouter.browserHistory.push('/');
 	                            ref.child('users').child(authData.uid).set({
 	                                email: this.state.email,
 	                                firstname: this.state.firstname,
 	                                lastname: this.state.lastname
 	                            });
 	                            console.log('Authenticated successfully with payload:', authData);
+	                        } else {
+	                            console.log("Login Failed!", error);
 	                        }
 	                    }.bind(this));
 	                }
@@ -55014,13 +55015,9 @@
 	                            _react2.default.createElement('input', { type: 'email', placeholder: 'Email', onChange: this.handleEmail }),
 	                            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', onChange: this.handlePassword }),
 	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/', className: 'link-btn' },
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.Button,
-	                                    { type: 'button', bsStyle: 'primary', className: 'auth-btn', onClick: this.submitSignup },
-	                                    'Crear cuenta'
-	                                )
+	                                _reactBootstrap.Button,
+	                                { type: 'button', bsStyle: 'primary', className: 'auth-btn', onClick: this.submitSignup },
+	                                'Crear cuenta'
 	                            )
 	                        )
 	                    ),
