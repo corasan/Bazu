@@ -49,14 +49,17 @@ export default class SignupPanel extends Component {
                     email: this.state.email,
                     password: this.state.password
                 }, function(error, authData) {
-                    if (error) { console.log("Login Failed!", error); }
-                    else {
+                    if (error === null) {
+                        browserHistory.push('/');
                         ref.child('users').child(authData.uid).set({
                             email: this.state.email,
                             firstname: this.state.firstname,
                             lastname: this.state.lastname
                         });
                         console.log('Authenticated successfully with payload:', authData);
+                    }
+                    else {
+                        console.log("Login Failed!", error);
                     }
                 }.bind(this));
             }
@@ -73,11 +76,9 @@ export default class SignupPanel extends Component {
                             <input type="text" placeholder="Apellido" onChange={this.handleLastname} />
                             <input type="email" placeholder="Email" onChange={this.handleEmail} />
                             <input type="password" placeholder="Password" onChange={this.handlePassword} />
-                            <Link to="/" className="link-btn">
-                                <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitSignup}>
-                                    Crear cuenta
-                                </Button>
-                            </Link>
+                            <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitSignup}>
+                                Crear cuenta
+                            </Button>
                         </form>
                     </div>
                     <div className="panel-foot" id="signup-footer">
