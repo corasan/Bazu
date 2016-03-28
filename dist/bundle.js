@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "267fa7ba366b559818a0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "79c3e71a063f672d9862"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43226,6 +43226,7 @@
 
 	            var user = ref.getAuth();
 	            ref.child('messages').child(user.uid).push({
+	                autor: user.password.email,
 	                message: _this.state.message,
 	                date: month + '/' + day + '/' + year
 	            });

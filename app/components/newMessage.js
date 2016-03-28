@@ -48,8 +48,9 @@ export default class NewMessage extends Component{
 
         let user = ref.getAuth();
         ref.child('messages').child(user.uid).push({
+            autor: user.password.email,
             message: this.state.message,
-            date: `${month}/${day}/${year}`
+            date: `${month}/${day}/${year}`,
         });
     }
 
