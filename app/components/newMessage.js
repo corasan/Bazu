@@ -26,7 +26,6 @@ export default class NewMessage extends Component{
     handleMessage = (e) => {
         this.setState({message: e.target.value})
     }
-    // Sends the message to every contact to the server
     sendMessage = (e) => {
         e.preventDefault();
         for(let i in this.props.contacts) {
@@ -69,7 +68,7 @@ export default class NewMessage extends Component{
                     <form onSubmit={this.sendMessage}>
                         <Modal.Body>
                             <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
-                            <p id="note-modal">Nota: Este mensaje sera enviado automaticamente a sus contactos.</p>
+                            <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
                         </Modal.Body>
                         <hr/>
                         <div className="footer-modal">

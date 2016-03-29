@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "79c3e71a063f672d9862"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "45d261db56c37c3d2050"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43243,8 +43243,6 @@
 
 	    // Open modal
 
-	    // Sends the message to every contact to the server
-
 
 	    _createClass(NewMessage, [{
 	        key: 'render',
@@ -43288,7 +43286,7 @@
 	                            _react2.default.createElement(
 	                                'p',
 	                                { id: 'note-modal' },
-	                                'Nota: Este mensaje sera enviado automaticamente a sus contactos.'
+	                                'Este mensaje sera enviado automaticamente a sus contactos.'
 	                            )
 	                        ),
 	                        _react2.default.createElement('hr', null),
