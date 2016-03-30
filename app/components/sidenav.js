@@ -50,8 +50,8 @@ export default class SideNav extends Component{
                 <Link to="account"><p id="sidenav-user-name">{this.state.name}</p></Link>
                 <hr/>
                 <ul>
-                    <Link to="/"><li>Contactos</li><p>{this.state.contactsCount}</p></Link>
-                    <Link to="history"><li>Historial</li><p>{this.state.messagesCount}</p></Link>
+                    <Link to="/"><li>Contactos</li></Link>
+                    <Link to="history"><li>Historial</li></Link>
                     <Link to="account"><li>Account</li></Link>
                 </ul>
                 <Link to="login" className="link-btn">
