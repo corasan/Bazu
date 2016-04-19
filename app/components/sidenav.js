@@ -21,23 +21,23 @@ export default class SideNav extends Component{
         }.bind(this));
     }
 
-    counter(where) {
+    count(what) {
         let user = ref.getAuth();
-        ref.child(where).child(user.uid).on('value', function(data) {
+        ref.child(what).child(user.uid).on('value', function(data) {
             let counter = 0;
             for (let i in data.val()) { counter++ }
-            console.log(where, counter);
+            console.log(what, counter);
             return counter;
         });
     }
 
     componentWillMount() {
         this.setState({
-            messagesCount: this.counter('messages'),
-            contactsCount: this.counter('contacts'),
+            messagesCount: this.count('messages'),
+            contactsCount: this.count('contacts'),
             name: this.getName()
         });
-        console.log('Messages:', this.counter('messages'));
+        console.log('Messages:', this.count('messages'));
     }
 
     logout = () => {

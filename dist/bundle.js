@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "45d261db56c37c3d2050"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "39e62472248bd8d1520d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43228,7 +43228,7 @@
 	            ref.child('messages').child(user.uid).push({
 	                autor: user.password.email,
 	                message: _this.state.message,
-	                date: month + '/' + day + '/' + year
+	                date: month + 1 + '/' + day + '/' + year
 	            });
 	        };
 
@@ -53358,15 +53358,15 @@
 	            }.bind(this));
 	        }
 	    }, {
-	        key: 'counter',
-	        value: function counter(where) {
+	        key: 'count',
+	        value: function count(what) {
 	            var user = ref.getAuth();
-	            ref.child(where).child(user.uid).on('value', function (data) {
+	            ref.child(what).child(user.uid).on('value', function (data) {
 	                var counter = 0;
 	                for (var i in data.val()) {
 	                    counter++;
 	                }
-	                console.log(where, counter);
+	                console.log(what, counter);
 	                return counter;
 	            });
 	        }
@@ -53374,11 +53374,11 @@
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            this.setState({
-	                messagesCount: this.counter('messages'),
-	                contactsCount: this.counter('contacts'),
+	                messagesCount: this.count('messages'),
+	                contactsCount: this.count('contacts'),
 	                name: this.getName()
 	            });
-	            console.log('Messages:', this.counter('messages'));
+	            console.log('Messages:', this.count('messages'));
 	        }
 	    }, {
 	        key: 'render',
@@ -53406,11 +53406,6 @@
 	                            'li',
 	                            null,
 	                            'Contactos'
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            this.state.contactsCount
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -53420,11 +53415,6 @@
 	                            'li',
 	                            null,
 	                            'Historial'
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            this.state.messagesCount
 	                        )
 	                    ),
 	                    _react2.default.createElement(
