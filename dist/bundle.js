@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "39e62472248bd8d1520d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3fc0735b25a662636cb7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43205,12 +43205,30 @@
 	            _this.setState({ message: e.target.value });
 	        };
 
+	        _this.handleImageChange = function (e) {
+	            e.preventDefault();
+
+	            var reader = new FileReader();
+	            var file = e.target.files[0];
+
+	            reader.onloadend = function () {
+	                _this.setState({
+	                    file: file,
+	                    imagePreviewUrl: reader.result
+	                });
+	            };
+
+	            reader.readAsDataURL(file);
+	        };
+
 	        _this.sendMessage = function (e) {
 	            e.preventDefault();
+	            console.log(_this.state.file);
 	            for (var i in _this.props.contacts) {
 	                _jquery2.default.post('/', {
 	                    number: _this.props.contacts[i].number,
-	                    message: _this.state.message
+	                    message: _this.state.message,
+	                    file: _this.state.file
 	                });
 	            }
 	            _this.close();
@@ -43235,7 +43253,8 @@
 	        _this.state = {
 	            showModal: false,
 	            message: '',
-	            contacts: {}
+	            contacts: {},
+	            file: ''
 	        };
 	        return _this;
 	    }
@@ -43289,6 +43308,7 @@
 	                                'Este mensaje sera enviado automaticamente a sus contactos.'
 	                            )
 	                        ),
+	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'file', onChange: this.handleImageChange }),
 	                        _react2.default.createElement('hr', null),
 	                        _react2.default.createElement(
 	                            'div',

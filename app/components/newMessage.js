@@ -11,7 +11,8 @@ export default class NewMessage extends Component{
         this.state = {
             showModal: false,
             message: '',
-            contacts: {}
+            contacts: {},
+            file: ''
         }
     }
     // Close modal
@@ -26,12 +27,31 @@ export default class NewMessage extends Component{
     handleMessage = (e) => {
         this.setState({message: e.target.value})
     }
+
+    handleImageChange = (e) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
+    }
+
     sendMessage = (e) => {
         e.preventDefault();
+        console.log(this.state.file);
         for(let i in this.props.contacts) {
             $.post('/', {
                 number: this.props.contacts[i].number,
-                message: this.state.message
+                message: this.state.message,
+                file: this.state.file
             });
         }
         this.close();
@@ -67,9 +87,11 @@ export default class NewMessage extends Component{
                     </Modal.Header>
                     <form onSubmit={this.sendMessage}>
                         <Modal.Body>
-                            <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
-                            <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
+                        <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
+                        <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
                         </Modal.Body>
+
+                        <Input type="file" onChange={this.handleImageChange}/>
                         <hr/>
                         <div className="footer-modal">
                             <Button onClick={this.close}>Cancelar</Button>

@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var plivo = require('plivo');
+// var plivo = require('plivo');
 
 var app = express();
 
@@ -16,25 +16,29 @@ app.get('*', function(req, res) {
 
 // Load environment variables
 require('dotenv').config();
-const authId = process.env.PLIVO_AUTH_ID;
-const authToken = process.env.PLIVO_AUTH_TOKEN;
-const plivoNumber = process.env.PLIVO_NUMBER;
-// Receives data from client and sends the message using Plivo
-var p = plivo.RestAPI({authId: authId, authToken: authToken});
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioNumber = process.env.TWILIO_NUMBER;
+const client = require('twilio')(accountSid, authToken);
+
 app.post('/', function(req, res) {
     console.log(req.url);
-    p.send_message({
-        src: plivoNumber,
-    	dst: '1'+req.body.number,
-        text: req.body.message,
-    }, function(status, response) {
-        console.log('Status:', status);
-        console.log('API Response:\n', response);
-        res.end();
+    client.messages.create({
+        from: twilioNumber,
+    	to: '1'+req.body.number,
+        body: req.body.message,
+    }, function(err, message) {
+        if(err) {
+            console.log('Error!', err);
+            res.end();
+        } else {
+            console.log('Message SID:', message.sid);
+            res.end();
+        }
     });
 });
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, function(error) {
     if(error) {
         console.log('Error with server.', error);
