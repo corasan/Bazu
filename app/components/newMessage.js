@@ -46,17 +46,30 @@ export default class NewMessage extends Component{
 
     sendMessage = (e) => {
         e.preventDefault();
+        // console.log(this.state.file);
+        // for(let i in this.props.contacts) {
+        //     $.post('/', {
+        //         number: this.props.contacts[i].number,
+        //         message: this.state.message,
+        //         file: this.state.file
+        //     });
+        // }
+        // this.close();
+        // this.saveMessage();
+        // this.setState({message: ''});
+        let imageFormData = new FormData();
+        console.log('hai');
+        imageFormData.set('imageFile', this.state.file);
+        console.log(imageFormData);
         console.log(this.state.file);
-        for(let i in this.props.contacts) {
-            $.post('/', {
-                number: this.props.contacts[i].number,
-                message: this.state.message,
-                file: this.state.file
-            });
-        }
-        this.close();
-        this.saveMessage();
-        this.setState({message: ''});
+        console.log(imageFormData.get('imageFile'));
+        $.post( "/", { name: imageFormData.get('imageFile').value })
+        .done(function(data) {
+            console.log("data", data);
+        })
+        .fail(function(err) {
+            console.log("error", err.statusText);
+        });
     }
 
     saveMessage = () => {
@@ -67,7 +80,7 @@ export default class NewMessage extends Component{
 
         let user = ref.getAuth();
         ref.child('messages').child(user.uid).push({
-            autor: user.password.email,
+            author: user.password.email,
             message: this.state.message,
             date: `${month+1}/${day}/${year}`,
         });
@@ -76,29 +89,29 @@ export default class NewMessage extends Component{
     render() {
         return(
             <div>
-                <Button bsStyle="primary" onClick={this.open}>
-                    Nuevo mensaje
-                </Button>
+              <Button bsStyle="primary" onClick={this.open}>
+                Nuevo mensaje
+              </Button>
 
-                <Modal show={this.state.showModal} onHide={this.close}>
-                    <Modal.Header>
-                        <a onClick={this.close}><span className="close-modal">X</span></a>
-                        <Modal.Title>Nuevo mensaje</Modal.Title>
-                    </Modal.Header>
-                    <form onSubmit={this.sendMessage}>
-                        <Modal.Body>
-                        <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
-                        <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
-                        </Modal.Body>
+              <Modal show={this.state.showModal} onHide={this.close}>
+                <Modal.Header>
+                  <a onClick={this.close}><span className="close-modal">X</span></a>
+                  <Modal.Title>Nuevo mensaje</Modal.Title>
+                </Modal.Header>
+                <form method="post" encType="multipart/form-data" action="/upload">
+                  <Modal.Body>
+                    <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
+                    <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
+                  </Modal.Body>
 
-                        <Input type="file" onChange={this.handleImageChange}/>
-                        <hr/>
-                        <div className="footer-modal">
-                            <Button onClick={this.close}>Cancelar</Button>
-                            <Button type="submit" bsStyle="primary">Enviar</Button>
-                        </div>
-                    </form>
-                </Modal>
+                  <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
+                  <hr/>
+                  <div className="footer-modal">
+                    <Button onClick={this.close}>Cancelar</Button>
+                    <Button type="submit" bsStyle="primary">Enviar</Button>
+                  </div>
+                </form>
+              </Modal>
             </div>
         )
     }
