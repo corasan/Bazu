@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "366d7c2b1c045cb42531"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d00ada57b73f46b382ca"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -707,6 +707,13 @@
 	    }
 	}
 
+	function uploadRedirect(nextState, replace) {
+	    replace({
+	        pathname: '/',
+	        state: { nextPathname: nextState.location.pathname }
+	    });
+	}
+
 	var routes = _react2.default.createElement(
 	    _reactRouter.Router,
 	    null,
@@ -719,8 +726,7 @@
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Contacts2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/history', component: _History2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/account', component: _Account2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'upload' }),
-	        _react2.default.createElement(_reactRouter.Redirect, { from: 'upload', to: '/' })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'upload', onEnter: uploadRedirect })
 	    )
 	);
 

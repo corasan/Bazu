@@ -42,6 +42,13 @@ function unAuth(nextState, replace) {
     }
 }
 
+function uploadRedirect(nextState, replace) {
+	replace({
+		pathname: '/',
+		state: { nextPathname: nextState.location.pathname }
+	});
+}
+
 import Contacts from './pages/Contacts'
 import History from './pages/History'
 import AccountProfile from './pages/Account'
@@ -57,8 +64,7 @@ const routes = (
         <IndexRoute component={Contacts} />
         <Route path="/history" component={History} />
         <Route path="/account" component={AccountProfile} />
-        <Route path="upload" />
-        <Redirect from="upload" to="/"/>
+        <Route path="upload" onEnter={uploadRedirect}/>
       </Route>
     </Router>
 )
