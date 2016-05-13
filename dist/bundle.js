@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2a2ffd814730461f16d2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7aef33800659f97d75ae"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43252,7 +43252,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'form',
-	                        { method: 'post', action: '/upload' },
+	                        { method: 'post', encType: 'multipart/form-data', action: '/upload' },
 	                        _react2.default.createElement(
 	                            _reactBootstrap.Modal.Body,
 	                            null,
