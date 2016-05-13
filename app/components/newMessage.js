@@ -100,7 +100,7 @@ export default class NewMessage extends Component{
                   <a onClick={this.close}><span className="close-modal">X</span></a>
                   <Modal.Title>Nuevo mensaje</Modal.Title>
                 </Modal.Header>
-                <form method="post" encType="multipart/form-data" action="/upload">
+                <form method="post" action="/upload">
                   <Modal.Body>
                     <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
                     <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
