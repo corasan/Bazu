@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "mkdir dist/uploads && node server.js",
+    "start": "rm -rf dist/uploads && mkdir dist/uploads && node server.js",
     "dev": "webpack && node devServer.js"
   },
   "author": "corasan",
