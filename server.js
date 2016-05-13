@@ -28,7 +28,7 @@ var storage = multer.diskStorage({
         cb(null, './dist/uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}.jpeg`);
+        cb(null, `${file.fieldname}-${Date.now()}.png`);
     }
 });
 var upload = multer({ storage: storage });
@@ -36,7 +36,7 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
-    res.set('Content-Type', 'image/jpeg')
+    res.set('Content-Type', 'image/png');
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
         var data = dataSnapshot.val();
         for(var i in data) {
@@ -55,7 +55,6 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
             });
         }
     }).then(function() {
-        res.send('<img src="https://bazu-app.herokuapp.com/dist/uploads/imageFile-1463163422238.jpeg"/>');
         res.end();
     });
     // res.type('png');
