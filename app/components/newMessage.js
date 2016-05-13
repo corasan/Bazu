@@ -8,11 +8,13 @@ const ref = new Firebase('https://sms-react.firebaseio.com/');
 export default class NewMessage extends Component{
     constructor(props) {
         super(props);
+        let user = ref.getAuth();
         this.state = {
             showModal: false,
             message: '',
             contacts: {},
-            file: ''
+            file: '',
+            userID: user.uid
         }
     }
     // Close modal
@@ -63,13 +65,13 @@ export default class NewMessage extends Component{
         console.log(imageFormData);
         console.log(this.state.file);
         console.log(imageFormData.get('imageFile'));
-        $.post( "/", { name: imageFormData.get('imageFile').value })
-        .done(function(data) {
-            console.log("data", data);
-        })
-        .fail(function(err) {
-            console.log("error", err.statusText);
-        });
+        for(let i in this.props.contacts) {
+            $.post( "/upload", {
+                name: imageFormData.get('imageFile').value,
+                number: this.props.contacts[i].number,
+                message: this.state.message,
+            });
+        }
     }
 
     saveMessage = () => {
@@ -102,6 +104,7 @@ export default class NewMessage extends Component{
                   <Modal.Body>
                     <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
                     <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
+                    <Input type="text" value={this.state.userID} name="userID" hidden/>
                   </Modal.Body>
 
                   <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
