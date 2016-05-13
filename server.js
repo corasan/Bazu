@@ -36,6 +36,7 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
+    res.set('Content-type', 'jpeg');
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
         var data = dataSnapshot.val();
         for(var i in data) {
