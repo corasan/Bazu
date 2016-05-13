@@ -28,7 +28,7 @@ var storage = multer.diskStorage({
         cb(null, './dist/uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}.png`);
+        cb(null, `${file.fieldname}-${Date.now()}.jpeg`);
     }
 });
 var upload = multer({ storage: storage });
