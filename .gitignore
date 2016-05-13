@@ -2,3 +2,4 @@ node_modules
 config.js
 .env
 uploads/*.jpeg
+uploads/*.png
