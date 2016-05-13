@@ -25,7 +25,7 @@ const client = require('twilio')(accountSid, authToken);
 // Multer function to store uploaded images
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads');
+        cb(null, './dist/uploads');
     },
     filename: function (req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}.jpeg`);
@@ -44,7 +44,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: req.body.message,
-                mediaUrl: `http://localhost:3000/uploads/${file}`
+                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
@@ -54,7 +54,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
             });
         }
     }).then(function() {
-        res.send('<img src="http://localhost:3000/uploads/imageFile-1463163422238.jpeg"/>');
+        res.send('<img src="https://bazu-app.herokuapp.com/dist/uploads/imageFile-1463163422238.jpeg"/>');
         res.end();
     });
 });
