@@ -46,7 +46,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 to: '1'+data[i].number,
                 body: req.body.message,
                 mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`,
-                mediaContentType: 'image/png'
+                mediaContentType: 'png'
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
