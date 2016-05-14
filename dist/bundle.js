@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8a15b1632821f27e81e7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b75bfb4c3a73b61251ff"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43262,7 +43262,8 @@
 	                                'p',
 	                                { id: 'note-modal' },
 	                                'Este mensaje sera enviado automaticamente a sus contactos.'
-	                            )
+	                            ),
+	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'text', value: this.state.userID, name: 'userID', hidden: true })
 	                        ),
 	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'file', name: 'imageFile', onChange: this.handleImageChange }),
 	                        _react2.default.createElement('hr', null),
