@@ -37,6 +37,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
     console.log(req.file.mimetype);
+    console.log(req.file.filename);
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
         res.set('Content-Type', 'image/png');
         var data = dataSnapshot.val();
