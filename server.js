@@ -36,29 +36,35 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
-    ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
-        res.set('Content-Type', 'image/png');
-        var data = dataSnapshot.val();
-        for(var i in data) {
-            // console.log(file);
-            client.messages.create({
-                from: twilioNumber,
-                to: '1'+data[i].number,
-                body: req.body.message,
-                mediaContentType: 'image/png',
-                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-            }, function(err, message) {
-                if(err) {
-                    console.log('Error!', err);
-                } else {
-                    console.log('Message SID:', message.sid);
-                }
-            });
-        }
-    }).then(function() {
-        res.end();
-    });
-    // res.type('png');
+    console.log(req.file.mimetype);
+    // .then(function() {
+    //     res.end();
+    // });
+    return file;
+})
+.then(function(file) {
+    app.post('/send'), function(req, res) {
+        ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
+            res.set('Content-Type', 'image/png');
+            var data = dataSnapshot.val();
+            for(var i in data) {
+                client.messages.create({
+                    from: twilioNumber,
+                    to: '1'+data[i].number,
+                    // body: req.body.message,
+                    mediaContentType: 'image/png',
+                    mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                    // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+                }, function(err, message) {
+                    if(err) {
+                        console.log('Error!', err);
+                    } else {
+                        console.log('Message SID:', message.sid);
+                    }
+                });
+            }
+        });
+    }
 });
 
 

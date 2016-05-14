@@ -91,30 +91,28 @@ export default class NewMessage extends Component{
     render() {
         return(
             <div>
-              <Button bsStyle="primary" onClick={this.open}>
-                Nuevo mensaje
-              </Button>
+                <Button bsStyle="primary" onClick={this.open}>
+                    Nuevo mensaje
+                </Button>
 
-              <Modal show={this.state.showModal} onHide={this.close}>
-                <Modal.Header>
-                  <a onClick={this.close}><span className="close-modal">X</span></a>
-                  <Modal.Title>Nuevo mensaje</Modal.Title>
-                </Modal.Header>
-                <form method="post" encType="multipart/form-data" action="/upload">
-                  <Modal.Body>
-                    <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
-                    <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
-                    <Input type="text" value={this.state.userID} name="userID" hidden/>
-                  </Modal.Body>
-
-                  <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
-                  <hr/>
-                  <div className="footer-modal">
-                    <Button onClick={this.close}>Cancelar</Button>
-                    <Button type="submit" bsStyle="primary">Enviar</Button>
-                  </div>
-                </form>
-              </Modal>
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header>
+                        <a onClick={this.close}><span className="close-modal">X</span></a>
+                        <Modal.Title>Nuevo mensaje</Modal.Title>
+                    </Modal.Header>
+                    <form method="post" encType="multipart/form-data" action="/upload">
+                        <Modal.Body>
+                            <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
+                            <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
+                        </Modal.Body>
+                        <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
+                        <hr/>
+                        <div className="footer-modal">
+                            <Button onClick={this.close}>Cancelar</Button>
+                            <Button type="submit" bsStyle="primary">Enviar</Button>
+                        </div>
+                    </form>
+                </Modal>
             </div>
         )
     }

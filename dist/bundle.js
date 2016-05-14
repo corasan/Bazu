@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7aef33800659f97d75ae"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8a15b1632821f27e81e7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -715,7 +715,8 @@
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Contacts2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/history', component: _History2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/account', component: _Account2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'upload', onEnter: uploadRedirect })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/upload', onEnter: uploadRedirect }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/send' })
 	    )
 	);
 
@@ -43261,8 +43262,7 @@
 	                                'p',
 	                                { id: 'note-modal' },
 	                                'Este mensaje sera enviado automaticamente a sus contactos.'
-	                            ),
-	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'text', value: this.state.userID, name: 'userID', hidden: true })
+	                            )
 	                        ),
 	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'file', name: 'imageFile', onChange: this.handleImageChange }),
 	                        _react2.default.createElement('hr', null),
