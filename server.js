@@ -37,26 +37,37 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
+function saveMessage(uid, email, fileName) {
+    var date = new Date();
+    var day = date.getDate(),
+        month = date.getMonth(),
+        year = date.getFullYear();
+
+    ref.child('messages').child(uid).push({
+        author: email,
+        message: fileName,
+        date: `${month+1}/${day}/${year}`,
+    });
+}
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     // res.setHeader('Content-Type', 'image/png');
-    var user = ref.getAuth();
     var file = req.file.filename;
     var body = req.body.message;
+    var uid = req.body.userID;
+    var email = req.body.email;
+
     req.file.mimetype = 'image/jpg';
     console.log(req.file.mimetype);
-    ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
+    ref.child('contacts').child(uid).once('value').then(function(dataSnapshot) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
-        // res.set('Content-Type', 'image/png');
         for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: body,
                 mediaUrl: `https://bazu-app.herokuapp.com/${file}`
-                // mediaUrl: `http://localhost:3000/uploads/${file}`
-                // mediaUrl: 'http://i.imgur.com/D8raCRM.jpg'
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
@@ -64,6 +75,8 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                     console.log('Message SID:', message.sid);
                 }
             });
+            //TODO This doesnt work!!! FIXMEE!
+            saveMessage(uid, email, file);
         }
     });
     res.redirect('/');

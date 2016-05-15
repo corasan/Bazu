@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5162904d641dbad7c81a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b30999f71e3bf8b2b9d5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43196,7 +43196,32 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NewMessage).call(this, props));
 
-	        _initialiseProps.call(_this);
+	        _this.close = function () {
+	            _this.setState({ showModal: false });
+	        };
+
+	        _this.open = function () {
+	            _this.setState({ showModal: true });
+	        };
+
+	        _this.handleMessage = function (e) {
+	            _this.setState({ message: e.target.value });
+	        };
+
+	        _this.handleImageChange = function (e) {
+	            e.preventDefault();
+
+	            var reader = new FileReader();
+	            var file = e.target.files[0];
+
+	            reader.onloadend = function () {
+	                _this.setState({
+	                    file: file,
+	                    imagePreviewUrl: reader.result
+	                });
+	            };
+	            reader.readAsDataURL(file);
+	        };
 
 	        var user = ref.getAuth();
 	        _this.state = {
@@ -43204,7 +43229,8 @@
 	            message: '',
 	            contacts: {},
 	            file: '',
-	            userID: user.uid
+	            userID: user.uid,
+	            email: user.password.email
 	        };
 	        return _this;
 	    }
@@ -43257,7 +43283,8 @@
 	                                { id: 'note-modal' },
 	                                'Este mensaje sera enviado automaticamente a sus contactos.'
 	                            ),
-	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'text', value: this.state.userID, name: 'userID', hidden: true })
+	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'text', value: this.state.userID, name: 'userID', hidden: 'true' }),
+	                            _react2.default.createElement(_reactBootstrap.Input, { type: 'text', value: this.state.email, name: 'userEmail', hidden: 'true' })
 	                        ),
 	                        _react2.default.createElement(_reactBootstrap.Input, { type: 'file', name: 'imageFile', onChange: this.handleImageChange }),
 	                        _react2.default.createElement('hr', null),
@@ -43283,80 +43310,6 @@
 
 	    return NewMessage;
 	}(_react.Component);
-
-	var _initialiseProps = function _initialiseProps() {
-	    var _this2 = this;
-
-	    this.close = function () {
-	        _this2.setState({ showModal: false });
-	    };
-
-	    this.open = function () {
-	        _this2.setState({ showModal: true });
-	    };
-
-	    this.handleMessage = function (e) {
-	        _this2.setState({ message: e.target.value });
-	    };
-
-	    this.handleImageChange = function (e) {
-	        e.preventDefault();
-
-	        var reader = new FileReader();
-	        var file = e.target.files[0];
-
-	        reader.onloadend = function () {
-	            _this2.setState({
-	                file: file,
-	                imagePreviewUrl: reader.result
-	            });
-	        };
-
-	        reader.readAsDataURL(file);
-	    };
-
-	    this.sendMessage = function (e) {
-	        e.preventDefault();
-	        // console.log(this.state.file);
-	        // for(let i in this.props.contacts) {
-	        //     $.post('/', {
-	        //         number: this.props.contacts[i].number,
-	        //         message: this.state.message,
-	        //         file: this.state.file
-	        //     });
-	        // }
-	        // this.close();
-	        // this.saveMessage();
-	        // this.setState({message: ''});
-	        var imageFormData = new FormData();
-	        console.log('hai');
-	        imageFormData.set('imageFile', _this2.state.file);
-	        console.log(imageFormData);
-	        console.log(_this2.state.file);
-	        console.log(imageFormData.get('imageFile'));
-	        for (var i in _this2.props.contacts) {
-	            _jquery2.default.post("/upload", {
-	                name: imageFormData.get('imageFile').value,
-	                number: _this2.props.contacts[i].number,
-	                message: _this2.state.message
-	            });
-	        }
-	    };
-
-	    this.saveMessage = function () {
-	        var date = new Date();
-	        var day = date.getDate(),
-	            month = date.getMonth(),
-	            year = date.getFullYear();
-
-	        var user = ref.getAuth();
-	        ref.child('messages').child(user.uid).push({
-	            author: user.password.email,
-	            message: _this2.state.message,
-	            date: month + 1 + '/' + day + '/' + year
-	        });
-	    };
-	};
 
 	exports.default = NewMessage;
 

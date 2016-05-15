@@ -14,7 +14,8 @@ export default class NewMessage extends Component{
             message: '',
             contacts: {},
             file: '',
-            userID: user.uid
+            userID: user.uid,
+            email: user.password.email
         }
     }
     // Close modal
@@ -42,50 +43,7 @@ export default class NewMessage extends Component{
                 imagePreviewUrl: reader.result
             });
         }
-
         reader.readAsDataURL(file)
-    }
-
-    sendMessage = (e) => {
-        e.preventDefault();
-        // console.log(this.state.file);
-        // for(let i in this.props.contacts) {
-        //     $.post('/', {
-        //         number: this.props.contacts[i].number,
-        //         message: this.state.message,
-        //         file: this.state.file
-        //     });
-        // }
-        // this.close();
-        // this.saveMessage();
-        // this.setState({message: ''});
-        let imageFormData = new FormData();
-        console.log('hai');
-        imageFormData.set('imageFile', this.state.file);
-        console.log(imageFormData);
-        console.log(this.state.file);
-        console.log(imageFormData.get('imageFile'));
-        for(let i in this.props.contacts) {
-            $.post( "/upload", {
-                name: imageFormData.get('imageFile').value,
-                number: this.props.contacts[i].number,
-                message: this.state.message,
-            });
-        }
-    }
-
-    saveMessage = () => {
-        let date = new Date();
-        let day = date.getDate(),
-            month = date.getMonth(),
-            year = date.getFullYear();
-
-        let user = ref.getAuth();
-        ref.child('messages').child(user.uid).push({
-            author: user.password.email,
-            message: this.state.message,
-            date: `${month+1}/${day}/${year}`,
-        });
     }
 
     render() {
@@ -104,7 +62,8 @@ export default class NewMessage extends Component{
                         <Modal.Body>
                             <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
                             <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
-                            <Input type="text" value={this.state.userID} name="userID" hidden/>
+                            <Input type="text" value={this.state.userID} name="userID" hidden="true"/>
+                            <Input type="text" value={this.state.email} name="userEmail" hidden="true"/>
                         </Modal.Body>
                         <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
                         <hr/>
