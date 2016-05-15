@@ -38,7 +38,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
-    res.setHeader('Content-Type', 'image/png');
+    // res.setHeader('Content-Type', 'image/png');
     var user = ref.getAuth();
     var file = req.file.filename;
     var body = req.body.message;
