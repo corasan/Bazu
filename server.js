@@ -43,13 +43,11 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
-        res.type('png');
         for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: body,
-                mediaContentType: 'image/png',
                 mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
                 // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
             }, function(err, message) {
@@ -61,6 +59,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
             });
         }
     }).then(function() {
+        res.set('Content-Type', 'image/png');
         res.end();
     });
 });
