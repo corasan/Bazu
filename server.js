@@ -65,6 +65,9 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     res.redirect('/');
 });
 
+app.get('/image', function(req, res) {
+    res.send('<img src="imageFile-1463349412127.png" />');
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, function(error) {
