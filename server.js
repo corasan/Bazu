@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer  = require('multer');
-// var upload = multer({ dest: 'dist/uploads/' });
 var Firebase = require('firebase');
 var ref = new Firebase('https://sms-react.firebaseio.com/');
 var app = express();
@@ -36,6 +35,7 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
+    var body = req.body.message;
     req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
     console.log(req.file.filename);
@@ -43,22 +43,24 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
-        for(var i in data) {
-            client.messages.create({
-                from: twilioNumber,
-                to: '1'+data[i].number,
-                body: req.body.message,
-                mediaContentType: 'image/png',
-                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
-            }, function(err, message) {
-                if(err) {
-                    console.log('Error!', err);
-                } else {
-                    console.log('Message SID:', message.sid);
-                }
-            });
-        }
+        app.post('/upload', function(req, res) {
+            for(var i in data) {
+                client.messages.create({
+                    from: twilioNumber,
+                    to: '1'+data[i].number,
+                    body: body,
+                    mediaContentType: 'image/png',
+                    mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                    // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+                }, function(err, message) {
+                    if(err) {
+                        console.log('Error!', err);
+                    } else {
+                        console.log('Message SID:', message.sid);
+                    }
+                });
+            }
+        });
     }).then(function() {
         res.end();
     });
