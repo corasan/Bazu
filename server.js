@@ -39,31 +39,31 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
     console.log(req.file.filename);
-    ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
-        var dataSnap = dataSnapshot.val();
-        return dataSnap;
-    }).then(function(data) {
-        app.post('/upload', function(req, res) {
-            for(var i in data) {
-                client.messages.create({
-                    from: twilioNumber,
-                    to: '1'+data[i].number,
-                    body: body,
-                    mediaContentType: 'image/png',
-                    mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                    // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
-                }, function(err, message) {
-                    if(err) {
-                        console.log('Error!', err);
-                    } else {
-                        console.log('Message SID:', message.sid);
-                    }
-                });
-            }
-        });
-    }).then(function() {
-        res.end();
-    });
+    // ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
+    //     var dataSnap = dataSnapshot.val();
+    //     return dataSnap;
+    // }).then(function(data) {
+    //     for(var i in data) {
+            client.messages.create({
+                from: twilioNumber,
+                // to: '1'+data[i].number,
+                to: '13476396781',
+                body: body,
+                mediaContentType: 'image/png',
+                // mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+            }, function(err, message) {
+                if(err) {
+                    console.log('Error!', err);
+                } else {
+                    console.log('Message SID:', message.sid);
+                    res.end();
+                }
+            });
+    //     }
+    // }).then(function() {
+    //     res.end();
+    // });
 });
 
 
