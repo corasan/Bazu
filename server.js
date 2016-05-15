@@ -50,8 +50,8 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: body,
-                // mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                mediaUrl: `http://localhost:3000/uploads/${file}`
+                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                // mediaUrl: `http://localhost:3000/uploads/${file}`
                 // mediaUrl: 'http://i.imgur.com/D8raCRM.jpg'
             }, function(err, message) {
                 if(err) {
