@@ -36,19 +36,21 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
+    req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
     console.log(req.file.filename);
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
-        res.set('Content-Type', 'image/png');
-        var data = dataSnapshot.val();
+        var dataSnap = dataSnapshot.val();
+        return dataSnap;
+    }).then(function(data) {
         for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: req.body.message,
                 mediaContentType: 'image/png',
-                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+                // mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                mediaUrl: `http://localhost:3000/dist/uploads/${file}`
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
