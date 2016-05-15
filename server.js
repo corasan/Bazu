@@ -50,8 +50,8 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 to: '13476396781',
                 body: body,
                 mediaContentType: 'image/png',
-                // mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                // mediaUrl: `http://localhost:3000/dist/uploads/${file}`
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
