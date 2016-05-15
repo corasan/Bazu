@@ -12,6 +12,10 @@ app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// app.get('/image', function(req, res) {
+//     res.send('<img src="/sticker375x360.png" />');
+// });
+
 app.get('*', function(req, res) {
     res.render('index');
 });
@@ -50,7 +54,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: body,
-                mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
+                mediaUrl: `https://bazu-app.herokuapp.com/${file}`
                 // mediaUrl: `http://localhost:3000/uploads/${file}`
                 // mediaUrl: 'http://i.imgur.com/D8raCRM.jpg'
             }, function(err, message) {
@@ -63,10 +67,6 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
         }
     });
     res.redirect('/');
-});
-
-app.get('/image', function(req, res) {
-    res.send('<img src="/uploads/imageFile-1463349412127.png" />');
 });
 
 const port = process.env.PORT || 3000;
