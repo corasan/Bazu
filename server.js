@@ -36,13 +36,14 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var user = ref.getAuth();
     var file = req.file.filename;
     var body = req.body.message;
-    req.file.mimetype = 'image/png';
+    // req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
     console.log(req.file.filename);
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
+        res.set('Content-Type', 'image/png');
         for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
@@ -54,12 +55,12 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 if(err) {
                     console.log('Error!', err);
                 } else {
+                    res.set('Content-Type', 'image/png');
                     console.log('Message SID:', message.sid);
                 }
             });
         }
     }).then(function() {
-        res.set('Content-Type', 'image/png');
         res.end();
     });
 });
