@@ -8,6 +8,7 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'public');
 app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -24,7 +25,7 @@ const client = require('twilio')(accountSid, authToken);
 // Multer function to store uploaded images
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './dist/uploads');
+        cb(null, './uploads');
     },
     filename: function (req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}.png`);
@@ -33,25 +34,25 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
+    res.setHeader('Content-Type', 'image/png');
     var user = ref.getAuth();
     var file = req.file.filename;
     var body = req.body.message;
     // req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
-    console.log(req.file.filename);
     ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
         // res.set('Content-Type', 'image/png');
         for(var i in data) {
-            res.setHeader('Content-Type', 'image/png');
             client.messages.create({
                 from: twilioNumber,
                 to: '1'+data[i].number,
                 body: body,
                 // mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
-                mediaUrl: `http://localhost:3000/dist/uploads/${file}`
+                mediaUrl: `http://localhost:3000/uploads/${file}`
+                // mediaUrl: 'http://i.imgur.com/D8raCRM.jpg'
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
@@ -60,10 +61,8 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 }
             });
         }
-    }).then(function() {
-        res.redirect('/');
-        res.end();
     });
+    res.redirect('/');
 });
 
 
