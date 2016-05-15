@@ -39,15 +39,15 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     req.file.mimetype = 'image/png';
     console.log(req.file.mimetype);
     console.log(req.file.filename);
-    // ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
-    //     var dataSnap = dataSnapshot.val();
-    //     return dataSnap;
-    // }).then(function(data) {
-    //     for(var i in data) {
+    ref.child('contacts').child(req.body.userID).once('value').then(function(dataSnapshot) {
+        var dataSnap = dataSnapshot.val();
+        return dataSnap;
+    }).then(function(data) {
+        res.type('png');
+        for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
-                // to: '1'+data[i].number,
-                to: '13476396781',
+                to: '1'+data[i].number,
                 body: body,
                 mediaContentType: 'image/png',
                 mediaUrl: `https://bazu-app.herokuapp.com/dist/uploads/${file}`
@@ -57,13 +57,12 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                     console.log('Error!', err);
                 } else {
                     console.log('Message SID:', message.sid);
-                    res.end();
                 }
             });
-    //     }
-    // }).then(function() {
-    //     res.end();
-    // });
+        }
+    }).then(function() {
+        res.end();
+    });
 });
 
 
