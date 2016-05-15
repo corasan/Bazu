@@ -55,7 +55,6 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 if(err) {
                     console.log('Error!', err);
                 } else {
-                    res.set('Content-Type', 'image/png');
                     console.log('Message SID:', message.sid);
                 }
             });
