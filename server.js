@@ -43,7 +43,8 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
     }).then(function(data) {
-        res.set('Content-Type', 'image/png');
+        // res.set('Content-Type', 'image/png');
+        res.setHeader('Content-Type', 'image/png');
         for(var i in data) {
             client.messages.create({
                 from: twilioNumber,
