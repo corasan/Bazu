@@ -65,7 +65,7 @@ export default class NewMessage extends Component{
                             <Input type="hidden" value={this.state.userID} name="userID" />
                             <Input type="hidden" value={this.state.email} name="userEmail" />
                         </Modal.Body>
-                        <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
+                        <Input type="file" name="imageFile" id="file-upload" onChange={this.handleImageChange}/>
                         <hr/>
                         <div className="footer-modal">
                             <Button onClick={this.close}>Cancelar</Button>

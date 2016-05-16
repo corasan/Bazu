@@ -17,6 +17,10 @@ input:focus[type="textarea"], input:focus[type="text"] {
     border: 3px solid #a9dbea !important;
 }
 
+#file-upload {
+    margin-left: 50px;
+}
+
 a, a:hover, a:active, a:focus {
     text-decoration: none;
     color: #929292;
