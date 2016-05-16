@@ -28,7 +28,7 @@ var storage = multer.diskStorage({
         cb(null, './uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}.jpg`);
+        cb(null, `${file.fieldname}-${Date.now()}.jpeg`);
     }
 });
 var upload = multer({ storage: storage });
@@ -52,7 +52,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var uid = req.body.userID;
     var email = req.body.userEmail;
 
-    req.file.mimetype = 'image/jpg';
+    req.file.mimetype = 'image/jpeg';
     ref.child('contacts').child(uid).once('value').then(function(dataSnapshot) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
