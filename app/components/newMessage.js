@@ -62,8 +62,8 @@ export default class NewMessage extends Component{
                         <Modal.Body>
                             <Input type="textarea" value={this.state.message} onChange={this.handleMessage}/>
                             <p id="note-modal">Este mensaje sera enviado automaticamente a sus contactos.</p>
-                            <Input type="hidden" value={this.state.userID} name="userID" hidden="true"/>
-                            <Input type="hidden" value={this.state.email} name="userEmail" hidden="true"/>
+                            <Input type="hidden" value={this.state.userID} name="userID" />
+                            <Input type="hidden" value={this.state.email} name="userEmail" />
                         </Modal.Body>
                         <Input type="file" name="imageFile" onChange={this.handleImageChange}/>
                         <hr/>
