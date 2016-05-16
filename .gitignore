@@ -5,3 +5,4 @@ uploads/*.jpeg
 uploads/*.png
 dist/uploads/*.png
 dist/uploads/*.jpeg
+dist/uploads/*.jpg
