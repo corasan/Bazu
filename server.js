@@ -33,6 +33,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
+// Save message to database with date
 function saveMessage(uid, email, file) {
     var date = new Date();
     var day = date.getDate(),
@@ -50,9 +51,6 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var body = req.body.message;
     var uid = req.body.userID;
     var email = req.body.userEmail;
-    console.log(uid);
-    console.log(email);
-    console.log(file);
 
     req.file.mimetype = 'image/jpg';
     ref.child('contacts').child(uid).once('value').then(function(dataSnapshot) {
@@ -68,27 +66,15 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 // mediaUrl: `http://localhost:3000/${file}`
             }, function(err, message) {
                 if(err) {
-                    console.log('Error!', err);
+                    console.log('Error sending MMS! Details:', err);
                 } else {
+                    console.log(`MMS with file: ${file}, sent with success`);
                     console.log('Message SID:', message.sid);
                 }
             });
         }
         saveMessage(uid, email, file);
     });
-    // .then(function() {
-        // saveMessage(uid, email, file);
-        // var date = new Date();
-        // var day = date.getDate(),
-        //     month = date.getMonth(),
-        //     year = date.getFullYear();
-        // console.log('save');
-        // ref.child('messages').child(uid).push({
-        //     author: email,
-        //     fileName: file,
-        //     date: `${month+1}/${day}/${year}`,
-        // });
-    // });
     res.redirect('/');
 });
 
