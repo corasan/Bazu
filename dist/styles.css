@@ -7,13 +7,13 @@ button {
     outline: 0 !important;
 }
 
-input {
+input[type="text"], input[type="textarea"]{
     outline: 0 !important;
     border: 2px solid #E3E3E3 !important;
     border-radius: 14px !important;
     padding-left: 22px !important;
 }
-input:focus {
+input:focus[type="textarea"], input:focus[type="text"] {
     border: 3px solid #a9dbea !important;
 }
 
