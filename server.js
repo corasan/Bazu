@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var multer  = require('multer');
 var Firebase = require('firebase');
 var ref = new Firebase('https://sms-react.firebaseio.com/');
+
 var app = express();
 
 app.set('view engine', 'ejs');
@@ -12,16 +13,11 @@ app.use(express.static(__dirname + '/uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.get('/image', function(req, res) {
-//     res.send('<img src="/sticker375x360.png" />');
-// });
-
 app.get('*', function(req, res) {
     res.render('index');
 });
 
 // Load environment variables
-require('dotenv').config();
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_NUMBER;
@@ -37,7 +33,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-function saveMessage(uid, email, fileName) {
+function saveMessage(uid, email, file) {
     var date = new Date();
     var day = date.getDate(),
         month = date.getMonth(),
@@ -45,19 +41,20 @@ function saveMessage(uid, email, fileName) {
 
     ref.child('messages').child(uid).push({
         author: email,
-        message: fileName,
+        message: file,
         date: `${month+1}/${day}/${year}`,
     });
 }
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
-    // res.setHeader('Content-Type', 'image/png');
     var file = req.file.filename;
     var body = req.body.message;
     var uid = req.body.userID;
-    var email = req.body.email;
+    var email = req.body.userEmail;
+    console.log(uid);
+    console.log(email);
+    console.log(file);
 
     req.file.mimetype = 'image/jpg';
-    console.log(req.file.mimetype);
     ref.child('contacts').child(uid).once('value').then(function(dataSnapshot) {
         var dataSnap = dataSnapshot.val();
         return dataSnap;
@@ -68,6 +65,7 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                 to: '1'+data[i].number,
                 body: body,
                 mediaUrl: `https://bazu-app.herokuapp.com/${file}`
+                // mediaUrl: `http://localhost:3000/${file}`
             }, function(err, message) {
                 if(err) {
                     console.log('Error!', err);
@@ -75,10 +73,22 @@ app.post('/upload', upload.single('imageFile'), function (req, res, next) {
                     console.log('Message SID:', message.sid);
                 }
             });
-            //TODO This doesnt work!!! FIXMEE!
-            saveMessage(uid, email, file);
         }
+        saveMessage(uid, email, file);
     });
+    // .then(function() {
+        // saveMessage(uid, email, file);
+        // var date = new Date();
+        // var day = date.getDate(),
+        //     month = date.getMonth(),
+        //     year = date.getFullYear();
+        // console.log('save');
+        // ref.child('messages').child(uid).push({
+        //     author: email,
+        //     fileName: file,
+        //     date: `${month+1}/${day}/${year}`,
+        // });
+    // });
     res.redirect('/');
 });
 
