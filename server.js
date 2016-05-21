@@ -46,6 +46,7 @@ function saveMessage(uid, email, file) {
         date: `${month+1}/${day}/${year}`,
     });
 }
+
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var file = req.file.filename;
     var body = req.body.message;
