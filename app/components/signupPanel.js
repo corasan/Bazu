@@ -50,7 +50,7 @@ export default class SignupPanel extends Component {
                     password: this.state.password
                 }, function(error, authData) {
                     if (error === null) {
-                        browserHistory.push('/');
+                        browserHistory.push('/payment');
                         ref.child('users').child(authData.uid).set({
                             email: this.state.email,
                             firstname: this.state.firstname,
@@ -77,7 +77,7 @@ export default class SignupPanel extends Component {
                             <input type="email" placeholder="Email" onChange={this.handleEmail} />
                             <input type="password" placeholder="Password" onChange={this.handlePassword} />
                             <Button type="button" bsStyle="primary" className="auth-btn" onClick={this.submitSignup}>
-                                Crear cuenta
+                                Continuar >
                             </Button>
                         </form>
                     </div>
