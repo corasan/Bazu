@@ -2,11 +2,34 @@ import React, {Component} from 'react'
 import { Panel, Input, Col, Row, Grid, Button } from 'react-bootstrap'
 import { browserHistory, Link } from 'react-router'
 
+const months = [
+    <option value="1">1</option>,
+    <option value="2">2</option>,
+    <option value="3">3</option>,
+    <option value="4">4</option>,
+    <option value="5">5</option>,
+    <option value="6">6</option>,
+    <option value="7">7</option>,
+    <option value="8">8</option>,
+    <option value="9">9</option>,
+    <option value="10">10</option>,
+    <option value="11">11</option>,
+    <option value="12">12</option>
+]
+
+const years = [
+    <option value="2016">2016</option>,
+    <option value="2017">2017</option>,
+    <option value="2018">2018</option>,
+    <option value="2019">2019</option>
+]
+
 export default class PaymentPanel extends Component {
+
     render() {
         return (
             <div>
-                <div className="panels" id="panels-signup">
+                <div className="panels" id="panels-signup" style={{textAlign: "left"}}>
                     <div className="panel-title"><h3>Payment</h3></div>
                     <div className="panel-content" id="signup-content">
                         <form>
@@ -14,8 +37,10 @@ export default class PaymentPanel extends Component {
                             <input type="email" placeholder="Email"/>
                             <label>Card</label>
                             <input type="number" placeholder="Card number"/>
-                            <label>Expire</label>
-                            <input type="number" placeholder="MM/YY"/>
+                            <label>Expire(MM/YY) </label>
+                            <select>{months}</select> <select>{years}</select>
+                            <br/>
+                            <br/>
                             <label>CCV</label>
                             <input type="number" placeholder="CCV"/>
                             <Button type="button" bsStyle="primary" className="auth-btn" >
