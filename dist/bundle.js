@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eead078af86cc5b1821a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e03b3374a01f10cbe2b6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -701,6 +701,7 @@
 	    null,
 	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default, onEnter: unAuth }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default, onEnter: unAuth }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/payment', component: Payment, onEnter: unAuth }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'reset-password', component: _ResetPassword2.default, onEnter: unAuth }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
