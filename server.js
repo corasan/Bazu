@@ -3,7 +3,9 @@ var bodyParser = require('body-parser');
 var multer  = require('multer');
 var Firebase = require('firebase');
 var ref = new Firebase('https://sms-react.firebaseio.com/');
-
+var subscribe = ('./server/subscribePlan');
+var stripe = require('stripe')('sk_test_eKoluhDWiFcfBadmRMlf4I08');
+// process.env.STRIPE_TEST_KEY
 var app = express();
 
 app.set('view engine', 'ejs');
@@ -22,6 +24,28 @@ const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_NUMBER;
 const client = require('twilio')(accountSid, authToken);
+
+app.post('/payment', function (req, res) {
+    // console.log(req.body.plan);
+    var email = req.body.email;
+    var stripeToken = req.body.stripeToken;
+    var plan = req.body.plan;
+    // console.log(stripeToken);
+
+    stripe.customers.create({
+        source: stripeToken,
+        plan: plan,
+        email: email
+    }, function(err, customer) {
+        if (err) {
+            console.log('An error occurred trying to subscribe to this plan:', err);
+        } else {
+            console.log('Subscription successful', customer);
+        }
+    });
+    res.end();
+});
+
 // Multer function to store uploaded images
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,13 +56,12 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage });
-
 // Save message to database with date
 function saveMessage(uid, email, file) {
     var date = new Date();
     var day = date.getDate(),
-        month = date.getMonth(),
-        year = date.getFullYear();
+    month = date.getMonth(),
+    year = date.getFullYear();
 
     ref.child('messages').child(uid).push({
         author: email,

@@ -57,7 +57,7 @@ export default class AddContact extends Component{
                     <Modal.Body>
                         <form className="contact-form">
                             <Input type="text" placeholder="Nombre" value={this.state.name} onChange={this.handleName}/>
-                            <Input type="number" placeholder="Numero" value={this.state.num} onChange={this.handleNum}/>
+                            <Input type="number" placeholder="Numero" value={this.state.num} onChange={this.handleNum} maxLength="10"/>
                             <Input type="email" placeholder="Email" value={this.state.email} onChange={this.handleEmail}/>
                         </form>
                     </Modal.Body>

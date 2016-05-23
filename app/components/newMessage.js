@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Button, Modal, Input} from 'react-bootstrap'
-import $ from 'jquery'
 import Firebase from 'firebase'
 const ref = new Firebase('https://sms-react.firebaseio.com/');
 
