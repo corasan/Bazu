@@ -53,7 +53,7 @@ const routes = (
     <Router>
         <Route path="login" component={Login} onEnter={unAuth} />
         <Route path="signup" component={Signup} onEnter={unAuth} />
-        <Route path="/payment" component={Payment} onEnter={unAuth} />
+        <Route path="/payment" component={Payment} />
         <Route path="reset-password" component={ResetPassword} onEnter={unAuth} />
         <Route path="/" component={App} onEnter={requireAuth}>
             <IndexRoute component={Contacts} />
