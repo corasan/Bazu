@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var multer  = require('multer');
 var Firebase = require('firebase');
 var ref = new Firebase('https://sms-react.firebaseio.com/');
 
@@ -19,23 +18,13 @@ app.get('*', function(req, res) {
 
 app.post('/payment', function (req, res) {
     // console.log(req.body.plan);
-j    var stripeToken = req.body.stripeToken;
+    var stripeToken = req.body.stripeToken;
     var plan = req.body.plan;
     require('./server/subscribePlan')(stripeToken, plan);
     res.end();
 });
 
-// Multer function to store uploaded images
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}.jpeg`);
-    }
-});
-var upload = multer({ storage: storage });
-// Save message to database with date
+// Save message to database
 function saveMessage(uid, email, file) {
     var date = new Date();
     var day = date.getDate(),
@@ -49,6 +38,7 @@ function saveMessage(uid, email, file) {
     });
 }
 
+var upload = require('./server/multerConf');
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var file = req.file.filename;
     var body = req.body.message;
