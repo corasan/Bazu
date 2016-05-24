@@ -18,7 +18,7 @@ app.get('*', function(req, res) {
 
 // Receive the credit card details and creates a Stripe token
 app.post('/payment', function (req, res) {
-    var stripeToken = require('./server/createCardToken')(req.body);
+    require('./server/cardToken')(req.body);
     res.redirect('/');
 });
 

@@ -1,6 +1,8 @@
-var stripe = require('stripe')(process.env.STRIPE_KEY);
+var stripe_key = process.env.STRIPE_API_KEY;
+var stripe = require('stripe')(stripe_key);
 
 module.exports = function(data) {
+    console.log(stripe_key);
     stripe.tokens.create({
         card: {
             number: data.number,
@@ -12,7 +14,7 @@ module.exports = function(data) {
         if(err) {
             console.log(err);
         } else {
-            require('./planSubscription')(token.id, data.plan, data.email)
+            require('./customer')(token.id, data.plan, data.email)
         }
     });
 }

@@ -1,5 +1,6 @@
-var stripe = require('stripe')(process.env.STRIPE_KEY);
-// process.env.STRIPE_TEST_KEY
+var stripe_key = process.env.STRIPE_API_KEY;
+var stripe = require('stripe')(stripe_key);
+
 module.exports = function(token, plan, email) {
     stripe.customers.create({
         email: email,
