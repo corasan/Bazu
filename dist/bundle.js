@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "83435162e8a69ad00d9f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "15928086a2ce19c3a99c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -45284,18 +45284,6 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PaymentPanel).call(this, props));
 
-	        _this.handleSubmit = function () {
-	            _jquery2.default.post('/payment', {
-	                email: _this.state.email,
-	                card: _this.state.card,
-	                cvc: _this.state.ccv,
-	                month: _this.state.month,
-	                yeard: _this.state.yeard,
-	                plan: _this.state.plan
-	            });
-	            // browserHistory('/');
-	        };
-
 	        _this.handleEmail = function (e) {
 	            _this.setState({ email: e.target.value });
 	        };
@@ -45356,20 +45344,20 @@
 	                            'form',
 	                            { action: '/payment', method: 'POST' },
 	                            _react2.default.createElement(
-	                                'label',
-	                                null,
-	                                'Email  '
-	                            ),
-	                            _react2.default.createElement('input', { type: 'email', placeholder: 'email123@example.com', onChange: this.handleEmail, value: this.state.email, style: { width: 250 } }),
-	                            _react2.default.createElement(
 	                                'div',
 	                                { style: { textAlign: "left" } },
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    null,
+	                                    'Email  '
+	                                ),
+	                                _react2.default.createElement('input', { type: 'email', placeholder: 'email123@example.com', name: 'email', onChange: this.handleEmail, value: this.state.email, style: { width: 250 } }),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
 	                                    'Card   '
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', placeholder: 'Card number', onChange: this.handleCard, value: this.state.card, maxLength: '20', style: { width: 250 }, 'data-stripe': 'number' }),
+	                                _react2.default.createElement('input', { type: 'text', placeholder: 'Card number', onChange: this.handleCard, value: this.state.card, maxLength: '20', style: { width: 250 }, name: 'number' }),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    null,
@@ -45377,13 +45365,13 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'select',
-	                                    { required: true, onChange: this.handleMonth, 'data-stripe': 'exp_month' },
+	                                    { required: true, onChange: this.handleMonth, name: 'exp_month' },
 	                                    months
 	                                ),
 	                                ' ',
 	                                _react2.default.createElement(
 	                                    'select',
-	                                    { required: true, onChange: this.handleYear, 'data-stripe': 'exp_year' },
+	                                    { required: true, onChange: this.handleYear, name: 'exp_year' },
 	                                    years
 	                                ),
 	                                _react2.default.createElement('br', null),
@@ -45393,7 +45381,7 @@
 	                                    null,
 	                                    'CVC  '
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', placeholder: '123', onChange: this.handleCCV, value: this.state.ccv, style: { width: 75 }, maxLength: '4', 'data-stripe': 'cvc' }),
+	                                _react2.default.createElement('input', { type: 'text', placeholder: '123', onChange: this.handleCCV, value: this.state.ccv, style: { width: 75 }, maxLength: '4', name: 'cvc' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
@@ -45402,7 +45390,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'select',
-	                                    { required: true, value: this.state.plan, 'data-stripe': 'plan', onChange: this.handlePlan },
+	                                    { required: true, value: this.state.plan, name: 'plan', onChange: this.handlePlan },
 	                                    plans
 	                                )
 	                            ),

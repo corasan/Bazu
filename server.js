@@ -16,12 +16,10 @@ app.get('*', function(req, res) {
     res.render('index');
 });
 
+// Receive the credit card details and creates a Stripe token
 app.post('/payment', function (req, res) {
-    // console.log(req.body.plan);
-    var stripeToken = req.body.stripeToken;
-    var plan = req.body.plan;
-    require('./server/subscribePlan')(stripeToken, plan);
-    res.end();
+    var stripeToken = require('./server/createCardToken')(req.body);
+    res.redirect('/');
 });
 
 // Save message to database
@@ -37,7 +35,7 @@ function saveMessage(uid, email, file) {
         date: `${month+1}/${day}/${year}`,
     });
 }
-
+// Multer file upload configuration
 var upload = require('./server/multerConf');
 app.post('/upload', upload.single('imageFile'), function (req, res, next) {
     var file = req.file.filename;

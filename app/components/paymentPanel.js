@@ -16,18 +16,6 @@ export default class PaymentPanel extends Component {
         }
     }
 
-    handleSubmit = () => {
-        $.post('/payment', {
-            email: this.state.email,
-            card: this.state.card,
-            cvc: this.state.ccv,
-            month: this.state.month,
-            yeard: this.state.yeard,
-            plan: this.state.plan
-        });
-        // browserHistory('/');
-    }
-
     handleEmail = (e) => {
         this.setState({ email: e.target.value });
     }
@@ -53,19 +41,19 @@ export default class PaymentPanel extends Component {
                     <div className="panel-title"><h3>Payment</h3></div>
                     <div className="panel-content" id="signup-content" style={{marginTop: 100}}>
                         <form action="/payment" method="POST" >
-                        <label>Email &nbsp;</label>
-                        <input type="email" placeholder="email123@example.com" onChange={this.handleEmail} value={this.state.email} style={{width: 250}}/>
                             <div style={{textAlign: "left"}}>
+                                <label>Email &nbsp;</label>
+                                <input type="email" placeholder="email123@example.com" name="email" onChange={this.handleEmail} value={this.state.email} style={{width: 250}}/>
                                 <label>Card &nbsp;&nbsp;</label>
-                                <input type="text" placeholder="Card number" onChange={this.handleCard} value={this.state.card} maxLength="20" style={{width: 250}} data-stripe="number"/>
+                                <input type="text" placeholder="Card number" onChange={this.handleCard} value={this.state.card} maxLength="20" style={{width: 250}} name="number"/>
                                 <label>Expire(MM/YY) &nbsp;</label>
-                                <select required onChange={this.handleMonth} data-stripe="exp_month">{months}</select> <select required onChange={this.handleYear} data-stripe="exp_year">{years}</select>
+                                <select required onChange={this.handleMonth} name="exp_month">{months}</select> <select required onChange={this.handleYear} name="exp_year">{years}</select>
                                 <br/><br/>
                                 <label>CVC &nbsp;</label>
-                                <input type="text" placeholder="123" onChange={this.handleCCV} value={this.state.ccv} style={{width: 75}} maxLength="4" data-stripe="cvc"/>
+                                <input type="text" placeholder="123" onChange={this.handleCCV} value={this.state.ccv} style={{width: 75}} maxLength="4" name="cvc"/>
                                 <br/>
                                 <label>Plan: &nbsp;</label>
-                                <select required value={this.state.plan} data-stripe="plan" onChange={this.handlePlan}>{plans}</select>
+                                <select required value={this.state.plan} name="plan" onChange={this.handlePlan}>{plans}</select>
                             </div>
                             <Button type="submit" bsStyle="primary" className="auth-btn">
                                 Aceptar
